@@ -21,12 +21,21 @@
 {% if categories %}
 <section class="container mt-4" aria-labelledby="categories-title">
   <h2 id="categories-title" class="page-title">商品 Shop by category</h2>
-  <div class="row g-3">
+  <div class="row g-4">
     {% for category in categories %}
       <div class="col-6 col-lg-3">
-        <a href="{% url 'products:list' %}?category={{ category.slug }}" class="category-sign">
-          <span class="category-sign-name">{{ category.name }}</span>
-          <span class="category-sign-text">{{ category.description }}</span>
+        <a href="{% url 'products:list' %}?category={{ category.slug }}" class="category-card">
+          <span class="category-card-image">
+            {% if category.cover_image %}
+              <img src="{{ category.cover_image.url }}" alt="" loading="lazy">
+            {% else %}
+              <span class="category-card-empty" aria-hidden="true">{{ category.name|first }}</span>
+            {% endif %}
+          </span>
+          <span class="category-card-label">
+            <span class="category-sign-name">{{ category.name }}</span>
+            <span class="category-sign-text">{{ category.description }}</span>
+          </span>
         </a>
       </div>
     {% endfor %}

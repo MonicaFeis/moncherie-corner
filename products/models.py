@@ -10,6 +10,10 @@ class Category(models.Model):
     name = models.CharField(max_length=60, unique=True)
     slug = models.SlugField(max_length=60, unique=True)
     description = models.TextField(blank=True)
+    image = models.ImageField(
+        upload_to="categories/", blank=True,
+        help_text="Optional. If empty, the newest product picture is used.",
+    )
 
     class Meta:
         ordering = ["name"]
@@ -17,6 +21,24 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def cover_image(self):
+        """The picture for this category on the home page.
+
+        1. The category's own image, if the owner uploaded one.
+        2. Otherwise the image of the newest active product that has one.
+        3. Otherwise None, and the page shows the red sign only.
+        """
+        if self.image:
+            return self.image
+        product = (
+            self.products.filter(is_active=True)
+            .exclude(image="")
+            .order_by("-created_at", "-pk")
+            .first()
+        )
+        return product.image if product else None
 
 
 class Product(models.Model):

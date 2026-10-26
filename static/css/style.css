@@ -343,3 +343,50 @@ textarea:focus-visible {
 .status-shipped { background: var(--gold); }
 .status-cancelled,
 .status-expired { background: #E8B4A8; }
+
+/* ---------- Category picture cards (home page) ---------- */
+.category-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border: 3px solid var(--ink);
+  border-radius: 16px;
+  overflow: hidden;
+  text-decoration: none;
+  background: var(--red);
+  transition: box-shadow 0.15s, transform 0.15s;
+}
+.category-card:hover {
+  box-shadow: 5px 5px 0 var(--gold), 0 0 18px rgba(255, 122, 112, 0.6);
+  transform: translate(-2px, -2px);
+}
+.category-card-image {
+  display: block;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: url("../images/tile-divider.svg?v=2") repeat 0 0 / 36px 36px;
+  border-bottom: 3px solid var(--ink);
+}
+.category-card-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.category-card-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-family: "Noto Serif TC", serif;
+  font-size: 3rem;
+  color: var(--teal);
+  text-shadow: 0 0 6px var(--cream-light), 0 0 12px var(--cream-light);
+}
+.category-card-label {
+  display: block;
+  padding: 0.9rem 1rem;
+  color: var(--cream-text);
+}
+.category-card-label .category-sign-name { color: var(--cream-text); }
+.category-card:hover .category-card-label { background: var(--red-dark); }
