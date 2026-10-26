@@ -115,6 +115,8 @@ def redirect_to_stripe(request, order, needs_shipping):
 
     options = {
         "mode": "payment",
+        # Our own shop handles the sale, not Stripe Managed Payments
+        "managed_payments": {"enabled": False},
         "line_items": build_line_items(order),
         "customer_email": request.user.email,
         "client_reference_id": str(order.pk),

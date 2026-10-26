@@ -170,3 +170,28 @@ class OwnerPageTests(TestCase):
         response = self.client.post(reverse("products:delete", args=[product.pk]))
         self.assertEqual(response.status_code, 403)
         self.assertTrue(Product.objects.exists())
+
+
+class CategoryCoverTests(TestCase):
+    """Category pictures on the home page."""
+
+    def setUp(self):
+        self.category = Category.objects.create(name="Prints", slug="prints")
+
+    def test_no_images_means_no_cover(self):
+        make_product(self.category, name="Tote Bag")
+        self.assertIsNone(self.category.cover_image)
+
+    def test_uses_newest_product_image_when_no_cover(self):
+        make_product(self.category, name="Old Card", image="products/old.jpg")
+        make_product(self.category, name="New Card", image="products/new.jpg")
+        self.assertEqual(self.category.cover_image.name, "products/new.jpg")
+
+    def test_own_cover_image_wins(self):
+        make_product(self.category, image="products/new.jpg")
+        self.category.image = "categories/prints.jpg"
+        self.assertEqual(self.category.cover_image.name, "categories/prints.jpg")
+
+    def test_hidden_products_are_not_used_as_cover(self):
+        make_product(self.category, image="products/secret.jpg", is_active=False)
+        self.assertIsNone(self.category.cover_image)
