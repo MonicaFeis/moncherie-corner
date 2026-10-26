@@ -16,7 +16,7 @@
   --gold: #E0A84A;
   --amber: #FFB547;     /* tungsten bulb: text on teal, highlights */
   --neon: #FF7A70;      /* coral neon: only used as a glow */
-  --jade: #17614A;      /* green ironwork: only for grille details */
+  --jade: #17614A;      /* green ironwork and floor tile dots */
   --ink: #2A2320;
   --placeholder: #D9C9A3;
 }
@@ -85,12 +85,13 @@ textarea:focus-visible {
   text-shadow: 0 0 8px rgba(255, 181, 71, 0.55);
 }
 
-/* Window-grille strip in jade ironwork (under the navbar, above the footer) */
+/* Hong Kong octagon-and-dot floor tiles, framed in jade ironwork
+   (under the navbar and above the footer) */
 .tile-strip {
-  height: 14px;
-  background:
-    repeating-linear-gradient(90deg, var(--jade) 0 3px, transparent 3px 22px),
-    linear-gradient(var(--jade) 0 2px, var(--teal-mid) 2px 12px, var(--jade) 12px);
+  height: 36px;
+  background: url("../images/tile-divider.svg") repeat 0 18px / 36px 36px;
+  border-top: 3px solid var(--jade);
+  border-bottom: 3px solid var(--jade);
 }
 
 /* Number on the cart bag */
