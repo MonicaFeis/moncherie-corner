@@ -1,5 +1,6 @@
 /* moncherie corner: colours and styles
-   Colours come from the vintage Hong Kong posters.
+   Inspired by Hong Kong cha chaan teng: teal tiles, red signs,
+   warm tungsten light, coral neon and green ironwork.
    All text colours were checked for at least 4.5:1 contrast. */
 
 :root {
@@ -13,7 +14,9 @@
   --red: #B02F22;
   --red-dark: #8F251B;
   --gold: #E0A84A;
-  --gold-light: #FFD27A;
+  --amber: #FFB547;     /* tungsten bulb: text on teal, highlights */
+  --neon: #FF7A70;      /* coral neon: only used as a glow */
+  --jade: #17614A;      /* green ironwork: only for grille details */
   --ink: #2A2320;
   --placeholder: #D9C9A3;
 }
@@ -59,12 +62,12 @@ textarea:focus-visible {
 .site-nav .nav-link,
 .site-nav .navbar-text { color: var(--cream-text); }
 
-/* Gold underline on the current page and on hover */
+/* Amber underline on the current page and on hover */
 .site-nav .nav-link.active,
 .site-nav .nav-link:hover {
-  color: var(--gold-light);
+  color: var(--amber);
   text-decoration: none;
-  box-shadow: inset 0 -3px 0 var(--gold-light);
+  box-shadow: inset 0 -3px 0 var(--amber);
 }
 
 .brand-name {
@@ -74,16 +77,32 @@ textarea:focus-visible {
   color: var(--cream-text);
 }
 
+/* "corner" glows like a light bulb */
 .brand-script {
   font-family: "Playball", cursive;
   font-weight: 400;
-  color: var(--gold-light);
+  color: var(--amber);
+  text-shadow: 0 0 8px rgba(255, 181, 71, 0.55);
 }
 
-/* Teal tile line under the navbar and above the footer */
+/* Window-grille strip in jade ironwork (under the navbar, above the footer) */
 .tile-strip {
-  height: 12px;
-  background: repeating-linear-gradient(90deg, var(--teal-mid) 0 28px, var(--teal-light) 28px 30px);
+  height: 14px;
+  background:
+    repeating-linear-gradient(90deg, var(--jade) 0 3px, transparent 3px 22px),
+    linear-gradient(var(--jade) 0 2px, var(--teal-mid) 2px 12px, var(--jade) 12px);
+}
+
+/* Number on the cart bag */
+.cart-count {
+  display: inline-block;
+  min-width: 1.5rem;
+  padding: 0 0.4rem;
+  border-radius: 999px;
+  background: var(--amber);
+  color: var(--ink);
+  font-weight: 700;
+  text-align: center;
 }
 
 /* ---------- Buttons ---------- */
@@ -96,7 +115,14 @@ textarea:focus-visible {
   padding: 0.7rem 1.5rem;
   font-weight: 700;
 }
-.btn-shop:hover { background: var(--red-dark); color: var(--cream-text); }
+
+/* Red buttons get a neon glow */
+.btn-shop:hover,
+.btn-shop:focus-visible {
+  background: var(--red-dark);
+  color: var(--cream-text);
+  box-shadow: 3px 3px 0 var(--ink), 0 0 16px rgba(255, 122, 112, 0.8);
+}
 
 .btn-shop-outline {
   background: var(--cream-text);
@@ -116,7 +142,7 @@ textarea:focus-visible {
   font-weight: 700;
   padding: 0.4rem 1.1rem;
 }
-.btn-nav:hover { background: var(--gold-light); color: var(--ink); }
+.btn-nav:hover { background: var(--amber); color: var(--ink); }
 
 /* ---------- Home page ---------- */
 .hero { padding: 3rem 0; }
@@ -131,6 +157,7 @@ textarea:focus-visible {
   font-weight: 700;
   letter-spacing: 0.2em;
   margin-bottom: 0.5rem;
+  text-shadow: 0 0 10px rgba(255, 122, 112, 0.45);
 }
 
 .hero-title {
@@ -158,7 +185,7 @@ textarea:focus-visible {
 .category-sign:hover {
   background: var(--red-dark);
   color: var(--cream-text);
-  box-shadow: 5px 5px 0 var(--gold);
+  box-shadow: 5px 5px 0 var(--gold), 0 0 18px rgba(255, 122, 112, 0.6);
   transform: translate(-2px, -2px);
 }
 .category-sign-name { display: block; font-family: "Noto Serif TC", serif; font-size: 1.3rem; }
@@ -239,6 +266,17 @@ textarea:focus-visible {
   font-weight: 700;
 }
 
+/* ---------- Cart ---------- */
+.qty-input {
+  width: 5rem;
+  padding: 0.4rem 0.6rem;
+  border: 2px solid var(--teal);
+  border-radius: 8px;
+  background: #FFFFFF;
+}
+
+.cart-table { background: transparent; }
+
 /* ---------- Forms ---------- */
 .form-page { max-width: 560px; padding-top: 2.5rem; }
 
@@ -262,6 +300,7 @@ textarea:focus-visible {
 }
 
 .form-card input[type="checkbox"] { width: auto; }
+.form-card .qty-input { width: 5rem; }
 
 .form-card .helptext,
 .form-card .helptext ul { font-size: 0.85rem; margin-top: 0.3rem; }
@@ -280,7 +319,7 @@ textarea:focus-visible {
 /* ---------- Footer ---------- */
 .site-footer { background: var(--teal); color: var(--cream-text); overflow: hidden; }
 .site-footer a { color: var(--cream-text); }
-.site-footer a:hover { color: var(--gold-light); }
+.site-footer a:hover { color: var(--amber); }
 
 .footer-small {
   font-size: 0.85rem;
