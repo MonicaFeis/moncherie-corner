@@ -1,1 +1,1 @@
-Welcome to moncherie corner, {{ user.username }}!
+   歡迎光臨 Welcome to moncherie corner, {{ user.username }}!
