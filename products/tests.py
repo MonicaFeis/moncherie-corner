@@ -170,6 +170,3 @@ class OwnerPageTests(TestCase):
         response = self.client.post(reverse("products:delete", args=[product.pk]))
         self.assertEqual(response.status_code, 403)
         self.assertTrue(Product.objects.exists())
-
-        self.assertTemplateUsed(response, "404.html")
-

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ product.name }} | moncherie corner{% endblock %}
+
+{% block content %}
+<section class="container pt-4">
+  <nav aria-label="Breadcrumb" class="mb-3">
+    <a href="{% url 'products:list' %}">Shop</a> ›
+    <a href="{% url 'products:list' %}?category={{ product.category.slug }}">{{ product.category.name }}</a>
+  </nav>
+  <div class="row g-5">
+    <div class="col-md-6">
+      {% if product.is_sold_out %}
+        <img src="{% static 'images/sold-out.jpg' %}" class="img-fluid detail-image" alt="{{ product.name }}: sold out">
+      {% elif product.image %}
+        <img src="{{ product.image.url }}" class="img-fluid detail-image" alt="{{ product.name }}">
+      {% else %}
+        <div class="image-placeholder detail-image">Image coming soon</div>
+      {% endif %}
+    </div>
+    <div class="col-md-6">
+      <h1 class="page-title">{{ product.name }}</h1>
+      <p class="product-price fs-3">€{{ product.price }}</p>
+      <p class="delivery-note">
+        {% if product.product_type == "digital" %}Instant download after payment.
+        {% elif product.product_type == "printed" %}Printed and shipped to you.
+        {% else %}Hand-drawn for you, usually within 7 days.{% endif %}
+      </p>
+      <p>{{ product.description|linebreaksbr }}</p>
+      {% if product.is_sold_out %}
+        <button type="button" class="btn btn-shop" disabled>售罄 Sold out</button>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endblock %}

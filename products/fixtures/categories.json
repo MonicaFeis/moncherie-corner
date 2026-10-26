@@ -1,0 +1,6 @@
+[
+  {"model": "products.category", "pk": 1, "fields": {"name": "Sticker sets", "slug": "sticker-sets", "description": "Digital sticker sets for planners, chats and notes."}},
+  {"model": "products.category", "pk": 2, "fields": {"name": "Website art", "slug": "website-art", "description": "Illustrations for websites: error pages, icons and borders."}},
+  {"model": "products.category", "pk": 3, "fields": {"name": "Prints", "slug": "prints", "description": "Tote bags, postcards and art prints, shipped to you."}},
+  {"model": "products.category", "pk": 4, "fields": {"name": "Portraits", "slug": "portraits", "description": "Hand-drawn portraits of you, your family or your pet."}}
+]

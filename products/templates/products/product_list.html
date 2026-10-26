@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Shop | moncherie corner{% endblock %}
+
+{% block content %}
+<section class="container pt-4">
+  <h1 class="page-title">{% if current_category %}{{ current_category.name }}{% else %}All products{% endif %}</h1>
+  {% if current_category.description %}<p>{{ current_category.description }}</p>{% endif %}
+
+  <nav aria-label="Product categories" class="category-filter my-3">
+    <a href="{% url 'products:list' %}" class="filter-pill {% if not current_category %}active{% endif %}">All</a>
+    {% for category in categories %}
+      <a href="{% url 'products:list' %}?category={{ category.slug }}"
+         class="filter-pill {% if current_category == category %}active{% endif %}">{{ category.name }}</a>
+    {% endfor %}
+  </nav>
+
+  <div class="row g-4">
+    {% for product in products %}
+      <div class="col-6 col-md-4 col-lg-3">
+        {% include "products/includes/product_card.html" %}
+      </div>
+    {% empty %}
+      <p>No products here yet. Please come back soon!</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

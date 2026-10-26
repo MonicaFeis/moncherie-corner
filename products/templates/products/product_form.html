@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }} | moncherie corner{% endblock %}
+
+{% block content %}
+<section class="container form-page">
+  <h1 class="page-title">{{ title }}</h1>
+  <form method="post" enctype="multipart/form-data" class="form-card" novalidate>
+    {% csrf_token %}
+    {{ form.as_div }}
+    <button type="submit" class="btn btn-shop mt-3">儲存 Save product</button>
+    <a href="{% url 'products:manage' %}" class="ms-2">Cancel</a>
+  </form>
+</section>
+{% endblock %}

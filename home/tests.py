@@ -30,6 +30,3 @@ class HomePageTests(TestCase):
         response = self.client.get("/this-page-does-not-exist/")
         self.assertEqual(response.status_code, 404)
         self.assertTemplateUsed(response, "404.html")
-
-
-
