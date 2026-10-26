@@ -1,5 +1,7 @@
 /* moncherie corner: colours and styles
-   Colours come from the vintage Hong Kong poster. */
+   Colours come from the vintage Hong Kong posters.
+   All text colours were checked for at least 4.5:1 contrast. */
+
 :root {
   --cream: #F2E0C1;
   --cream-light: #FBF3DE;
@@ -7,10 +9,16 @@
   --teal: #14504F;
   --teal-mid: #1D6B6A;
   --teal-light: #7FB5AE;
+  --teal-deep: #0E3A39;
   --red: #B02F22;
+  --red-dark: #8F251B;
+  --gold: #E0A84A;
+  --gold-light: #FFD27A;
   --ink: #2A2320;
+  --placeholder: #D9C9A3;
 }
 
+/* ---------- Basics ---------- */
 body {
   background: var(--cream);
   color: var(--ink);
@@ -23,7 +31,9 @@ a:hover { color: var(--red); }
 /* Keyboard users can always see where they are */
 a:focus-visible,
 button:focus-visible,
-input:focus-visible {
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
   outline: 3px solid var(--red);
   outline-offset: 2px;
 }
@@ -37,12 +47,25 @@ input:focus-visible {
   padding: 0.5rem 1rem;
 }
 
+.page-title {
+  font-family: "Noto Serif TC", serif;
+  font-weight: 700;
+  color: var(--teal);
+}
+
 /* ---------- Navbar ---------- */
 .site-nav { background: var(--teal); }
+
 .site-nav .nav-link,
 .site-nav .navbar-text { color: var(--cream-text); }
-.site-nav .nav-link:hover,
-.site-nav .nav-link.active { color: #FFFFFF; text-decoration: underline; }
+
+/* Gold underline on the current page and on hover */
+.site-nav .nav-link.active,
+.site-nav .nav-link:hover {
+  color: var(--gold-light);
+  text-decoration: none;
+  box-shadow: inset 0 -3px 0 var(--gold-light);
+}
 
 .brand-name {
   font-family: "Noto Serif TC", serif;
@@ -50,10 +73,11 @@ input:focus-visible {
   font-size: 1.5rem;
   color: var(--cream-text);
 }
+
 .brand-script {
   font-family: "Playball", cursive;
   font-weight: 400;
-  color: var(--cream-text);
+  color: var(--gold-light);
 }
 
 /* Teal tile line under the navbar and above the footer */
@@ -72,69 +96,8 @@ input:focus-visible {
   padding: 0.7rem 1.5rem;
   font-weight: 700;
 }
-.btn-shop:hover { background: #8F251B; color: var(--cream-text); }
+.btn-shop:hover { background: var(--red-dark); color: var(--cream-text); }
 
-.btn-nav {
-  background: var(--cream-text);
-  color: var(--teal);
-  border-radius: 999px;
-  font-weight: 700;
-  padding: 0.4rem 1.1rem;
-}
-.btn-nav:hover { background: #FFFFFF; color: var(--red); }
-
-/* ---------- Home page ---------- */
-.hero { padding: 3rem 0; }
-.hero-poster {
-  border-radius: 6px;
-  box-shadow: 6px 6px 0 var(--teal);
-}
-.hero-kicker {
-  color: var(--red);
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  margin-bottom: 0.5rem;
-}
-.hero-title,
-.page-title {
-  font-family: "Noto Serif TC", serif;
-  font-weight: 700;
-  color: var(--teal);
-}
-.hero-title { font-size: clamp(2.4rem, 5vw, 4rem); line-height: 1.05; }
-.hero-text { font-size: 1.3rem; margin-bottom: 1.8rem; }
-
-/* ---------- Forms ---------- */
-.form-page { max-width: 560px; padding-top: 2.5rem; }
-.form-card {
-  background: var(--cream-light);
-  border: 3px solid var(--teal);
-  border-radius: 10px;
-  padding: 1.5rem;
-}
-.form-card label { font-weight: 700; color: var(--teal); display: block; margin-top: 0.8rem; }
-.form-card input {
-  width: 100%;
-  padding: 0.6rem 0.8rem;
-  border: 2px solid var(--teal);
-  border-radius: 8px;
-  background: #FFFFFF;
-}
-.form-card .helptext,
-.form-card .helptext ul { font-size: 0.85rem; margin-top: 0.3rem; }
-.form-card .errorlist { color: var(--red); font-weight: 700; padding-left: 1rem; margin: 0.3rem 0 0; }
-
-/* ---------- 404, payment failed, success ---------- */
-.status-page { padding-top: 2.5rem; max-width: 720px; }
-.status-image { max-width: 480px; width: 100%; margin-bottom: 1.5rem; }
-
-/* ---------- Footer ---------- */
-.site-footer { background: var(--teal); color: var(--cream-text); }
-.site-footer a { color: var(--cream-text); }
-.site-footer a:hover { color: #FFFFFF; }
-.footer-small { font-size: 0.85rem; opacity: 0.9; }
-
-/* ---------- Shop ---------- */
 .btn-shop-outline {
   background: var(--cream-text);
   color: var(--teal);
@@ -146,7 +109,64 @@ input:focus-visible {
 }
 .btn-shop-outline:hover { background: #FFFFFF; color: var(--red); }
 
+.btn-nav {
+  background: var(--cream-text);
+  color: var(--teal);
+  border-radius: 999px;
+  font-weight: 700;
+  padding: 0.4rem 1.1rem;
+}
+.btn-nav:hover { background: var(--gold-light); color: var(--ink); }
+
+/* ---------- Home page ---------- */
+.hero { padding: 3rem 0; }
+
+.hero-poster {
+  border-radius: 6px;
+  box-shadow: 6px 6px 0 var(--teal);
+}
+
+.hero-kicker {
+  color: var(--red);
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  margin-bottom: 0.5rem;
+}
+
+.hero-title {
+  font-family: "Noto Serif TC", serif;
+  font-weight: 700;
+  color: var(--teal);
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  line-height: 1.05;
+}
+
+.hero-text { font-size: 1.3rem; margin-bottom: 1.8rem; }
+
+/* Red shop-sign boxes for the categories */
+.category-sign {
+  display: block;
+  height: 100%;
+  background: var(--red);
+  color: var(--cream-text);
+  border: 3px solid var(--ink);
+  border-radius: 16px;
+  padding: 1.2rem;
+  text-decoration: none;
+  transition: box-shadow 0.15s, transform 0.15s;
+}
+.category-sign:hover {
+  background: var(--red-dark);
+  color: var(--cream-text);
+  box-shadow: 5px 5px 0 var(--gold);
+  transform: translate(-2px, -2px);
+}
+.category-sign-name { display: block; font-family: "Noto Serif TC", serif; font-size: 1.3rem; }
+.category-sign-text { display: block; font-size: 0.9rem; margin-top: 0.4rem; }
+
+/* ---------- Shop list ---------- */
 .category-filter { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
 .filter-pill {
   border: 2px solid var(--teal);
   border-radius: 999px;
@@ -157,28 +177,21 @@ input:focus-visible {
 .filter-pill.active,
 .filter-pill:hover { background: var(--teal); color: var(--cream-text); }
 
-.category-sign {
-  display: block;
-  height: 100%;
-  background: var(--red);
-  color: var(--cream-text);
-  border: 3px solid var(--ink);
-  border-radius: 16px;
-  padding: 1.2rem;
-  text-decoration: none;
-}
-.category-sign:hover { background: #8F251B; color: var(--cream-text); }
-.category-sign-name { display: block; font-family: "Noto Serif TC", serif; font-size: 1.3rem; }
-.category-sign-text { display: block; font-size: 0.9rem; margin-top: 0.4rem; }
-
 .product-card {
   background: var(--cream-light);
   border: 3px solid var(--teal);
   border-radius: 12px;
   overflow: hidden;
+  transition: box-shadow 0.15s, transform 0.15s;
 }
-.product-card-image { display: block; aspect-ratio: 1 / 1; background: #D9C9A3; }
+.product-card:hover {
+  box-shadow: 5px 5px 0 var(--gold);
+  transform: translate(-2px, -2px);
+}
+
+.product-card-image { display: block; aspect-ratio: 1 / 1; background: var(--placeholder); }
 .product-card-image img { width: 100%; height: 100%; object-fit: cover; }
+
 .image-placeholder {
   display: flex;
   align-items: center;
@@ -186,15 +199,59 @@ input:focus-visible {
   width: 100%;
   height: 100%;
   min-height: 200px;
-  background: #D9C9A3;
+  background: var(--placeholder);
   font-weight: 700;
 }
+
 .product-category { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; }
 .product-name { font-size: 1.05rem; font-weight: 700; }
 .product-name a { text-decoration: none; color: var(--ink); }
 .product-price { color: var(--red); font-weight: 700; }
+
+/* ---------- Product page ---------- */
 .detail-image { border: 3px solid var(--teal); border-radius: 12px; width: 100%; }
-.delivery-note { font-weight: 700; color: var(--teal); }
+
+.product-info {
+  background: var(--cream-light);
+  border: 3px solid var(--teal);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 6px 6px 0 var(--gold);
+}
+
+.badge-gold {
+  display: inline-block;
+  background: var(--gold);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  padding: 0.15rem 0.8rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.delivery-note {
+  display: inline-block;
+  background: var(--teal);
+  color: var(--cream-text);
+  border-radius: 8px;
+  padding: 0.4rem 0.9rem;
+  font-weight: 700;
+}
+
+/* ---------- Forms ---------- */
+.form-page { max-width: 560px; padding-top: 2.5rem; }
+
+.form-card {
+  background: var(--cream-light);
+  border: 3px solid var(--teal);
+  border-radius: 10px;
+  padding: 1.5rem;
+}
+
+.form-card label { font-weight: 700; color: var(--teal); display: block; margin-top: 0.8rem; }
+
+.form-card input,
 .form-card select,
 .form-card textarea {
   width: 100%;
@@ -203,4 +260,31 @@ input:focus-visible {
   border-radius: 8px;
   background: #FFFFFF;
 }
+
 .form-card input[type="checkbox"] { width: auto; }
+
+.form-card .helptext,
+.form-card .helptext ul { font-size: 0.85rem; margin-top: 0.3rem; }
+
+.form-card .errorlist {
+  color: var(--red);
+  font-weight: 700;
+  padding-left: 1rem;
+  margin: 0.3rem 0 0;
+}
+
+/* ---------- 404, 403, payment failed, success ---------- */
+.status-page { padding-top: 2.5rem; max-width: 720px; }
+.status-image { max-width: 480px; width: 100%; margin-bottom: 1.5rem; }
+
+/* ---------- Footer ---------- */
+.site-footer { background: var(--teal); color: var(--cream-text); overflow: hidden; }
+.site-footer a { color: var(--cream-text); }
+.site-footer a:hover { color: var(--gold-light); }
+
+.footer-small {
+  font-size: 0.85rem;
+  background: var(--teal-deep);
+  margin: 1.5rem -100vw 0;
+  padding: 0.8rem 100vw;
+}
