@@ -36,4 +36,4 @@ class SiteLoginView(SuccessMessageMixin, LoginView):
 
     template_name = "accounts/login.html"
     redirect_authenticated_user = True
-    success_message = "Welcome back, %(username)s!"
+    success_message = "歡迎回來，%(username)s！ Welcome back, %(username)s!"
