@@ -1,6 +1,8 @@
 from django.test import TestCase
 from django.urls import reverse
 
+from products.models import Category, Product
+
 
 class HomePageTests(TestCase):
     """The home page and the 404 page."""
@@ -16,9 +18,18 @@ class HomePageTests(TestCase):
         self.assertContains(response, "<nav", html=False)
         self.assertContains(response, "<footer", html=False)
 
+    def test_home_page_shows_newest_products(self):
+        category = Category.objects.create(name="Prints", slug="prints")
+        Product.objects.create(
+            category=category, name="Tote Bag", description="A bag.", price="18.00"
+        )
+        response = self.client.get(reverse("home:index"))
+        self.assertContains(response, "Tote Bag")
+
     def test_missing_page_shows_friendly_404(self):
         response = self.client.get("/this-page-does-not-exist/")
         self.assertEqual(response.status_code, 404)
         self.assertTemplateUsed(response, "404.html")
+
 
 
