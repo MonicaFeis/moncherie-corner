@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Cart | moncherie corner{% endblock %}
+
+{% block content %}
+<section class="container pt-4">
+  <h1 class="page-title">購物車 Your cart</h1>
+
+  {% if lines %}
+    <div class="form-card table-responsive">
+      <table class="table align-middle mb-0 cart-table">
+        <thead>
+          <tr>
+            <th scope="col">Product</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col" class="text-end">Total</th>
+            <th scope="col"><span class="visually-hidden">Remove</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for line in lines %}
+            <tr class="cart-row" data-price="{{ line.product.price }}">
+              <td>
+                <a href="{{ line.product.get_absolute_url }}" class="fw-bold">{{ line.product.name }}</a>
+                <div class="small">{{ line.product.get_product_type_display }}</div>
+              </td>
+              <td>€{{ line.product.price }}</td>
+              <td>
+                {% if line.max_quantity > 1 %}
+                  <form method="post" action="{% url 'cart:update' line.product.pk %}" class="d-flex gap-2 align-items-center">
+                    {% csrf_token %}
+                    <label for="qty-{{ line.product.pk }}" class="visually-hidden">Quantity of {{ line.product.name }}</label>
+                    <input type="number" id="qty-{{ line.product.pk }}" name="quantity" class="qty-input"
+                           value="{{ line.quantity }}" min="1" max="{{ line.max_quantity }}">
+                    <button type="submit" class="btn btn-sm btn-nav">Update</button>
+                  </form>
+                {% else %}
+                  1
+                {% endif %}
+              </td>
+              <td class="text-end line-total">€{{ line.line_total }}</td>
+              <td class="text-end">
+                <form method="post" action="{% url 'cart:remove' line.product.pk %}">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-sm btn-shop" aria-label="Remove {{ line.product.name }}">
+                    <i class="fa-solid fa-trash" aria-hidden="true"></i> Remove
+                  </button>
+                </form>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+        <tfoot>
+          <tr>
+            <th scope="row" colspan="3" class="text-end">總數 Total</th>
+            <td class="text-end fw-bold fs-5 product-price" id="cart-total">€{{ total }}</td>
+            <td></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <p id="cart-note" class="mt-2 small" aria-live="polite"></p>
+
+    <div class="d-flex flex-wrap gap-3 mt-3">
+      <a href="{% url 'products:list' %}" class="btn btn-shop-outline">繼續購物 Keep shopping</a>
+    </div>
+  {% else %}
+    <div class="text-center status-page mx-auto">
+      <p class="fs-5">暫時乜都冇 Your cart is empty.</p>
+      <a href="{% url 'products:list' %}" class="btn btn-shop">去商店 Go to the shop</a>
+    </div>
+  {% endif %}
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/cart.js' %}"></script>
+{% endblock %}
