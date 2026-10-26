@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}My downloads | moncherie corner{% endblock %}
+
+{% block content %}
+<section class="container pt-4">
+  <h1 class="page-title">我的下載 My downloads</h1>
+  {% if items %}
+    <div class="row g-4">
+      {% for item in items %}
+        <div class="col-md-6 col-lg-4">
+          <div class="form-card h-100 d-flex flex-column">
+            <h2 class="h5 fw-bold">{{ item.product_name }}</h2>
+            <p class="small">Bought in order #{{ item.order.pk }}</p>
+            <a href="{% url 'checkout:download' item.product_id %}" class="btn btn-shop mt-auto">
+              <i class="fa-solid fa-download" aria-hidden="true"></i> 下載 Download
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="text-center status-page mx-auto">
+      <img src="{% static 'images/empty-state.png' %}" class="img-fluid status-image"
+           alt="An empty Hong Kong milk tea cup">
+      <p class="fs-5">暫時冇檔案 No downloads yet.</p>
+      <a href="{% url 'products:list' %}" class="btn btn-shop">去商店 Go to the shop</a>
+    </div>
+  {% endif %}
+</section>
+{% endblock %}

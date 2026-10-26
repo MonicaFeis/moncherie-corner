@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"></head>
+<body style="margin:0;background:#F2E0C1;font-family:Arial,'PingFang HK','Microsoft JhengHei',sans-serif;color:#2A2320;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+    <tr><td style="background:#14504F;color:#F3E7CB;padding:20px 28px;font-size:22px;font-weight:bold;">moncherie corner 轉角小店</td></tr>
+    <tr><td style="padding:28px;font-size:16px;line-height:1.7;">
+      <p>{{ order.user.username }}，你好！<br>Hi {{ order.user.username }},</p>
+      <p><strong>多謝惠顧！</strong> Your order #{{ order.pk }} is paid.</p>
+      <table role="presentation" width="100%" cellpadding="6" cellspacing="0" style="border-top:2px solid #14504F;">
+        {% for item in order.items.all %}
+          <tr><td>{{ item.quantity }} × {{ item.product_name }}</td><td align="right">€{{ item.line_total }}</td></tr>
+        {% endfor %}
+        {% if order.shipping_cost %}
+          <tr><td>Shipping ({{ order.shipping_method.name }})</td><td align="right">€{{ order.shipping_cost }}</td></tr>
+        {% endif %}
+        <tr><td style="border-top:2px solid #14504F;font-weight:bold;">總數 Total</td><td align="right" style="border-top:2px solid #14504F;font-weight:bold;color:#B02F22;">€{{ order.total }}</td></tr>
+      </table>
+      <p style="margin-top:24px;"><a href="{{ site_url }}{% url 'checkout:my_downloads' %}" style="display:inline-block;background:#B02F22;color:#F3E7CB;padding:12px 22px;border-radius:999px;text-decoration:none;font-weight:bold;">我的下載 My downloads</a></p>
+      <p>轉角見！ See you at the corner!</p>
+    </td></tr>
+  </table>
+</body>
+</html>

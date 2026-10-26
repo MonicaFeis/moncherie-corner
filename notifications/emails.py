@@ -4,8 +4,6 @@ Every email uses 3 template files in notifications/templates/notifications/:
 - <name>_subject.txt  (the subject line)
 - <name>.txt          (plain text version)
 - <name>.html         (nice-looking version)
-More emails (order confirmed, payment failed, shipped) are added
-when we build the checkout app.
 """
 import logging
 import smtplib
@@ -45,3 +43,13 @@ def send_email(to_address, template_name, context):
 def send_welcome_email(user):
     """Send a welcome email after someone registers (US-39)."""
     return send_email(user.email, "welcome", {"user": user})
+
+
+def send_order_confirmation(order):
+    """Send the receipt and download link after payment (US-30)."""
+    return send_email(order.user.email, "order_confirmed", {"order": order})
+
+
+def send_payment_failed(order):
+    """Tell the customer the payment did not go through (US-40)."""
+    return send_email(order.user.email, "payment_failed", {"order": order})

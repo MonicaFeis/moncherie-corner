@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Checkout | moncherie corner{% endblock %}
+
+{% block content %}
+<section class="container pt-4">
+  <h1 class="page-title">結帳 Checkout</h1>
+  <div class="row g-4">
+    <div class="col-lg-7">
+      <div class="form-card">
+        <h2 class="h5 fw-bold">你嘅訂單 Your order</h2>
+        <ul class="list-unstyled mb-3">
+          {% for line in lines %}
+            <li class="d-flex justify-content-between border-bottom py-2">
+              <span>{{ line.quantity }} × {{ line.product.name }}</span>
+              <span>€{{ line.line_total }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+        <p class="d-flex justify-content-between fw-bold mb-0">
+          <span>Items total</span><span class="product-price">€{{ total }}</span>
+        </p>
+        {% if form.shipping_method %}<p class="small mt-2 mb-0">Shipping is added on the next step, once you choose a method.</p>{% endif %}
+      </div>
+    </div>
+    <div class="col-lg-5">
+      <form method="post" class="form-card" novalidate>
+        {% csrf_token %}
+        {% if form.fields %}
+          {{ form.as_div }}
+        {% else %}
+          <p class="mb-0">Your files will be ready to download right after payment.</p>
+        {% endif %}
+        <button type="submit" class="btn btn-shop mt-3 w-100">
+          <i class="fa-solid fa-lock" aria-hidden="true"></i> 付款 Pay securely with Stripe
+        </button>
+        <p class="small mt-2 mb-0">Test mode: use card 4242 4242 4242 4242, any future date and any CVC.</p>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}

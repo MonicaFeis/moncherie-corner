@@ -1,0 +1,16 @@
+{{ order.user.username }}，你好！
+Hi {{ order.user.username }},
+
+多謝惠顧！你嘅訂單 #{{ order.pk }} 已經付款。
+Thank you! Your order #{{ order.pk }} is paid.
+
+{% for item in order.items.all %}- {{ item.quantity }} x {{ item.product_name }}: €{{ item.line_total }}
+{% endfor %}{% if order.shipping_cost %}- Shipping ({{ order.shipping_method.name }}): €{{ order.shipping_cost }}
+{% endif %}
+總數 Total: €{{ order.total }}
+
+下載你嘅檔案 Download your files: {{ site_url }}{% url 'checkout:my_downloads' %}
+睇訂單 See your order: {{ site_url }}{{ order.get_absolute_url }}
+
+轉角見！ See you at the corner!
+moncherie corner

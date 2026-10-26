@@ -328,3 +328,18 @@ textarea:focus-visible {
   margin: 1.5rem -100vw 0;
   padding: 0.8rem 100vw;
 }
+/* ---------- Order status labels ---------- */
+.status-pill {
+  display: inline-block;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  padding: 0.1rem 0.7rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  background: var(--cream-light);
+  color: var(--ink);
+}
+.status-paid,
+.status-shipped { background: var(--gold); }
+.status-cancelled,
+.status-expired { background: #E8B4A8; }

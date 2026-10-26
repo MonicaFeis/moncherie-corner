@@ -65,6 +65,9 @@
 
     <div class="d-flex flex-wrap gap-3 mt-3">
       <a href="{% url 'products:list' %}" class="btn btn-shop-outline">繼續購物 Keep shopping</a>
+      <a href="{% url 'checkout:checkout' %}" class="btn btn-shop">
+        <i class="fa-solid fa-lock" aria-hidden="true"></i> 結帳 Checkout
+      </a>
     </div>
   {% else %}
     <div class="text-center status-page mx-auto">

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Order #{{ order.pk }} | moncherie corner{% endblock %}
+
+{% block content %}
+<section class="container pt-4 form-page" style="max-width: 760px;">
+  <p><a href="{% url 'checkout:my_orders' %}">‹ 我的訂單 My orders</a></p>
+  <h1 class="page-title">Order #{{ order.pk }}</h1>
+  <p><span class="status-pill status-{{ order.status }}">{{ order.get_status_display }}</span>
+     · {{ order.created_at|date:"j M Y, H:i" }}</p>
+
+  <div class="form-card">
+    <ul class="list-unstyled mb-0">
+      {% for item in order.items.all %}
+        <li class="d-flex justify-content-between border-bottom py-2">
+          <span>{{ item.quantity }} × {{ item.product_name }}</span><span>€{{ item.line_total }}</span>
+        </li>
+      {% endfor %}
+      {% if order.shipping_cost %}
+        <li class="d-flex justify-content-between border-bottom py-2">
+          <span>Shipping: {{ order.shipping_method.name }}</span><span>€{{ order.shipping_cost }}</span>
+        </li>
+      {% endif %}
+      <li class="d-flex justify-content-between pt-2 fw-bold">
+        <span>總數 Total</span><span class="product-price">€{{ order.total }}</span>
+      </li>
+    </ul>
+  </div>
+
+  {% if order.shipping_address %}
+    <h2 class="h5 mt-4 fw-bold">Shipping to</h2>
+    <p>{{ order.shipping_address|linebreaksbr }}</p>
+  {% endif %}
+  {% if order.tracking_number %}
+    <p><i class="fa-solid fa-truck" aria-hidden="true"></i> Tracking number: <strong>{{ order.tracking_number }}</strong></p>
+  {% endif %}
+  {% if order.notes %}
+    <h2 class="h5 mt-4 fw-bold">Your portrait notes</h2>
+    <p>{{ order.notes|linebreaksbr }}</p>
+  {% endif %}
+  {% if order.is_paid %}
+    <a href="{% url 'checkout:my_downloads' %}" class="btn btn-shop mt-2"><i class="fa-solid fa-download" aria-hidden="true"></i> 我的下載 My downloads</a>
+  {% endif %}
+</section>
+{% endblock %}

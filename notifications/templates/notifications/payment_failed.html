@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"></head>
+<body style="margin:0;background:#F2E0C1;font-family:Arial,'PingFang HK','Microsoft JhengHei',sans-serif;color:#2A2320;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+    <tr><td style="background:#14504F;color:#F3E7CB;padding:20px 28px;font-size:22px;font-weight:bold;">moncherie corner 轉角小店</td></tr>
+    <tr><td style="padding:28px;font-size:16px;line-height:1.7;">
+      <p>{{ order.user.username }}，你好！<br>Hi {{ order.user.username }},</p>
+      <p>你嘅訂單 #{{ order.pk }} 未完成付款，我哋冇收取任何費用。<br>
+         The payment for order #{{ order.pk }} didn't go through, so nothing was charged.</p>
+      <p>你嘅購物車已經保留。<br>Your cart is saved, so you can try again any time.</p>
+      <p><a href="{{ site_url }}{% url 'cart:detail' %}" style="display:inline-block;background:#B02F22;color:#F3E7CB;padding:12px 22px;border-radius:999px;text-decoration:none;font-weight:bold;">再試 Try again</a></p>
+    </td></tr>
+  </table>
+</body>
+</html>

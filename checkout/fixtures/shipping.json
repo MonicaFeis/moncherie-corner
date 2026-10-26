@@ -1,0 +1,4 @@
+[
+  {"model": "checkout.shippingmethod", "pk": 1, "fields": {"name": "Standard post", "price": "3.90", "delivery_days": 5, "is_active": true}},
+  {"model": "checkout.shippingmethod", "pk": 2, "fields": {"name": "Tracked post", "price": "6.90", "delivery_days": 3, "is_active": true}}
+]

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Thank you | moncherie corner{% endblock %}
+
+{% block content %}
+<section class="container text-center status-page">
+  {% if order.is_paid %}
+    <img src="{% static 'images/thank-you.png' %}" class="img-fluid status-image"
+         alt="Hong Kong milk tea with a sign saying thank you for your custom">
+    <h1 class="page-title">多謝惠顧 Thank you for your order</h1>
+    <p>Order #{{ order.pk }} is paid. We've sent a confirmation to {{ order.user.email }}.</p>
+    <div class="d-flex flex-wrap justify-content-center gap-3 mt-3">
+      <a href="{% url 'checkout:my_downloads' %}" class="btn btn-shop"><i class="fa-solid fa-download" aria-hidden="true"></i> 我的下載 My downloads</a>
+      <a href="{{ order.get_absolute_url }}" class="btn btn-shop-outline">Order details</a>
+    </div>
+  {% else %}
+    <h1 class="page-title">確認緊付款 We're confirming your payment</h1>
+    <p>This usually takes a few seconds. Please refresh this page, or check My orders.</p>
+    <a href="{% url 'checkout:my_orders' %}" class="btn btn-shop">我的訂單 My orders</a>
+  {% endif %}
+</section>
+{% endblock %}

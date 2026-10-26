@@ -148,3 +148,9 @@ if os.environ.get("EMAIL_HOST"):
 else:
     # No email server: emails are printed in the VS Code terminal instead
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+
+# Stripe payments (test mode). The keys live in .env, never in git.
+STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "")
+STRIPE_WEBHOOK_SECRET = os.environ.get("STRIPE_WEBHOOK_SECRET", "")
+STRIPE_CURRENCY = "eur"

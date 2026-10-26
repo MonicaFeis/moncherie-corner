@@ -54,6 +54,11 @@
               </a>
             </li>
             {% if user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link {% if request.resolver_match.app_name == 'checkout' %}active{% endif %}" href="{% url 'checkout:my_orders' %}">
+                  <i class="fa-solid fa-receipt" aria-hidden="true"></i> My orders
+                </a>
+              </li>
               <li class="nav-item"><span class="navbar-text"><i class="fa-solid fa-user" aria-hidden="true"></i> Hi, {{ user.username }}</span></li>
               <li class="nav-item">
                 <form method="post" action="{% url 'accounts:logout' %}">
