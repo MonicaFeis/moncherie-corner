@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="moncherie corner: hand-drawn stickers, prints and portraits in a vintage Hong Kong style.">
+  <title>{% block title %}moncherie corner{% endblock %}</title>
+  <link rel="icon" href="{% static 'images/logo-blue.png' %}">
+  {# Bootstrap 5.3.3 from the jsDelivr CDN: https://getbootstrap.com #}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  {# Font awesome: https://fontawesome.com #}
+  <script src="https://kit.fontawesome.com/ad8754aeee.js" crossorigin="anonymous"></script>
+  {# Fonts from Google Fonts: https://fonts.google.com #}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@700&family=Playball&display=swap">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body class="d-flex flex-column min-vh-100">
+  <a class="visually-hidden-focusable skip-link" href="#main">Skip to main content</a>
+
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark site-nav" aria-label="Main menu">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="{% url 'home:index' %}">
+          <img src="{% static 'images/logo-cream.png' %}" alt="" width="44" height="44">
+          <span class="brand-name">moncherie <span class="brand-script">corner</span></span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                aria-controls="mainNav" aria-expanded="false" aria-label="Open the menu">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNav">
+          <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-3">
+            <li class="nav-item">
+              <a class="nav-link {% if request.resolver_match.url_name == 'index' %}active{% endif %}"
+                 href="{% url 'home:index' %}">Home</a>
+            </li>
+            {% if user.is_authenticated %}
+              <li class="nav-item"><span class="navbar-text">Hi, {{ user.username }}</span></li>
+              <li class="nav-item">
+                <form method="post" action="{% url 'accounts:logout' %}">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-nav">Log out</button>
+                </form>
+              </li>
+            {% else %}
+              <li class="nav-item"><a class="nav-link" href="{% url 'accounts:login' %}">Log in</a></li>
+              <li class="nav-item"><a class="btn btn-nav" href="{% url 'accounts:register' %}">Register</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="tile-strip" aria-hidden="true"></div>
+  </header>
+
+  <main id="main" class="flex-grow-1">
+    {% if messages %}
+      <div class="container pt-3">
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer mt-5">
+    <div class="tile-strip" aria-hidden="true"></div>
+    <div class="container py-4">
+      <div class="row gy-4">
+        <div class="col-md-6">
+          <div class="d-flex align-items-center gap-2">
+            <img src="{% static 'images/logo-cream.png' %}" alt="" width="40" height="40">
+            <span class="brand-name">moncherie <span class="brand-script">corner</span></span>
+          </div>
+          <p class="mt-2 mb-0">Little hand-drawn things, served with a smile.</p>
+        </div>
+        <div class="col-md-6 text-md-end">
+          <nav aria-label="Footer menu">
+            <a href="{% url 'home:index' %}">Home</a>
+            {% if user.is_authenticated %}
+              <span aria-hidden="true">·</span> <span>Logged in as {{ user.username }}</span>
+            {% else %}
+              <span aria-hidden="true">·</span> <a href="{% url 'accounts:login' %}">Log in</a>
+              <span aria-hidden="true">·</span> <a href="{% url 'accounts:register' %}">Register</a>
+            {% endif %}
+          </nav>
+        </div>
+      </div>
+      <p class="footer-small mt-4 mb-0">
+        &copy; {% now "Y" %} moncherie corner. A student project: payments use Stripe test mode, so no real money is taken.
+      </p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

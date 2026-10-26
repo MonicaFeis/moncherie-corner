@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Register | moncherie corner{% endblock %}
+
+{% block content %}
+<section class="container form-page">
+  <h1 class="page-title">Create an account</h1>
+  <p>With an account you can buy, download your files any time, and see your orders.</p>
+  <form method="post" class="form-card" novalidate>
+    {% csrf_token %}
+    {{ form.as_div }}
+    <button type="submit" class="btn btn-shop mt-3">Create account</button>
+  </form>
+  <p class="mt-3">Already have an account? <a href="{% url 'accounts:login' %}">Log in</a></p>
+</section>
+{% endblock %}

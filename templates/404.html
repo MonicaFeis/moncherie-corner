@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Page not found | moncherie corner{% endblock %}
+
+{% block content %}
+<section class="container text-center status-page">
+  <img src="{% static 'images/notfound.png' %}" class="img-fluid status-image"
+       alt="Empty Hong Kong milk tea cup next to a red 404 sign">
+  <h1 class="page-title">Page not found</h1>
+  <p>This page has gone for tea. Let's take you back.</p>
+  <a href="{% url 'home:index' %}" class="btn btn-shop">返回 Back to the home page</a>
+</section>
+{% endblock %}

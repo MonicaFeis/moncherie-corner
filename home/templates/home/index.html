@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="hero container">
+  <div class="row align-items-center g-5">
+    <div class="col-md-5">
+      <img src="{% static 'images/hero.jpg' %}" class="hero-poster img-fluid"
+           alt="Vintage Hong Kong tea café poster with the word Welcome">
+    </div>
+    <div class="col-md-7">
+      <p class="hero-kicker">轉角小店</p>
+      <h1 class="hero-title">Welcome to the corner.</h1>
+      <p class="hero-text">Little hand-drawn things, served with a smile.</p>
+      {% if not user.is_authenticated %}
+        <a href="{% url 'accounts:register' %}" class="btn btn-shop">歡迎光臨 Come on in</a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endblock %}

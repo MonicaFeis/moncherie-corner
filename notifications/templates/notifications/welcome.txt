@@ -1,0 +1,13 @@
+Hi {{ user.username }},
+
+Welcome to moncherie corner! Your account is ready.
+
+With your account you can:
+- buy hand-drawn stickers, prints and portraits
+- download your digital files any time
+- see all your orders in one place
+
+Come and have a look: {{ site_url }}
+
+See you at the corner!
+moncherie corner
