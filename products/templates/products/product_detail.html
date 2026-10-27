@@ -29,6 +29,12 @@
           {% elif product.product_type == "printed" %}Printed and shipped to you.
           {% else %}Hand-drawn for you, usually within 7 days.{% endif %}
         </p>
+        {% if product.product_type == "portrait" %}
+          <p class="small mt-2">
+            <i class="fa-solid fa-pen-nib" aria-hidden="true"></i>
+            結帳時可以話我知你想要嘅肖像。 At checkout you can tell me who should be in your portrait and what you would like.
+          </p>
+        {% endif %}
         <p class="mt-3">{{ product.description|linebreaksbr }}</p>
 
         {% if product.is_sold_out %}
@@ -44,7 +50,7 @@
               </div>
             {% endif %}
             <button type="submit" class="btn btn-shop">
-              <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i> 加入購物車 Add to cart
+              <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i> 加入購物袋 Add to bag
             </button>
           </form>
         {% endif %}
