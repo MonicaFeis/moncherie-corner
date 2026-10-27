@@ -1,7 +1,22 @@
+from django.conf import settings
+from django.core.files.storage import default_storage
 from django.core.validators import MinValueValidator
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
+
+
+
+def download_storage():
+    """Where digital download files are kept.
+
+    On Heroku: Cloudinary "raw" storage, because .zip and .pdf are not pictures.
+    On your Mac: the normal media folder.
+    """
+    if getattr(settings, "USE_CLOUDINARY", False):
+        from cloudinary_storage.storage import RawMediaCloudinaryStorage
+        return RawMediaCloudinaryStorage()
+    return default_storage
 
 
 class Category(models.Model):
@@ -64,7 +79,9 @@ class Product(models.Model):
     )
     product_type = models.CharField(max_length=10, choices=TYPE_CHOICES, default=DIGITAL)
     image = models.ImageField(upload_to="products/", blank=True)
-    download_file = models.FileField(upload_to="downloads/", blank=True)
+    download_file = models.FileField(
+        upload_to="downloads/", blank=True, storage=download_storage
+    )
     stock = models.PositiveIntegerField(
         default=0, help_text="Only used for printed items."
     )

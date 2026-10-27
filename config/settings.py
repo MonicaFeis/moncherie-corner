@@ -7,6 +7,7 @@ in this file. They are read from "environment variables":
 - on Heroku they come from "Config Vars"
 """
 import os
+import sys
 from pathlib import Path
 
 import dj_database_url
@@ -154,3 +155,27 @@ else:
 STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "")
 STRIPE_WEBHOOK_SECRET = os.environ.get("STRIPE_WEBHOOK_SECRET", "")
 STRIPE_CURRENCY = "eur"
+
+
+# ---------- Deployment (Heroku) ----------
+# True while "python manage.py test" runs, so tests never upload to Cloudinary
+TESTING = len(sys.argv) > 1 and sys.argv[1] == "test"
+
+# The live web address, for example https://moncherie-corner-abc123.herokuapp.com
+CSRF_TRUSTED_ORIGINS = [
+    origin for origin in os.environ.get("CSRF_TRUSTED_ORIGINS", "").split(",") if origin
+]
+
+# Uploaded images and downloads go to Cloudinary on Heroku,
+# because Heroku deletes uploaded files every time the app restarts.
+USE_CLOUDINARY = bool(os.environ.get("CLOUDINARY_URL")) and not TESTING
+if USE_CLOUDINARY:
+    INSTALLED_APPS += ["cloudinary_storage", "cloudinary"]
+    STORAGES["default"] = {"BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage"}
+
+# Extra safety when DEBUG is off (on Heroku)
+if not DEBUG:
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+    SECURE_SSL_REDIRECT = not TESTING
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
