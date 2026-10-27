@@ -8,7 +8,7 @@
       <p>{{ order.user.username }}，你好！<br>Hi {{ order.user.username }},</p>
       <p>你嘅訂單 #{{ order.pk }} 未完成付款，我哋冇收取任何費用。<br>
          The payment for order #{{ order.pk }} didn't go through, so nothing was charged.</p>
-      <p>你嘅購物車已經保留。<br>Your cart is saved, so you can try again any time.</p>
+      <p>你嘅購物袋已經保留。<br>Your bag is saved, so you can try again any time.</p>
       <p><a href="{{ site_url }}{% url 'cart:detail' %}" style="display:inline-block;background:#B02F22;color:#F3E7CB;padding:12px 22px;border-radius:999px;text-decoration:none;font-weight:bold;">再試 Try again</a></p>
     </td></tr>
   </table>

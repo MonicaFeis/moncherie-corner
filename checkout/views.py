@@ -82,7 +82,7 @@ def checkout(request):
     cart = Cart(request)
     lines = cart.items()
     if not lines:
-        messages.info(request, "暫時乜都冇 Your cart is empty.")
+        messages.info(request, "暫時乜都冇 Your bag is empty.")
         return redirect("cart:detail")
 
     for line in lines:

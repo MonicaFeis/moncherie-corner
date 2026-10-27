@@ -5,7 +5,7 @@
 
 {% block content %}
 <section class="container pt-4">
-  <h1 class="page-title">購物車 Your cart</h1>
+  <h1 class="page-title">購物袋 Your bag</h1>
 
   {% if lines %}
     <div class="form-card table-responsive">
@@ -71,7 +71,7 @@
     </div>
   {% else %}
     <div class="text-center status-page mx-auto">
-      <p class="fs-5">暫時乜都冇 Your cart is empty.</p>
+      <p class="fs-5">暫時乜都冇 Your bag is empty.</p>
       <a href="{% url 'products:list' %}" class="btn btn-shop">去商店 Go to the shop</a>
     </div>
   {% endif %}

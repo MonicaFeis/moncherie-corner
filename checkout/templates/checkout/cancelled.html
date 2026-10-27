@@ -8,10 +8,10 @@
   <img src="{% static 'images/payment-failed.png' %}" class="img-fluid status-image"
        alt="Spilled Hong Kong milk tea beside a sign saying payment failed, please try again later">
   <h1 class="page-title">付款未完成 Payment didn't go through</h1>
-  <p>Nothing was charged and your cart is saved. You can try again whenever you like.</p>
+  <p>Nothing was charged and your bag is saved. You can try again whenever you like.</p>
   <div class="d-flex flex-wrap justify-content-center gap-3 mt-3">
     <a href="{% url 'checkout:checkout' %}" class="btn btn-shop">再試 Try again</a>
-    <a href="{% url 'cart:detail' %}" class="btn btn-shop-outline">返回購物車 Back to cart</a>
+    <a href="{% url 'cart:detail' %}" class="btn btn-shop-outline">返回購物袋 Back to bag</a>
   </div>
 </section>
 {% endblock %}

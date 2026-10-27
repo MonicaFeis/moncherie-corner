@@ -32,7 +32,7 @@ class CartTests(TestCase):
 
     def test_empty_cart_page(self):
         response = self.client.get(reverse("cart:detail"))
-        self.assertContains(response, "Your cart is empty")
+        self.assertContains(response, "Your bag is empty")
 
     def test_add_product_to_cart(self):
         response = self.add(self.stickers)
