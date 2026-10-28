@@ -65,6 +65,11 @@ class Order(models.Model):
         return self.status in (self.PAID, self.SHIPPED)
 
     @property
+    def has_digital_items(self):
+        """True if there is a file to download in this order."""
+        return any(item.product_type == "digital" for item in self.items.all())
+
+    @property
     def has_printed_items(self):
         """True if anything in this order needs posting."""
         return any(item.product_type == "printed" for item in self.items.all())

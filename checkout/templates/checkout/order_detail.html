@@ -38,7 +38,7 @@
     <h2 class="h5 mt-4 fw-bold">Your portrait notes</h2>
     <p>{{ order.notes|linebreaksbr }}</p>
   {% endif %}
-  {% if order.is_paid %}
+  {% if order.is_paid and order.has_digital_items %}
     <a href="{% url 'checkout:my_downloads' %}" class="btn btn-shop mt-2"><i class="fa-solid fa-download" aria-hidden="true"></i> 我的下載 My downloads</a>
   {% endif %}
 </section>
