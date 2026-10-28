@@ -218,7 +218,7 @@ textarea:focus-visible {
 }
 
 .product-card-image { display: block; aspect-ratio: 3 / 4; background: var(--cream-light); }
-.product-card-image img { width: 100%; height: 100%; object-fit: contain; padding: 0.5rem; }
+.product-card-image img { width: 100%; height: 100%; object-fit: cover; }
 
 .image-placeholder {
   display: flex;
@@ -397,6 +397,5 @@ textarea:focus-visible {
   background: var(--cream-light);
 }
 .product-card-image img {
-  object-fit: contain;
-  padding: 0.5rem;
+  object-fit: cover;
 }
