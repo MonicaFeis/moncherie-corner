@@ -3,6 +3,22 @@ from django import forms
 from .models import ShippingMethod
 
 
+class ShipOrderForm(forms.Form):
+    """The owner types the tracking number when posting an order (US-36)."""
+
+    tracking_number = forms.CharField(
+        max_length=80,
+        label="Tracking number 追蹤號碼",
+        error_messages={"required": "Please enter the tracking number."},
+    )
+
+    def clean_tracking_number(self):
+        number = self.cleaned_data["tracking_number"].strip()
+        if not number:
+            raise forms.ValidationError("Please enter the tracking number.")
+        return number
+
+
 class CheckoutForm(forms.Form):
     """Extra details before paying. Fields are only required when they are needed."""
 

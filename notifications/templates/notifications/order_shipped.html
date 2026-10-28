@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"></head>
+<body style="margin:0;background:#F2E0C1;font-family:Arial,'PingFang HK','Microsoft JhengHei',sans-serif;color:#2A2320;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+    <tr><td style="background:#14504F;color:#F3E7CB;padding:20px 28px;font-size:22px;font-weight:bold;">moncherie corner 轉角小店</td></tr>
+    <tr><td style="padding:28px;font-size:16px;line-height:1.7;">
+      <p>{{ order.user.username }}，你好！<br>Hi {{ order.user.username }},</p>
+      <p><strong>你嘅訂單 #{{ order.pk }} 已經寄出！</strong><br>Good news: your order #{{ order.pk }} has shipped!</p>
+      <p style="background:#FBF3DE;border:2px solid #14504F;border-radius:8px;padding:12px 16px;">
+        追蹤號碼 Tracking number: <strong>{{ order.tracking_number }}</strong>
+        {% if order.shipping_method %}<br>{{ order.shipping_method.name }}, usually about {{ order.shipping_method.delivery_days }} days.{% endif %}
+      </p>
+      <p><a href="{{ site_url }}{{ order.get_absolute_url }}" style="display:inline-block;background:#B02F22;color:#F3E7CB;padding:12px 22px;border-radius:999px;text-decoration:none;font-weight:bold;">睇訂單 See your order</a></p>
+      <p>轉角見！ See you at the corner!</p>
+    </td></tr>
+  </table>
+</body>
+</html>

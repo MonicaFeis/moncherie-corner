@@ -1,0 +1,13 @@
+{{ order.user.username }}，你好！
+Hi {{ order.user.username }},
+
+你嘅訂單 #{{ order.pk }} 已經寄出！
+Good news: your order #{{ order.pk }} has shipped!
+
+追蹤號碼 Tracking number: {{ order.tracking_number }}
+{% if order.shipping_method %}運送方式 Shipping: {{ order.shipping_method.name }}, usually about {{ order.shipping_method.delivery_days }} days.{% endif %}
+
+睇訂單 See your order: {{ site_url }}{{ order.get_absolute_url }}
+
+轉角見！ See you at the corner!
+moncherie corner

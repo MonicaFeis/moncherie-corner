@@ -50,6 +50,11 @@ def send_order_confirmation(order):
     return send_email(order.user.email, "order_confirmed", {"order": order})
 
 
+def send_order_shipped(order):
+    """Tell the customer their printed items are on the way (US-41)."""
+    return send_email(order.user.email, "order_shipped", {"order": order})
+
+
 def send_payment_failed(order):
     """Tell the customer the payment did not go through (US-40)."""
     return send_email(order.user.email, "payment_failed", {"order": order})

@@ -64,6 +64,16 @@ class Order(models.Model):
     def is_paid(self):
         return self.status in (self.PAID, self.SHIPPED)
 
+    @property
+    def has_printed_items(self):
+        """True if anything in this order needs posting."""
+        return any(item.product_type == "printed" for item in self.items.all())
+
+    @property
+    def can_be_shipped(self):
+        """Only paid orders with printed items can be marked as shipped."""
+        return self.status == self.PAID and self.has_printed_items
+
 
 class OrderItem(models.Model):
     """One line in an order. Name and price are copied, so old orders never change."""

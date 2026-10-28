@@ -1,0 +1,1 @@
+已寄出 Your order has shipped: moncherie corner order #{{ order.pk }}

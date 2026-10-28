@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Order #{{ order.pk }} | moncherie corner{% endblock %}
+
+{% block content %}
+<section class="container pt-4" style="max-width: 820px;">
+  <p><a href="{% url 'checkout:manage_orders' %}">‹ 訂單管理 All orders</a></p>
+  <h1 class="page-title">Order #{{ order.pk }}</h1>
+  <p>
+    <span class="status-pill status-{{ order.status }}">{{ order.get_status_display }}</span>
+    · {{ order.created_at|date:"j M Y, H:i" }}
+    · {{ order.user.username }} ({{ order.user.email|default:"no email" }})
+  </p>
+
+  <div class="form-card mb-4">
+    <ul class="list-unstyled mb-0">
+      {% for item in order.items.all %}
+        <li class="d-flex justify-content-between border-bottom py-2">
+          <span>{{ item.quantity }} × {{ item.product_name }} <span class="small">({{ item.product_type }})</span></span>
+          <span>€{{ item.line_total }}</span>
+        </li>
+      {% endfor %}
+      {% if order.shipping_cost %}
+        <li class="d-flex justify-content-between border-bottom py-2">
+          <span>Shipping: {{ order.shipping_method.name }}</span><span>€{{ order.shipping_cost }}</span>
+        </li>
+      {% endif %}
+      <li class="d-flex justify-content-between pt-2 fw-bold"><span>總數 Total</span><span class="product-price">€{{ order.total }}</span></li>
+    </ul>
+  </div>
+
+  {% if order.shipping_address %}
+    <h2 class="h5 fw-bold">Ship to</h2>
+    <p>{{ order.shipping_address|linebreaksbr }}</p>
+  {% endif %}
+  {% if order.notes %}
+    <h2 class="h5 fw-bold">Portrait notes</h2>
+    <p>{{ order.notes|linebreaksbr }}</p>
+  {% endif %}
+
+  {% if order.can_be_shipped %}
+    <form method="post" class="form-card" novalidate>
+      {% csrf_token %}
+      <h2 class="h5 fw-bold">寄出 Mark as shipped</h2>
+      {{ form.as_div }}
+      <button type="submit" class="btn btn-shop mt-3">
+        <i class="fa-solid fa-truck" aria-hidden="true"></i> Mark shipped and email the customer
+      </button>
+    </form>
+  {% elif order.status == "shipped" %}
+    <p class="delivery-note"><i class="fa-solid fa-truck" aria-hidden="true"></i> Shipped. Tracking number: {{ order.tracking_number }}</p>
+  {% elif not order.has_printed_items %}
+    <p>Digital order: nothing to ship. The customer downloads the files from My downloads.</p>
+  {% endif %}
+</section>
+{% endblock %}
