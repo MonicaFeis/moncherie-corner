@@ -390,3 +390,13 @@ textarea:focus-visible {
 }
 .category-card-label .category-sign-name { color: var(--cream-text); }
 .category-card:hover .category-card-label { background: var(--red-dark); }
+
+/* Product pictures: tall like the artworks, never cut off */
+.product-card-image {
+  aspect-ratio: 3 / 4;
+  background: var(--cream-light);
+}
+.product-card-image img {
+  object-fit: contain;
+  padding: 0.5rem;
+}
