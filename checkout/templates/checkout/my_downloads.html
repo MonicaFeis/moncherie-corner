@@ -20,6 +20,10 @@
         </div>
       {% endfor %}
     </div>
+    <div class="d-flex flex-wrap gap-3 mt-4">
+      <a href="{% url 'products:list' %}" class="btn btn-shop"><i class="fa-solid fa-store" aria-hidden="true"></i> 繼續購物 Keep shopping</a>
+      <a href="{% url 'home:index' %}" class="btn btn-shop-outline"><i class="fa-solid fa-house" aria-hidden="true"></i> 返回主頁 Back to home</a>
+    </div>
   {% else %}
     <div class="text-center status-page mx-auto">
       <img src="{% static 'images/empty-state.png' %}" class="img-fluid status-image"

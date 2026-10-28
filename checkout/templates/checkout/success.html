@@ -13,6 +13,7 @@
     <div class="d-flex flex-wrap justify-content-center gap-3 mt-3">
       <a href="{% url 'checkout:my_downloads' %}" class="btn btn-shop"><i class="fa-solid fa-download" aria-hidden="true"></i> 我的下載 My downloads</a>
       <a href="{{ order.get_absolute_url }}" class="btn btn-shop-outline">Order details</a>
+      <a href="{% url 'products:list' %}" class="btn btn-shop-outline"><i class="fa-solid fa-store" aria-hidden="true"></i> 繼續購物 Keep shopping</a>
     </div>
   {% else %}
     <h1 class="page-title">確認緊付款 We're confirming your payment</h1>
