@@ -10,9 +10,12 @@
   </div>
 
   <nav aria-label="Filter orders" class="category-filter mb-3">
-    <a href="{% url 'checkout:manage_orders' %}" class="filter-pill {% if show != 'to_ship' %}active{% endif %}">All orders</a>
+    <a href="{% url 'checkout:manage_orders' %}" class="filter-pill {% if show == 'all' %}active{% endif %}">All orders</a>
     <a href="{% url 'checkout:manage_orders' %}?show=to_ship" class="filter-pill {% if show == 'to_ship' %}active{% endif %}">
       <i class="fa-solid fa-box" aria-hidden="true"></i> To ship
+    </a>
+    <a href="{% url 'checkout:manage_orders' %}?show=to_draw" class="filter-pill {% if show == 'to_draw' %}active{% endif %}">
+      <i class="fa-solid fa-pen-nib" aria-hidden="true"></i> Portraits to draw
     </a>
   </nav>
 
@@ -32,7 +35,7 @@
               <td>{{ order.created_at|date:"j M Y" }}</td>
               <td>{{ order.user.username }}</td>
               <td>
-                {% for item in order.items.all %}{{ item.quantity }} × {{ item.product_name }}{% if not forloop.last %}<br>{% endif %}{% endfor %}
+                {% for item in order.items.all %}{{ item.quantity }} × {{ item.display_name }}{% if not forloop.last %}<br>{% endif %}{% endfor %}
               </td>
               <td><span class="status-pill status-{{ order.status }}">{{ order.get_status_display }}</span></td>
               <td class="text-end">€{{ order.total }}</td>
@@ -42,7 +45,7 @@
       </table>
     </div>
   {% else %}
-    <p class="fs-5">{% if show == "to_ship" %}Nothing to ship right now. 暫時冇嘢要寄。{% else %}暫無訂單 No orders yet.{% endif %}</p>
+    <p class="fs-5">{% if show == "to_ship" %}Nothing to ship right now. 暫時冇嘢要寄。{% elif show == "to_draw" %}No portraits waiting. 暫時冇肖像要畫。{% else %}暫無訂單 No orders yet.{% endif %}</p>
   {% endif %}
 </section>
 {% endblock %}

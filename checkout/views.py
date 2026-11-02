@@ -34,7 +34,7 @@ def build_line_items(order):
             "price_data": {
                 "currency": settings.STRIPE_CURRENCY,
                 "unit_amount": to_cents(item.price),
-                "product_data": {"name": item.product_name},
+                "product_data": {"name": item.display_name},
             },
             "quantity": item.quantity,
         })
@@ -70,7 +70,9 @@ def create_order(user, lines, form):
             product=product,
             product_name=product.name,
             product_type=product.product_type,
-            price=product.price,
+            option_name=line["option"].name if line["option"] else "",
+            is_printed=line["needs_shipping"],
+            price=line["unit_price"],
             quantity=line["quantity"],
         )
     return order
@@ -240,10 +242,41 @@ def paid_digital_items(user):
     return unique_items
 
 
+def paid_portraits(user):
+    """Every portrait this customer has paid for, ready or still being drawn."""
+    return OrderItem.objects.filter(
+        order__user=user,
+        order__status__in=[Order.PAID, Order.SHIPPED],
+        product_type=Product.PORTRAIT,
+    ).select_related("product", "order")
+
+
 @login_required
 def my_downloads(request):
-    """List of files the customer can download (US-15)."""
-    return render(request, "checkout/my_downloads.html", {"items": paid_digital_items(request.user)})
+    """List of files the customer can download (US-15, US-24)."""
+    portraits = paid_portraits(request.user)
+    context = {
+        "items": paid_digital_items(request.user),
+        "ready_portraits": [item for item in portraits if item.delivered_file],
+        "waiting_portraits": [item for item in portraits if not item.delivered_file],
+    }
+    return render(request, "checkout/my_downloads.html", context)
+
+
+@login_required
+def download_portrait(request, item_id):
+    """Send a finished portrait, but only to the customer who paid for it (US-24)."""
+    item = get_object_or_404(
+        OrderItem,
+        pk=item_id,
+        order__user=request.user,
+        order__status__in=[Order.PAID, Order.SHIPPED],
+        product_type=Product.PORTRAIT,
+    )
+    if not item.delivered_file:
+        raise Http404
+    file_name = item.delivered_file.name.split("/")[-1]
+    return FileResponse(item.delivered_file.open("rb"), as_attachment=True, filename=file_name)
 
 
 @login_required

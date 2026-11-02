@@ -4,7 +4,7 @@ Hi {{ order.user.username }},
 多謝惠顧！你嘅訂單 #{{ order.pk }} 已經付款。
 Thank you! Your order #{{ order.pk }} is paid.
 
-{% for item in order.items.all %}- {{ item.quantity }} x {{ item.product_name }}: €{{ item.line_total }}
+{% for item in order.items.all %}- {{ item.quantity }} x {{ item.display_name }}: €{{ item.line_total }}
 {% endfor %}{% if order.shipping_cost %}- Shipping ({{ order.shipping_method.name }}): €{{ order.shipping_cost }}
 {% endif %}
 總數 Total: €{{ order.total }}

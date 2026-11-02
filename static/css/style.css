@@ -452,3 +452,18 @@ textarea:focus-visible {
   object-fit: contain;
   box-shadow: 0 4px 12px rgba(42, 35, 32, 0.25);
 }
+
+/* Version choices on the product page (for example digital or printed portrait) */
+.option-choices { border: 0; padding: 0; margin: 0 0 0.5rem; }
+.option-choice { margin-bottom: 0.5rem; }
+.option-choice input { position: absolute; opacity: 0; }
+.option-choice label {
+  display: block;
+  cursor: pointer;
+  background: #FFFFFF;
+  border: 2px solid var(--teal);
+  border-radius: 10px;
+  padding: 0.6rem 0.9rem;
+}
+.option-choice input:checked + label { background: var(--teal); color: var(--cream-text); box-shadow: 3px 3px 0 var(--gold); }
+.option-choice input:focus-visible + label { outline: 3px solid var(--red); outline-offset: 2px; }

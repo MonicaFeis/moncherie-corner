@@ -1,4 +1,5 @@
 from django import forms
+from django.core.validators import FileExtensionValidator
 
 from .models import ShippingMethod
 
@@ -17,6 +18,26 @@ class ShipOrderForm(forms.Form):
         if not number:
             raise forms.ValidationError("Please enter the tracking number.")
         return number
+
+
+MAX_PORTRAIT_SIZE_MB = 20
+
+
+class DeliverPortraitForm(forms.Form):
+    """The owner uploads the finished portrait for one order line (US-24)."""
+
+    portrait_file = forms.FileField(
+        label="Finished portrait 完成嘅肖像",
+        validators=[FileExtensionValidator(["png", "jpg", "jpeg", "pdf", "zip"])],
+        help_text="A .png, .jpg, .pdf or .zip file.",
+        error_messages={"required": "Please choose the file to upload."},
+    )
+
+    def clean_portrait_file(self):
+        file = self.cleaned_data["portrait_file"]
+        if file.size > MAX_PORTRAIT_SIZE_MB * 1024 * 1024:
+            raise forms.ValidationError(f"Please use a file smaller than {MAX_PORTRAIT_SIZE_MB} MB.")
+        return file
 
 
 class CheckoutForm(forms.Form):

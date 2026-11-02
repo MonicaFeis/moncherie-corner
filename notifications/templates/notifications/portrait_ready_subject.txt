@@ -1,0 +1,1 @@
+你嘅肖像畫好喇 Your portrait is ready: moncherie corner order #{{ order.pk }}

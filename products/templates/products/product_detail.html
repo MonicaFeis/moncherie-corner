@@ -23,7 +23,9 @@
       <div class="product-info">
         <span class="badge-gold">{{ product.category.name }}</span>
         <h1 class="page-title mt-2">{{ product.name }}</h1>
-        <p class="product-price fs-3">€{{ product.price }}</p>
+        {% with first_option=product.options.first %}
+        <p class="product-price fs-3" id="product-price" aria-live="polite">€{% if first_option %}{{ first_option.price }}{% else %}{{ product.price }}{% endif %}</p>
+        {% endwith %}
         <p class="delivery-note">
           {% if product.product_type == "digital" %}Instant download after payment.
           {% elif product.product_type == "printed" %}Printed and shipped to you.
@@ -49,6 +51,24 @@
                        max="{{ product.stock }}" class="qty-input">
               </div>
             {% endif %}
+            {% with options=product.options.all %}
+              {% if options %}
+                <fieldset class="option-choices w-100">
+                  <legend class="fw-bold fs-6">選擇版本 Choose your version</legend>
+                  {% for option in options %}
+                    <div class="option-choice">
+                      <input type="radio" class="option-radio" name="option" id="option-{{ option.pk }}"
+                             value="{{ option.pk }}" data-price="{{ option.price }}"
+                             data-printed="{{ option.is_printed|yesno:'true,false' }}" {% if forloop.first %}checked{% endif %} required>
+                      <label for="option-{{ option.pk }}">
+                        <span class="fw-bold">{{ option.name }}</span> · €{{ option.price }}
+                        <span class="small d-block">{% if option.is_printed %}Printed and posted to you{% else %}Sent as a file to My downloads{% endif %}</span>
+                      </label>
+                    </div>
+                  {% endfor %}
+                </fieldset>
+              {% endif %}
+            {% endwith %}
             <button type="submit" class="btn btn-shop">
               <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i> 加入購物袋 Add to bag
             </button>
@@ -58,4 +78,8 @@
     </div>
   </div>
 </section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/product.js' %}"></script>
 {% endblock %}

@@ -2,7 +2,7 @@ from django.conf import settings
 from django.db import models
 from django.urls import reverse
 
-from products.models import Product
+from products.models import Product, download_storage
 
 
 class ShippingMethod(models.Model):
@@ -66,13 +66,18 @@ class Order(models.Model):
 
     @property
     def has_digital_items(self):
-        """True if there is a file to download in this order."""
-        return any(item.product_type == "digital" for item in self.items.all())
+        """True if there is (or will be) a file to download in this order."""
+        return any(item.product_type in ("digital", "portrait") for item in self.items.all())
 
     @property
     def has_printed_items(self):
         """True if anything in this order needs posting."""
-        return any(item.product_type == "printed" for item in self.items.all())
+        return any(item.needs_shipping for item in self.items.all())
+
+    @property
+    def portrait_items(self):
+        """The portraits in this order (they are drawn after payment)."""
+        return [item for item in self.items.all() if item.is_portrait]
 
     @property
     def can_be_shipped(self):
@@ -89,10 +94,30 @@ class OrderItem(models.Model):
     product_type = models.CharField(max_length=10)
     price = models.DecimalField(max_digits=8, decimal_places=2)
     quantity = models.PositiveIntegerField(default=1)
+    option_name = models.CharField(max_length=80, blank=True)
+    is_printed = models.BooleanField(default=False, help_text="This line is printed and posted.")
+    delivered_file = models.FileField(
+        upload_to="portraits/", blank=True, storage=download_storage,
+        help_text="The finished portrait, uploaded by the owner.",
+    )
+    delivered_at = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
-        return f"{self.quantity} x {self.product_name}"
+        return f"{self.quantity} x {self.display_name}"
+
+    @property
+    def display_name(self):
+        """Name with the chosen version, for example "Portrait (Digital file)"."""
+        return f"{self.product_name} ({self.option_name})" if self.option_name else self.product_name
 
     @property
     def line_total(self):
         return self.price * self.quantity
+
+    @property
+    def needs_shipping(self):
+        return self.is_printed or self.product_type == "printed"
+
+    @property
+    def is_portrait(self):
+        return self.product_type == "portrait"

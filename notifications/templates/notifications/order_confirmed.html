@@ -8,14 +8,17 @@
 </head>
 <body style="margin:0;background:#F2E0C1;font-family:Arial,'PingFang HK','Microsoft JhengHei',sans-serif;color:#2A2320;">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
-    <tr><td style="background:#14504F;color:#F3E7CB;padding:20px 28px;font-size:22px;font-weight:bold;">moncherie corner 轉角小店</td></tr>
+    <tr><td style="background:#14504F;color:#F3E7CB;padding:16px 28px;font-size:22px;font-weight:bold;">
+      <img src="{{ logo_url }}" alt="moncherie corner logo" width="56" height="56" style="display:inline-block;vertical-align:middle;margin-right:12px;border:0;">
+      <span style="vertical-align:middle;">moncherie corner 轉角小店</span>
+    </td></tr>
     <tr><td style="padding:28px;font-size:16px;line-height:1.7;">
       <p>{{ order.user.username }}，你好！<br>Hi {{ order.user.username }},</p>
       <p><strong>多謝惠顧！</strong> Your order #{{ order.pk }} is paid.</p>
       <table role="presentation" width="100%" cellpadding="6" cellspacing="0" style="border-top:2px solid #14504F;">
         {% for line in lines %}
           <tr>
-            <td>{% if line.picture %}<img src="{{ line.picture }}" alt="" width="48" height="60" style="display:inline-block;vertical-align:middle;margin-right:12px;border:2px solid #14504F;border-radius:6px;object-fit:cover;">{% endif %}{{ line.item.quantity }} × {{ line.item.product_name }}</td>
+            <td>{% if line.picture %}<img src="{{ line.picture }}" alt="" width="48" height="60" style="display:inline-block;vertical-align:middle;margin-right:12px;border:2px solid #14504F;border-radius:6px;object-fit:cover;">{% endif %}{{ line.item.quantity }} × {{ line.item.display_name }}</td>
             <td align="right">€{{ line.item.line_total }}</td>
           </tr>
         {% endfor %}

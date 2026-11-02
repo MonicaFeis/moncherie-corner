@@ -6,7 +6,7 @@
 {% block content %}
 <section class="container pt-4">
   <h1 class="page-title">我的下載 My downloads</h1>
-  {% if items %}
+  {% if items or ready_portraits or waiting_portraits %}
     <div class="row g-4">
       {% for item in items %}
         <div class="col-md-6 col-lg-4">
@@ -18,11 +18,37 @@
                 <span class="cart-thumb-empty"></span>
               {% endif %}
             </div>
-            <h2 class="h5 fw-bold">{{ item.product_name }}</h2>
+            <h2 class="h5 fw-bold">{{ item.display_name }}</h2>
             <p class="small">Bought in order #{{ item.order.pk }}</p>
             <a href="{% url 'checkout:download' item.product_id %}" class="btn btn-shop mt-auto">
               <i class="fa-solid fa-download" aria-hidden="true"></i> 下載 Download
             </a>
+          </div>
+        </div>
+      {% endfor %}
+      {% for item in ready_portraits %}
+        <div class="col-md-6 col-lg-4">
+          <div class="form-card h-100 d-flex flex-column">
+            <div class="download-thumb mb-3" aria-hidden="true">
+              {% if item.product.image %}<img src="{{ item.product.image.url }}" alt="" loading="lazy">{% else %}<span class="cart-thumb-empty"></span>{% endif %}
+            </div>
+            <h2 class="h5 fw-bold">{{ item.display_name }}</h2>
+            <p class="small">Your portrait from order #{{ item.order.pk }} is ready!</p>
+            <a href="{% url 'checkout:download_portrait' item.pk %}" class="btn btn-shop mt-auto">
+              <i class="fa-solid fa-download" aria-hidden="true"></i> 下載肖像 Download portrait
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+      {% for item in waiting_portraits %}
+        <div class="col-md-6 col-lg-4">
+          <div class="form-card h-100 d-flex flex-column">
+            <div class="download-thumb mb-3" aria-hidden="true">
+              {% if item.product.image %}<img src="{{ item.product.image.url }}" alt="" loading="lazy">{% else %}<span class="cart-thumb-empty"></span>{% endif %}
+            </div>
+            <h2 class="h5 fw-bold">{{ item.display_name }}</h2>
+            <p class="small mb-0"><i class="fa-solid fa-pen-nib" aria-hidden="true"></i>
+              畫緊 Being drawn for order #{{ item.order.pk }}. You'll get an email when it's ready.</p>
           </div>
         </div>
       {% endfor %}

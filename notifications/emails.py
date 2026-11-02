@@ -11,6 +11,7 @@ import smtplib
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
+from django.templatetags.static import static
 
 logger = logging.getLogger(__name__)
 
@@ -21,7 +22,11 @@ def send_email(to_address, template_name, context):
     Returns True if it was sent, False if the email server had a problem.
     A mail problem should never break the page the customer is on.
     """
-    context = {**context, "site_url": settings.SITE_URL}
+    context = {
+        **context,
+        "site_url": settings.SITE_URL,
+        "logo_url": absolute_url(static("images/logo-cream.png")),
+    }
     folder = "notifications"
     subject = render_to_string(f"{folder}/{template_name}_subject.txt", context).strip()
     text_body = render_to_string(f"{folder}/{template_name}.txt", context)
@@ -70,6 +75,11 @@ def send_order_confirmation(order):
 def send_order_shipped(order):
     """Tell the customer their printed items are on the way (US-41)."""
     return send_email(order.user.email, "order_shipped", {"order": order})
+
+
+def send_portrait_ready(item):
+    """Tell the customer their finished portrait can be downloaded (US-42)."""
+    return send_email(item.order.user.email, "portrait_ready", {"order": item.order, "item": item})
 
 
 def send_payment_failed(order):

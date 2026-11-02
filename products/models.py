@@ -122,3 +122,32 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         return reverse("products:detail", args=[self.slug])
+
+
+class ProductOption(models.Model):
+    """One version of a product the customer can choose.
+
+    For example a portrait as "Digital file" or as "Printed A4, shipped".
+    The final price is the product price plus the option's extra price.
+    """
+
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="options")
+    name = models.CharField(max_length=80)
+    extra_price = models.DecimalField(
+        max_digits=6, decimal_places=2, default=0, validators=[MinValueValidator(0)],
+        help_text="Added to the product price. Use 0 for the basic version.",
+    )
+    is_printed = models.BooleanField(
+        default=False, help_text="Tick if this version is printed and posted (needs shipping)."
+    )
+    position = models.PositiveIntegerField(default=0, help_text="Lower numbers are shown first.")
+
+    class Meta:
+        ordering = ["position", "pk"]
+
+    def __str__(self):
+        return f"{self.product.name}: {self.name}"
+
+    @property
+    def price(self):
+        return self.product.price + self.extra_price

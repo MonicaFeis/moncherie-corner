@@ -4,7 +4,7 @@ from django.views.decorators.http import require_POST
 
 from products.models import Product
 
-from .cart import Cart
+from .cart import Cart, make_key
 
 
 def read_quantity(request, default=1):
@@ -16,7 +16,7 @@ def read_quantity(request, default=1):
 
 
 def cart_detail(request):
-    """Show the cart (US-07, US-08, US-09)."""
+    """Show the bag (US-07, US-08, US-09)."""
     cart = Cart(request)
     context = {"lines": cart.items(), "total": cart.total()}
     return render(request, "cart/cart_detail.html", context)
@@ -24,7 +24,7 @@ def cart_detail(request):
 
 @require_POST
 def add_to_cart(request, product_id):
-    """Add a product to the cart (US-07)."""
+    """Add a product, and the version the customer chose, to the bag (US-07)."""
     product = get_object_or_404(Product, pk=product_id, is_active=True)
     cart = Cart(request)
 
@@ -32,29 +32,38 @@ def add_to_cart(request, product_id):
         messages.error(request, f"售罄 Sorry, {product.name} is sold out.")
         return redirect(product.get_absolute_url())
 
-    already = request.session.get("cart", {}).get(str(product.pk), 0)
-    new_quantity = cart.add(product, read_quantity(request))
+    option = None
+    if product.options.exists():
+        option = product.options.filter(pk=request.POST.get("option") or 0).first()
+        if option is None:
+            messages.error(request, "請選擇 Please choose a version first.")
+            return redirect(product.get_absolute_url())
 
+    already = cart.data.get(make_key(product, option), 0)
+    new_quantity = cart.add(product, read_quantity(request), option)
+
+    name = f"{product.name} ({option.name})" if option else product.name
     if new_quantity == already:
-        messages.info(request, f"{product.name} 已經喺購物袋 is already in your bag.")
+        messages.info(request, f"{name} 已經喺購物袋 is already in your bag.")
     else:
-        messages.success(request, f"已加入購物袋 Added {product.name} to your bag.")
+        messages.success(request, f"已加入購物袋 Added {name} to your bag.")
     return redirect("cart:detail")
 
 
 @require_POST
-def update_cart(request, product_id):
+def update_cart(request, key):
     """Change the quantity of a printed item (US-08)."""
-    product = get_object_or_404(Product, pk=product_id)
-    Cart(request).update(product, read_quantity(request))
+    Cart(request).update(key, read_quantity(request))
     messages.success(request, "已更新購物袋 Your bag was updated.")
     return redirect("cart:detail")
 
 
 @require_POST
-def remove_from_cart(request, product_id):
-    """Take a product out of the cart (US-08)."""
-    product = get_object_or_404(Product, pk=product_id)
-    Cart(request).remove(product.pk)
-    messages.success(request, f"已移除 Removed {product.name} from your bag.")
+def remove_from_cart(request, key):
+    """Take a line out of the bag (US-08)."""
+    cart = Cart(request)
+    line = cart.get_line(key)
+    cart.remove(key)
+    if line:
+        messages.success(request, f"已移除 Removed {line['product'].name} from your bag.")
     return redirect("cart:detail")

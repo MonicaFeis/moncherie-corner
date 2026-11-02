@@ -13,7 +13,7 @@
     <ul class="list-unstyled mb-0">
       {% for item in order.items.all %}
         <li class="d-flex justify-content-between border-bottom py-2">
-          <span>{{ item.quantity }} × {{ item.product_name }}</span><span>€{{ item.line_total }}</span>
+          <span>{{ item.quantity }} × {{ item.display_name }}</span><span>€{{ item.line_total }}</span>
         </li>
       {% endfor %}
       {% if order.shipping_cost %}

@@ -16,7 +16,7 @@
     <ul class="list-unstyled mb-0">
       {% for item in order.items.all %}
         <li class="d-flex justify-content-between border-bottom py-2">
-          <span>{{ item.quantity }} × {{ item.product_name }} <span class="small">({{ item.product_type }})</span></span>
+          <span>{{ item.quantity }} × {{ item.display_name }} <span class="small">({{ item.product_type }})</span></span>
           <span>€{{ item.line_total }}</span>
         </li>
       {% endfor %}
@@ -38,6 +38,33 @@
     <p>{{ order.notes|linebreaksbr }}</p>
   {% endif %}
 
+  {% if portrait_rows %}
+    <h2 class="h5 fw-bold mt-4">肖像 Portraits to deliver</h2>
+    {% for row in portrait_rows %}
+      <div class="form-card mb-3">
+        <p class="fw-bold mb-2">{{ row.item.display_name }}</p>
+        {% if row.item.delivered_file %}
+          <p class="mb-2"><i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+            Delivered {{ row.item.delivered_at|date:"j M Y, H:i" }}. The customer can download it.</p>
+        {% endif %}
+        {% if order.is_paid %}
+          <form method="post" enctype="multipart/form-data" novalidate>
+            {% csrf_token %}
+            <input type="hidden" name="action" value="deliver">
+            <input type="hidden" name="item_id" value="{{ row.item.pk }}">
+            {{ row.form.as_div }}
+            <button type="submit" class="btn btn-shop mt-3">
+              <i class="fa-solid fa-upload" aria-hidden="true"></i>
+              {% if row.item.delivered_file %}Replace the file{% else %}Upload and email the customer{% endif %}
+            </button>
+          </form>
+        {% else %}
+          <p class="small mb-0">This order is not paid yet.</p>
+        {% endif %}
+      </div>
+    {% endfor %}
+  {% endif %}
+
   {% if order.can_be_shipped %}
     <form method="post" class="form-card" novalidate>
       {% csrf_token %}
@@ -49,7 +76,7 @@
     </form>
   {% elif order.status == "shipped" %}
     <p class="delivery-note"><i class="fa-solid fa-truck" aria-hidden="true"></i> Shipped. Tracking number: {{ order.tracking_number }}</p>
-  {% elif not order.has_printed_items %}
+  {% elif not order.has_printed_items and not portrait_rows %}
     <p>Digital order: nothing to ship. The customer downloads the files from My downloads.</p>
   {% endif %}
 </section>

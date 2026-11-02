@@ -1,0 +1,13 @@
+{{ order.user.username }}，你好！
+Hi {{ order.user.username }},
+
+你嘅肖像畫好喇！
+Your portrait is ready: {{ item.display_name }}
+
+喺「我的下載」下載 Download it from My downloads:
+{{ site_url }}{% url 'checkout:my_downloads' %}
+{% if item.needs_shipping %}
+The printed version will be posted to you soon.{% endif %}
+
+轉角見！ See you at the corner!
+moncherie corner
