@@ -133,7 +133,7 @@ MESSAGE_TAGS = {messages.ERROR: "danger"}
 
 # Emails
 # The web address used for links inside emails
-SITE_URL = os.environ.get("SITE_URL", "http://127.0.0.1:8000")
+SITE_URL = os.environ.get("SITE_URL", "http://127.0.0.1:8000").rstrip("/")
 DEFAULT_FROM_EMAIL = os.environ.get(
     "DEFAULT_FROM_EMAIL", "moncherie corner <noreply@example.com>"
 )
