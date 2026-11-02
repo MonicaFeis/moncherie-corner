@@ -48,7 +48,7 @@ class PortraitBriefTests(CheckoutTestCase):
         self.add_portrait(people=3)
         response = self.client.get(reverse("cart:detail"))
         self.assertEqual(response.context["total"], Decimal("50.00"))
-        self.assertContains(response, "3 people")
+        self.assertContains(response, "3 people/pets")
 
     def test_people_cannot_go_above_the_maximum(self):
         self.add_portrait(people=99)
@@ -57,7 +57,7 @@ class PortraitBriefTests(CheckoutTestCase):
 
     def test_product_page_shows_people_choice(self):
         response = self.client.get(self.portrait.get_absolute_url())
-        self.assertContains(response, "How many people")
+        self.assertContains(response, "How many people or pets")
 
     def test_portrait_checkout_needs_a_photo(self):
         self.add_portrait()
@@ -73,7 +73,7 @@ class PortraitBriefTests(CheckoutTestCase):
         item = order.items.get()
         self.assertEqual(item.people, 2)
         self.assertEqual(item.price, Decimal("40.00"))
-        self.assertIn("2 people", item.display_name)
+        self.assertIn("2 people/pets", item.display_name)
 
     def test_a_file_that_is_not_a_picture_is_refused(self):
         self.add_portrait()
