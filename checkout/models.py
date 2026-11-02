@@ -111,7 +111,7 @@ class OrderItem(models.Model):
         """Name with the chosen version, for example "Portrait (Digital file)"."""
         extras = [self.option_name] if self.option_name else []
         if self.people > 1:
-            extras.append(f"{self.people} people")
+            extras.append(f"{self.people} people/pets")
         return f"{self.product_name} ({', '.join(extras)})" if extras else self.product_name
 
     @property

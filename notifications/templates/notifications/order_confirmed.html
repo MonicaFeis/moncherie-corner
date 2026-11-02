@@ -22,7 +22,7 @@
             <td width="56" valign="top" style="padding:10px 10px 10px 0;border-bottom:1px solid #D9C9A3;">{% if line.picture %}<img src="{{ line.picture }}" alt="" width="48" height="60" style="display:block;border:2px solid #14504F;border-radius:6px;object-fit:cover;">{% endif %}</td>
             <td valign="top" style="padding:10px 0;border-bottom:1px solid #D9C9A3;">
               <strong>{{ line.item.product_name }}</strong>
-              {% if line.item.option_name or line.item.people > 1 %}<br><span style="font-size:13px;">{{ line.item.option_name }}{% if line.item.option_name and line.item.people > 1 %}, {% endif %}{% if line.item.people > 1 %}{{ line.item.people }} people{% endif %}</span>{% endif %}
+              {% if line.item.option_name or line.item.people > 1 %}<br><span style="font-size:13px;">{{ line.item.option_name }}{% if line.item.option_name and line.item.people > 1 %}, {% endif %}{% if line.item.people > 1 %}{{ line.item.people }} people/pets{% endif %}</span>{% endif %}
               {% if line.item.quantity > 1 %}<br><span style="font-size:13px;">Quantity: {{ line.item.quantity }}</span>{% endif %}
             </td>
             <td align="right" valign="top" style="padding:10px 0 10px 8px;border-bottom:1px solid #D9C9A3;white-space:nowrap;">€{{ line.item.line_total }}</td>
@@ -39,6 +39,7 @@
           <td align="right" style="padding:12px 0 12px 8px;border-top:2px solid #14504F;font-weight:bold;color:#B02F22;white-space:nowrap;">€{{ order.total }}</td>
         </tr>
       </table>
+      {% if order.portrait_items %}<p style="margin-top:20px;">我會開始畫你嘅肖像。 I'll start drawing your portrait and email you when it's ready, usually within 7 days.</p>{% endif %}
       <p style="margin-top:24px;"><a href="{{ site_url }}{% url 'checkout:my_downloads' %}" style="display:inline-block;background:#B02F22;color:#F3E7CB;padding:12px 22px;border-radius:999px;text-decoration:none;font-weight:bold;">我的下載 My downloads</a></p>
       <p>轉角見！ See you at the corner!</p>
     </td></tr>

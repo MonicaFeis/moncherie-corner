@@ -112,6 +112,19 @@ def checkout(request):
     return render(request, "checkout/checkout.html", context)
 
 
+def stripe_message(order):
+    """The short thank-you text on the Stripe page, to match what was bought."""
+    types = {item.product_type for item in order.items.all()}
+    parts = ["多謝惠顧！ Thank you for shopping at moncherie corner."]
+    if "digital" in types:
+        parts.append("Your files appear in My downloads right after payment.")
+    if "portrait" in types:
+        parts.append("I'll start drawing your portrait and email you when it's ready, usually within 7 days.")
+    if order.has_printed_items:
+        parts.append("Printed items are posted to you.")
+    return " ".join(parts)
+
+
 def redirect_to_stripe(request, order, needs_shipping):
     """Create a Stripe Checkout page for this order and send the customer there."""
     stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -130,8 +143,7 @@ def redirect_to_stripe(request, order, needs_shipping):
         "cancel_url": cancel_url,
         "custom_text": {
             "submit": {
-                "message": "多謝惠顧！ Thank you for shopping at moncherie corner. "
-                "Your files appear in My downloads right after payment."
+                "message": stripe_message(order)
             }
         },
     }

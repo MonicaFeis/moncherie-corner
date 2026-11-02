@@ -62,7 +62,7 @@
                              data-printed="{{ option.is_printed|yesno:'true,false' }}" {% if forloop.first %}checked{% endif %} required>
                       <label for="option-{{ option.pk }}">
                         <span class="fw-bold">{{ option.name }}</span> · €{{ option.price }}
-                        <span class="small d-block">{% if option.is_printed %}Printed and posted to you{% else %}Sent as a file to My downloads{% endif %}</span>
+                        <span class="small d-block">{% if option.is_printed %}Printed and posted to you{% elif product.product_type == 'portrait' %}Sent to My downloads when it's ready{% else %}Sent as a file to My downloads{% endif %}</span>
                       </label>
                     </div>
                   {% endfor %}
@@ -71,13 +71,13 @@
             {% endwith %}
             {% if product.max_people > 1 %}
               <div class="w-100 mb-2">
-                <label for="people" class="form-label fw-bold">人數 How many people</label>
+                <label for="people" class="form-label fw-bold">人數 How many people or pets</label>
                 <select name="people" id="people" class="form-select people-select" data-extra="{{ product.extra_person_price }}">
                   {% for number in product.people_choices %}
-                    <option value="{{ number }}">{{ number }} {% if number == 1 %}person{% else %}people{% endif %}</option>
+                    <option value="{{ number }}">{{ number }}</option>
                   {% endfor %}
                 </select>
-                {% if product.extra_person_price %}<div class="form-text">+€{{ product.extra_person_price }} for each extra person.</div>{% endif %}
+                {% if product.extra_person_price %}<div class="form-text">+€{{ product.extra_person_price }} for each extra person or pet. 寵物都計一位。</div>{% endif %}
               </div>
             {% endif %}
             <button type="submit" class="btn btn-shop">

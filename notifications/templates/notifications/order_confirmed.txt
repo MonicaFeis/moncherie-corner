@@ -9,7 +9,9 @@ Thank you! Your order #{{ order.pk }} is paid.
 {% endif %}
 總數 Total: €{{ order.total }}
 
-下載你嘅檔案 Download your files: {{ site_url }}{% url 'checkout:my_downloads' %}
+{% if order.portrait_items %}我會開始畫你嘅肖像。 I'll start drawing your portrait and email you when it's ready, usually within 7 days.
+
+{% endif %}下載你嘅檔案 Download your files: {{ site_url }}{% url 'checkout:my_downloads' %}
 睇訂單 See your order: {{ site_url }}{{ order.get_absolute_url }}
 
 轉角見！ See you at the corner!

@@ -51,7 +51,7 @@ def add_to_cart(request, product_id):
 
     name = f"{product.name} ({option.name})" if option else product.name
     if people > 1:
-        name += f", {people} people"
+        name += f", {people} people/pets"
     if new_quantity == already:
         messages.info(request, f"{name} 已經喺購物袋 is already in your bag.")
     else:

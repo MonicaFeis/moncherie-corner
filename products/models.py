@@ -87,11 +87,11 @@ class Product(models.Model):
     )
     max_people = models.PositiveSmallIntegerField(
         default=1,
-        help_text="Portraits: the most people a customer can choose. 1 means no choice.",
+        help_text="Portraits: the most people or pets a customer can choose. 1 means no choice.",
     )
     extra_person_price = models.DecimalField(
         max_digits=6, decimal_places=2, default=0, validators=[MinValueValidator(0)],
-        help_text="Portraits: added for each person after the first.",
+        help_text="Portraits: added for each person or pet after the first.",
     )
     is_active = models.BooleanField(
         default=True, help_text="Untick to hide the product from the shop."
