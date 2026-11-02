@@ -32,3 +32,15 @@ class WelcomeEmailTests(TestCase):
         with patch("notifications.emails.EmailMultiAlternatives.send", side_effect=OSError):
             sent = send_welcome_email(self.user)
         self.assertFalse(sent)
+
+
+class EmailLogoTests(TestCase):
+    """Every HTML email shows the shop logo at the top."""
+
+    def test_welcome_email_shows_the_logo(self):
+        user = User.objects.create_user("rosa", "rosa@example.com", "pass-12345!")
+        mail.outbox = []
+        send_welcome_email(user)
+        html = mail.outbox[0].alternatives[0][0]
+        self.assertIn("images/logo-cream.png", html)
+        self.assertIn('alt="moncherie corner logo"', html)
