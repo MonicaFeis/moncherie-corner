@@ -23,8 +23,19 @@
           {% for line in lines %}
             <tr class="cart-row" data-price="{{ line.product.price }}">
               <td>
-                <a href="{{ line.product.get_absolute_url }}" class="fw-bold">{{ line.product.name }}</a>
-                <div class="small">{{ line.product.get_product_type_display }}</div>
+                <div class="d-flex align-items-center gap-3">
+                  <a href="{{ line.product.get_absolute_url }}" class="cart-thumb" tabindex="-1" aria-hidden="true">
+                    {% if line.product.image %}
+                      <img src="{{ line.product.image.url }}" alt="" loading="lazy">
+                    {% else %}
+                      <span class="cart-thumb-empty"></span>
+                    {% endif %}
+                  </a>
+                  <div>
+                    <a href="{{ line.product.get_absolute_url }}" class="fw-bold">{{ line.product.name }}</a>
+                    <div class="small">{{ line.product.get_product_type_display }}</div>
+                  </div>
+                </div>
               </td>
               <td>€{{ line.product.price }}</td>
               <td>

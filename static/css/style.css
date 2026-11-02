@@ -421,3 +421,17 @@ textarea:focus-visible {
   transition: transform 0.2s;
 }
 .product-card:hover .product-card-image img { transform: scale(1.03) rotate(-1deg); }
+
+/* Small picture of each item in the bag */
+.cart-thumb {
+  flex: none;
+  display: block;
+  width: 72px;
+  height: 90px;
+  border: 2px solid var(--teal);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--cream-light);
+}
+.cart-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.cart-thumb-empty { display: block; width: 100%; height: 100%; background: var(--placeholder); }
