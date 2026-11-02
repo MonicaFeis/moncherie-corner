@@ -96,6 +96,7 @@ class PortraitDeliveryTests(CheckoutTestCase):
     def test_paid_portrait_shows_as_being_drawn(self):
         response = self.client.get(reverse("checkout:my_downloads"))
         self.assertContains(response, "Being drawn")
+        self.assertContains(response, "images/being-drawn.png")
 
     def test_owner_upload_saves_file_and_emails_customer(self):
         self.deliver()

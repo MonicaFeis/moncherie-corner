@@ -43,8 +43,8 @@
       {% for item in waiting_portraits %}
         <div class="col-md-6 col-lg-4">
           <div class="form-card h-100 d-flex flex-column">
-            <div class="download-thumb mb-3" aria-hidden="true">
-              {% if item.product.image %}<img src="{{ item.product.image.url }}" alt="" loading="lazy">{% else %}<span class="cart-thumb-empty"></span>{% endif %}
+            <div class="download-thumb mb-3">
+              <img src="{% static 'images/being-drawn.png' %}" alt="Drawing in progress: 畫緊" loading="lazy">
             </div>
             <h2 class="h5 fw-bold">{{ item.display_name }}</h2>
             <p class="small mb-0"><i class="fa-solid fa-pen-nib" aria-hidden="true"></i>
