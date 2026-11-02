@@ -95,6 +95,7 @@ class OrderItem(models.Model):
     price = models.DecimalField(max_digits=8, decimal_places=2)
     quantity = models.PositiveIntegerField(default=1)
     option_name = models.CharField(max_length=80, blank=True)
+    people = models.PositiveSmallIntegerField(default=1)
     is_printed = models.BooleanField(default=False, help_text="This line is printed and posted.")
     delivered_file = models.FileField(
         upload_to="portraits/", blank=True, storage=download_storage,
@@ -108,7 +109,10 @@ class OrderItem(models.Model):
     @property
     def display_name(self):
         """Name with the chosen version, for example "Portrait (Digital file)"."""
-        return f"{self.product_name} ({self.option_name})" if self.option_name else self.product_name
+        extras = [self.option_name] if self.option_name else []
+        if self.people > 1:
+            extras.append(f"{self.people} people")
+        return f"{self.product_name} ({', '.join(extras)})" if extras else self.product_name
 
     @property
     def line_total(self):
@@ -121,3 +125,14 @@ class OrderItem(models.Model):
     @property
     def is_portrait(self):
         return self.product_type == "portrait"
+
+
+class ReferencePhoto(models.Model):
+    """A photo the customer sends so the portrait looks like them (US-23)."""
+
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name="reference_photos")
+    image = models.ImageField(upload_to="references/")
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Photo for order #{self.order_id}"

@@ -467,3 +467,12 @@ textarea:focus-visible {
 }
 .option-choice input:checked + label { background: var(--teal); color: var(--cream-text); box-shadow: 3px 3px 0 var(--gold); }
 .option-choice input:focus-visible + label { outline: 3px solid var(--red); outline-offset: 2px; }
+
+/* Customer's reference photos on the order pages */
+.reference-photo img {
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+  border: 2px solid var(--teal);
+  border-radius: 8px;
+}

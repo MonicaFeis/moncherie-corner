@@ -5,7 +5,8 @@ for each browser), so it works before logging in too.
 Only product ids, chosen options and quantities are saved. Prices are ALWAYS
 read from the database, so nobody can change a price in their browser.
 
-Each line has a key: "3" for product 3, or "3:7" for product 3 with option 7.
+Each line has a key: "3" for product 3, "3:7" for product 3 with option 7,
+and "3:7:p2" when the customer chose a portrait with 2 people.
 """
 from decimal import Decimal
 
@@ -14,15 +15,26 @@ from products.models import Product, ProductOption
 CART_SESSION_KEY = "cart"
 
 
-def make_key(product, option=None):
+def make_key(product, option=None, people=1):
     """The key for one line in the cart."""
-    return f"{product.pk}:{option.pk}" if option else str(product.pk)
+    key = str(product.pk)
+    if option:
+        key += f":{option.pk}"
+    if people > 1:
+        key += f":p{people}"
+    return key
 
 
 def split_key(key):
-    """Turn "3:7" into (3, 7) and "3" into (3, None)."""
-    product_id, _, option_id = str(key).partition(":")
-    return int(product_id), (int(option_id) if option_id else None)
+    """Turn "3:7:p2" into (3, 7, 2) and "3" into (3, None, 1)."""
+    first, *rest = str(key).split(":")
+    option_id, people = None, 1
+    for part in rest:
+        if part.startswith("p"):
+            people = int(part[1:])
+        else:
+            option_id = int(part)
+    return int(first), option_id, people
 
 
 class Cart:
@@ -45,15 +57,19 @@ class Cart:
             return product.stock
         return 1
 
-    def add(self, product, quantity=1, option=None):
+    def add(self, product, quantity=1, option=None, people=1):
         """Add a product (and its chosen option). Returns the quantity now in the cart."""
-        key = make_key(product, option)
+        key = make_key(product, option, self.clean_people(product, people))
         current = self.data.get(key, 0)
         new_quantity = min(current + quantity, self.max_quantity(product))
         if new_quantity > 0:
             self.data[key] = new_quantity
             self.save()
         return new_quantity
+
+    def clean_people(self, product, people):
+        """Keep the number of people between 1 and the product's maximum."""
+        return max(1, min(people, product.max_people))
 
     def get_line(self, key):
         """One line of the cart, or None."""
@@ -92,14 +108,14 @@ class Cart:
             except ValueError:
                 continue
         products = Product.objects.in_bulk(
-            [product_id for _, product_id, _ in keys]
+            [product_id for _, product_id, _, _ in keys]
         )
         options = ProductOption.objects.in_bulk(
-            [option_id for _, _, option_id in keys if option_id]
+            [option_id for _, _, option_id, _ in keys if option_id]
         )
 
         lines = []
-        for key, product_id, option_id in keys:
+        for key, product_id, option_id, people in keys:
             product = products.get(product_id)
             if product is None or not product.is_active:
                 continue
@@ -109,11 +125,14 @@ class Cart:
                 if option is None or option.product_id != product.pk:
                     continue
             quantity = self.data[key]
+            people = self.clean_people(product, people)
             unit_price = product.price + (option.extra_price if option else Decimal("0.00"))
+            unit_price += product.extra_person_price * (people - 1)
             lines.append({
                 "key": key,
                 "product": product,
                 "option": option,
+                "people": people,
                 "quantity": quantity,
                 "max_quantity": self.max_quantity(product),
                 "unit_price": unit_price,

@@ -64,6 +64,13 @@ def mark_order_paid(order_id, session=None):
     return True
 
 
+def delete_reference_photos(order):
+    """Photos of people are private. If the order was never paid, remove them."""
+    for photo in order.reference_photos.all():
+        photo.image.delete(save=False)
+        photo.delete()
+
+
 def mark_order_failed(order_id, status=Order.CANCELLED):
     """Mark a waiting order as cancelled or expired and tell the customer."""
     with transaction.atomic():
@@ -73,5 +80,6 @@ def mark_order_failed(order_id, status=Order.CANCELLED):
         order.status = status
         order.save()
 
+    delete_reference_photos(order)
     send_payment_failed(order)
     return True

@@ -39,10 +39,19 @@ def add_to_cart(request, product_id):
             messages.error(request, "請選擇 Please choose a version first.")
             return redirect(product.get_absolute_url())
 
-    already = cart.data.get(make_key(product, option), 0)
-    new_quantity = cart.add(product, read_quantity(request), option)
+    people = 1
+    if product.max_people > 1:
+        try:
+            people = cart.clean_people(product, int(request.POST.get("people", 1)))
+        except (TypeError, ValueError):
+            people = 1
+
+    already = cart.data.get(make_key(product, option, people), 0)
+    new_quantity = cart.add(product, read_quantity(request), option, people)
 
     name = f"{product.name} ({option.name})" if option else product.name
+    if people > 1:
+        name += f", {people} people"
     if new_quantity == already:
         messages.info(request, f"{name} 已經喺購物袋 is already in your bag.")
     else:

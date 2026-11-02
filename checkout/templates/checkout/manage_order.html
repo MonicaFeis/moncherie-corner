@@ -37,6 +37,16 @@
     <h2 class="h5 fw-bold">Portrait notes</h2>
     <p>{{ order.notes|linebreaksbr }}</p>
   {% endif %}
+  {% if order.reference_photos.all %}
+    <h2 class="h5 fw-bold mt-4">相片 Reference photos</h2>
+    <div class="d-flex flex-wrap gap-3 mb-3">
+      {% for photo in order.reference_photos.all %}
+        <a href="{{ photo.image.url }}" target="_blank" rel="noopener" class="reference-photo">
+          <img src="{{ photo.image.url }}" alt="Reference photo {{ forloop.counter }} for order #{{ order.pk }}" loading="lazy">
+        </a>
+      {% endfor %}
+    </div>
+  {% endif %}
 
   {% if portrait_rows %}
     <h2 class="h5 fw-bold mt-4">肖像 Portraits to deliver</h2>

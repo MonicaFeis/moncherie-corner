@@ -74,7 +74,10 @@ def create_order(user, lines, form):
             is_printed=line["needs_shipping"],
             price=line["unit_price"],
             quantity=line["quantity"],
+            people=line["people"],
         )
+    for photo in form.cleaned_data.get("reference_photos", []):
+        order.reference_photos.create(image=photo)
     return order
 
 
@@ -97,7 +100,7 @@ def checkout(request):
     form_options = {"needs_shipping": needs_shipping, "needs_notes": needs_notes}
 
     if request.method == "POST":
-        form = CheckoutForm(request.POST, **form_options)
+        form = CheckoutForm(request.POST, request.FILES, **form_options)
         if form.is_valid():
             order = create_order(request.user, lines, form)
             return redirect_to_stripe(request, order, needs_shipping)

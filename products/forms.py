@@ -26,9 +26,23 @@ class ProductForm(forms.ModelForm):
             "image",
             "download_file",
             "stock",
+            "max_people",
+            "extra_person_price",
             "is_active",
         ]
         widgets = {"description": forms.Textarea(attrs={"rows": 4})}
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Only portraits use these, so they can be left empty
+        self.fields["max_people"].required = False
+        self.fields["extra_person_price"].required = False
+
+    def clean_max_people(self):
+        return self.cleaned_data.get("max_people") or 1
+
+    def clean_extra_person_price(self):
+        return self.cleaned_data.get("extra_person_price") or 0
 
     def clean_image(self):
         """Stop very big images, so pages stay fast."""

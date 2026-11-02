@@ -24,7 +24,7 @@
         <span class="badge-gold">{{ product.category.name }}</span>
         <h1 class="page-title mt-2">{{ product.name }}</h1>
         {% with first_option=product.options.first %}
-        <p class="product-price fs-3" id="product-price" aria-live="polite">€{% if first_option %}{{ first_option.price }}{% else %}{{ product.price }}{% endif %}</p>
+        <p class="product-price fs-3" id="product-price" aria-live="polite" data-base="{% if first_option %}{{ first_option.price }}{% else %}{{ product.price }}{% endif %}">€{% if first_option %}{{ first_option.price }}{% else %}{{ product.price }}{% endif %}</p>
         {% endwith %}
         <p class="delivery-note">
           {% if product.product_type == "digital" %}Instant download after payment.
@@ -69,6 +69,17 @@
                 </fieldset>
               {% endif %}
             {% endwith %}
+            {% if product.max_people > 1 %}
+              <div class="w-100 mb-2">
+                <label for="people" class="form-label fw-bold">人數 How many people</label>
+                <select name="people" id="people" class="form-select people-select" data-extra="{{ product.extra_person_price }}">
+                  {% for number in product.people_choices %}
+                    <option value="{{ number }}">{{ number }} {% if number == 1 %}person{% else %}people{% endif %}</option>
+                  {% endfor %}
+                </select>
+                {% if product.extra_person_price %}<div class="form-text">+€{{ product.extra_person_price }} for each extra person.</div>{% endif %}
+              </div>
+            {% endif %}
             <button type="submit" class="btn btn-shop">
               <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i> 加入購物袋 Add to bag
             </button>

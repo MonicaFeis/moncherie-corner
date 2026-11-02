@@ -12,7 +12,7 @@
         <ul class="list-unstyled mb-3">
           {% for line in lines %}
             <li class="d-flex justify-content-between border-bottom py-2">
-              <span>{{ line.quantity }} × {{ line.product.name }}{% if line.option %} ({{ line.option.name }}){% endif %}</span>
+              <span>{{ line.quantity }} × {{ line.product.name }}{% if line.option %} ({{ line.option.name }}){% endif %}{% if line.people > 1 %}, {{ line.people }} people{% endif %}</span>
               <span>€{{ line.line_total }}</span>
             </li>
           {% endfor %}
@@ -24,7 +24,7 @@
       </div>
     </div>
     <div class="col-lg-5">
-      <form method="post" class="form-card" novalidate>
+      <form method="post" class="form-card" enctype="multipart/form-data" novalidate>
         {% csrf_token %}
         {% if form.fields %}
           {{ form.as_div }}

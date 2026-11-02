@@ -21,6 +21,38 @@ class ShipOrderForm(forms.Form):
 
 
 MAX_PORTRAIT_SIZE_MB = 20
+MAX_PHOTOS = 5
+MAX_PHOTO_SIZE_MB = 10
+
+
+class MultiplePhotoInput(forms.ClearableFileInput):
+    """A file box where the customer can pick more than one photo."""
+
+    allow_multiple_selected = True
+
+
+class MultiplePhotoField(forms.ImageField):
+    """Checks every photo: it must be a real picture and not too big."""
+
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault("widget", MultiplePhotoInput(attrs={"accept": "image/*"}))
+        super().__init__(*args, **kwargs)
+
+    def clean(self, data, initial=None):
+        files = data if isinstance(data, (list, tuple)) else [data]
+        files = [file for file in files if file]
+        if not files:
+            if self.required:
+                raise forms.ValidationError("Please add at least one photo.")
+            return []
+        if len(files) > MAX_PHOTOS:
+            raise forms.ValidationError(f"Please send {MAX_PHOTOS} photos or fewer.")
+        cleaned = []
+        for file in files:
+            if file.size > MAX_PHOTO_SIZE_MB * 1024 * 1024:
+                raise forms.ValidationError(f"Each photo must be smaller than {MAX_PHOTO_SIZE_MB} MB.")
+            cleaned.append(super().clean(file, initial))
+        return cleaned
 
 
 class DeliverPortraitForm(forms.Form):
@@ -55,6 +87,10 @@ class CheckoutForm(forms.Form):
         label="Notes for your portrait 肖像備註",
         help_text="Who is in it, the mood, colours, anything you would like.",
     )
+    reference_photos = MultiplePhotoField(
+        label="Photos 相片",
+        help_text=f"1 to {MAX_PHOTOS} clear photos of everyone (and every pet) in the portrait.",
+    )
 
     def __init__(self, *args, needs_shipping=False, needs_notes=False, **kwargs):
         super().__init__(*args, **kwargs)
@@ -64,6 +100,7 @@ class CheckoutForm(forms.Form):
             del self.fields["shipping_method"]
         if not needs_notes:
             del self.fields["notes"]
+            del self.fields["reference_photos"]
 
     def clean(self):
         cleaned = super().clean()

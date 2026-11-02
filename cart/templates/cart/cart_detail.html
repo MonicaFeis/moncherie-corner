@@ -33,7 +33,7 @@
                   </a>
                   <div>
                     <a href="{{ line.product.get_absolute_url }}" class="fw-bold">{{ line.product.name }}</a>
-                    <div class="small">{% if line.option %}{{ line.option.name }}{% else %}{{ line.product.get_product_type_display }}{% endif %}</div>
+                    <div class="small">{% if line.option %}{{ line.option.name }}{% else %}{{ line.product.get_product_type_display }}{% endif %}{% if line.people > 1 %} · {{ line.people }} people{% endif %}</div>
                   </div>
                 </div>
               </td>

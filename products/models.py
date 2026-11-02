@@ -85,6 +85,14 @@ class Product(models.Model):
     stock = models.PositiveIntegerField(
         default=0, help_text="Only used for printed items."
     )
+    max_people = models.PositiveSmallIntegerField(
+        default=1,
+        help_text="Portraits: the most people a customer can choose. 1 means no choice.",
+    )
+    extra_person_price = models.DecimalField(
+        max_digits=6, decimal_places=2, default=0, validators=[MinValueValidator(0)],
+        help_text="Portraits: added for each person after the first.",
+    )
     is_active = models.BooleanField(
         default=True, help_text="Untick to hide the product from the shop."
     )
@@ -119,6 +127,11 @@ class Product(models.Model):
     def is_sold_out(self):
         """Only printed items can sell out. Digital files never run out."""
         return self.product_type == self.PRINTED and self.stock == 0
+
+    @property
+    def people_choices(self):
+        """[1, 2, 3, ...] for the "How many people" menu."""
+        return list(range(1, self.max_people + 1))
 
     def get_absolute_url(self):
         return reverse("products:detail", args=[self.slug])
