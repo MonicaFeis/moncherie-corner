@@ -12,7 +12,7 @@
     <p>Order #{{ order.pk }} is paid. We've sent a confirmation to {{ order.user.email }}.</p>
     {% if order.portrait_items %}<p><i class="fa-solid fa-pen-nib" aria-hidden="true"></i> 我會開始畫你嘅肖像。 I'll start drawing your portrait and email you when it's ready, usually within 7 days.</p>{% endif %}
     <div class="d-flex flex-wrap justify-content-center gap-3 mt-3">
-      {% if order.has_digital_items %}<a href="{% url 'checkout:my_downloads' %}" class="btn btn-shop"><i class="fa-solid fa-download" aria-hidden="true"></i> 我的下載 My downloads</a>{% endif %}
+      {% if order.has_digital_items %}<a href="{% url 'checkout:my_downloads' %}?order={{ order.pk }}" class="btn btn-shop"><i class="fa-solid fa-download" aria-hidden="true"></i> 我的下載 My downloads</a>{% endif %}
       <a href="{{ order.get_absolute_url }}" class="btn btn-shop-outline">Order details</a>
       <a href="{% url 'products:list' %}" class="btn btn-shop-outline"><i class="fa-solid fa-store" aria-hidden="true"></i> 繼續購物 Keep shopping</a>
     </div>

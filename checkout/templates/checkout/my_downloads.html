@@ -6,6 +6,9 @@
 {% block content %}
 <section class="container pt-4">
   <h1 class="page-title">我的下載 My downloads</h1>
+  {% if order_id %}
+    <p>Order #{{ order_id }} · <a href="{% url 'checkout:my_downloads' %}">See all my downloads</a></p>
+  {% endif %}
   {% if items or ready_portraits or waiting_portraits %}
     <div class="row g-4">
       {% for item in items %}
@@ -44,15 +47,12 @@
         <div class="col-md-6 col-lg-4">
           <div class="form-card h-100 d-flex flex-column">
             <div class="download-thumb mb-3">
-              {% if item.product.image %}
-                <img src="{{ item.product.image.url }}" alt="Example of a custom portrait" loading="lazy">
-              {% else %}
-                <img src="{% static 'images/being-drawn.png' %}" alt="Drawing in progress: 畫緊" loading="lazy">
-              {% endif %}
+              <img src="{% static 'images/being-drawn.png' %}" alt="Drawing in progress: 畫緊" loading="lazy">
             </div>
             <h2 class="h5 fw-bold">{{ item.display_name }}</h2>
             <p class="small mb-0"><i class="fa-solid fa-pen-nib" aria-hidden="true"></i>
-              畫緊 Being drawn for order #{{ item.order.pk }}. You'll get an email when it's ready.</p>
+              畫緊 Being drawn. You'll get an email when it's ready.</p>
+            <p class="small fw-bold mt-2 mb-0">Order #{{ item.order.pk }}</p>
           </div>
         </div>
       {% endfor %}

@@ -268,12 +268,27 @@ def paid_portraits(user):
 
 @login_required
 def my_downloads(request):
-    """List of files the customer can download (US-15, US-24)."""
-    portraits = paid_portraits(request.user)
+    """List of files the customer can download (US-15, US-24).
+
+    "?order=75" shows only what was bought in order 75 (used after paying).
+    Without it, the page shows everything the customer ever bought.
+    """
+    items = paid_digital_items(request.user)
+    portraits = list(paid_portraits(request.user))
+
+    order_id = request.GET.get("order", "")
+    if order_id.isdigit():
+        order_id = int(order_id)
+        items = [item for item in items if item.order_id == order_id]
+        portraits = [item for item in portraits if item.order_id == order_id]
+    else:
+        order_id = None
+
     context = {
-        "items": paid_digital_items(request.user),
+        "items": items,
         "ready_portraits": [item for item in portraits if item.delivered_file],
         "waiting_portraits": [item for item in portraits if not item.delivered_file],
+        "order_id": order_id,
     }
     return render(request, "checkout/my_downloads.html", context)
 
