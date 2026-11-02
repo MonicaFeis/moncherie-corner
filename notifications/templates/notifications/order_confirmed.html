@@ -13,8 +13,11 @@
       <p>{{ order.user.username }}，你好！<br>Hi {{ order.user.username }},</p>
       <p><strong>多謝惠顧！</strong> Your order #{{ order.pk }} is paid.</p>
       <table role="presentation" width="100%" cellpadding="6" cellspacing="0" style="border-top:2px solid #14504F;">
-        {% for item in order.items.all %}
-          <tr><td>{{ item.quantity }} × {{ item.product_name }}</td><td align="right">€{{ item.line_total }}</td></tr>
+        {% for line in lines %}
+          <tr>
+            <td>{% if line.picture %}<img src="{{ line.picture }}" alt="" width="48" height="60" style="display:inline-block;vertical-align:middle;margin-right:12px;border:2px solid #14504F;border-radius:6px;object-fit:cover;">{% endif %}{{ line.item.quantity }} × {{ line.item.product_name }}</td>
+            <td align="right">€{{ line.item.line_total }}</td>
+          </tr>
         {% endfor %}
         {% if order.shipping_cost %}
           <tr><td>Shipping ({{ order.shipping_method.name }})</td><td align="right">€{{ order.shipping_cost }}</td></tr>

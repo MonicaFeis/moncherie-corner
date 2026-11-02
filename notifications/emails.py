@@ -45,9 +45,26 @@ def send_welcome_email(user):
     return send_email(user.email, "welcome", {"user": user})
 
 
+def absolute_url(url):
+    """Emails need full web addresses. Cloudinary already gives one."""
+    return url if url.startswith("http") else settings.SITE_URL + url
+
+
+def order_lines_with_pictures(order):
+    """Each item in the order, with a full address for its picture (or empty)."""
+    lines = []
+    for item in order.items.select_related("product"):
+        picture = ""
+        if item.product and item.product.image:
+            picture = absolute_url(item.product.image.url)
+        lines.append({"item": item, "picture": picture})
+    return lines
+
+
 def send_order_confirmation(order):
     """Send the receipt and download link after payment (US-30)."""
-    return send_email(order.user.email, "order_confirmed", {"order": order})
+    context = {"order": order, "lines": order_lines_with_pictures(order)}
+    return send_email(order.user.email, "order_confirmed", context)
 
 
 def send_order_shipped(order):
