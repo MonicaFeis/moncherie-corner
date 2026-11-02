@@ -11,6 +11,13 @@
       {% for item in items %}
         <div class="col-md-6 col-lg-4">
           <div class="form-card h-100 d-flex flex-column">
+            <div class="download-thumb mb-3" aria-hidden="true">
+              {% if item.product.image %}
+                <img src="{{ item.product.image.url }}" alt="" loading="lazy">
+              {% else %}
+                <span class="cart-thumb-empty"></span>
+              {% endif %}
+            </div>
             <h2 class="h5 fw-bold">{{ item.product_name }}</h2>
             <p class="small">Bought in order #{{ item.order.pk }}</p>
             <a href="{% url 'checkout:download' item.product_id %}" class="btn btn-shop mt-auto">
