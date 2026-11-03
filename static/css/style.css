@@ -580,3 +580,6 @@ textarea:focus-visible {
 
 /* A small icon in front of the review question */
 .review-prompt .fa-solid { color: var(--red); margin-right: 0.25rem; }
+
+/* The milk tea emoji on success messages */
+.alert-emoji { font-size: 1.7rem; line-height: 1; }
