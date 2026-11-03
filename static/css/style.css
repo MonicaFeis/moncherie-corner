@@ -535,3 +535,13 @@ textarea:focus-visible {
 .example-thumb.is-active img { border: 3px solid var(--red); }
 .example-thumb:focus-visible { outline: 3px solid var(--red); outline-offset: 2px; }
 .example-caption { display: block; margin-top: 0.25rem; }
+
+/* Reviews on the product page */
+.reviews { max-width: 48rem; }
+.review-card {
+  background: var(--cream-light);
+  border: 2px solid var(--teal);
+  border-radius: 10px;
+  padding: 1rem 1.2rem;
+}
+.stars { color: var(--red); white-space: nowrap; }

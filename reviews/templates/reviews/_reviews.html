@@ -1,0 +1,46 @@
+<section class="reviews mt-5" aria-labelledby="reviews-title">
+  <h2 id="reviews-title" class="section-heading">評語 Reviews</h2>
+  {% if average_rating %}
+    <p class="d-flex align-items-center gap-2 mb-3">
+      <span class="stars" role="img" aria-label="{{ average_rating }} out of 5 stars">{% for full in average_stars %}<i class="fa-{% if full %}solid{% else %}regular{% endif %} fa-star" aria-hidden="true"></i>{% endfor %}</span>
+      <strong>{{ average_rating }} / 5</strong>
+      <span class="small">({{ review_count }} review{{ review_count|pluralize }})</span>
+    </p>
+  {% else %}
+    <p>暫時未有評語 No reviews yet.</p>
+  {% endif %}
+
+  {% if review_form %}
+    <form method="post" action="{% url 'reviews:add' product.slug %}" class="form-card mb-4" novalidate>
+      {% csrf_token %}
+      <h3 class="h5 fw-bold">寫評語 Write a review</h3>
+      {{ review_form.as_div }}
+      <button type="submit" class="btn btn-shop mt-3">
+        <i class="fa-solid fa-pen" aria-hidden="true"></i> 送出 Post review
+      </button>
+    </form>
+  {% elif not user.is_authenticated %}
+    <p class="small"><a href="{% url 'accounts:login' %}?next={{ request.path }}">Log in</a> to review products you bought.</p>
+  {% endif %}
+
+  <div class="d-flex flex-column gap-3">
+    {% for review in reviews %}
+      <article class="review-card">
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
+          <div class="d-flex align-items-center gap-2">
+            <span class="stars" role="img" aria-label="{{ review.rating }} out of 5 stars">{% for full in review.star_list %}<i class="fa-{% if full %}solid{% else %}regular{% endif %} fa-star" aria-hidden="true"></i>{% endfor %}</span>
+            <strong>{{ review.user.username }}</strong>
+          </div>
+          <span class="small">{{ review.created_at|date:"j M Y" }}</span>
+        </div>
+        <p class="mb-0 mt-2">{{ review.comment|linebreaksbr }}</p>
+        {% if review.user == user %}
+          <div class="d-flex gap-3 mt-2 small">
+            <a href="{% url 'reviews:edit' review.pk %}"><i class="fa-solid fa-pen" aria-hidden="true"></i> Edit</a>
+            <a href="{% url 'reviews:delete' review.pk %}"><i class="fa-solid fa-trash" aria-hidden="true"></i> Delete</a>
+          </div>
+        {% endif %}
+      </article>
+    {% endfor %}
+  </div>
+</section>

@@ -3,6 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect, render
 
+from reviews.utils import review_context
+
 from .forms import ProductForm
 from .models import Category, Product
 
@@ -41,7 +43,8 @@ def product_list(request):
 def product_detail(request, slug):
     """Show one product (US-05). Hidden products give a 404."""
     product = get_object_or_404(Product, slug=slug, is_active=True)
-    return render(request, "products/product_detail.html", {"product": product})
+    context = {"product": product, **review_context(product, request.user)}
+    return render(request, "products/product_detail.html", context)
 
 
 @owner_required

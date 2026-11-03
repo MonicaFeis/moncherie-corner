@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Edit your review | moncherie corner{% endblock %}
+
+{% block content %}
+<section class="container pt-4" style="max-width: 720px;">
+  <a href="{{ review.product.get_absolute_url }}">‹ {{ review.product.name }}</a>
+  <h1 class="page-title mt-2">改評語 Edit your review</h1>
+  <form method="post" class="form-card" novalidate>
+    {% csrf_token %}
+    {{ form.as_div }}
+    <div class="d-flex flex-wrap gap-2 mt-3">
+      <button type="submit" class="btn btn-shop">儲存 Save</button>
+      <a href="{{ review.product.get_absolute_url }}" class="btn btn-shop-outline">取消 Cancel</a>
+    </div>
+  </form>
+</section>
+{% endblock %}

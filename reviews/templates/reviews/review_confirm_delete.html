@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Delete your review | moncherie corner{% endblock %}
+
+{% block content %}
+<section class="container pt-4" style="max-width: 720px;">
+  <h1 class="page-title">刪除評語？ Delete your review?</h1>
+  <div class="form-card">
+    <p>Your review of <strong>{{ review.product.name }}</strong> ({{ review.rating }} / 5) will be deleted. This cannot be undone.</p>
+    <blockquote class="mb-3">“{{ review.comment|truncatechars:200 }}”</blockquote>
+    <form method="post" class="d-flex flex-wrap gap-2">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-shop">刪除 Yes, delete it</button>
+      <a href="{{ review.product.get_absolute_url }}" class="btn btn-shop-outline">保留 No, keep it</a>
+    </form>
+  </div>
+</section>
+{% endblock %}
