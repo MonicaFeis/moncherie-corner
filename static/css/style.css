@@ -516,3 +516,22 @@ textarea:focus-visible {
   border-radius: 999px;
   padding: 0.15rem 0.7rem;
 }
+
+/* Example pictures under the main product picture */
+.example-thumbs { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.example-thumb {
+  width: 110px;
+  text-decoration: none;
+  color: var(--ink);
+  font-size: 0.8rem;
+}
+.example-thumb img {
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+  border: 2px solid var(--teal);
+  border-radius: 8px;
+}
+.example-thumb.is-active img { border: 3px solid var(--red); }
+.example-thumb:focus-visible { outline: 3px solid var(--red); outline-offset: 2px; }
+.example-caption { display: block; margin-top: 0.25rem; }

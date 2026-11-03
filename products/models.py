@@ -164,3 +164,18 @@ class ProductOption(models.Model):
     @property
     def price(self):
         return self.product.price + self.extra_price
+
+
+class ProductImage(models.Model):
+    """An extra picture for a product, for example a finished portrait as an example."""
+
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="examples")
+    image = models.ImageField(upload_to="products/examples/")
+    caption = models.CharField(max_length=120, blank=True, help_text="For example: Philipp and Luca, 2026")
+    position = models.PositiveIntegerField(default=0, help_text="Lower numbers are shown first.")
+
+    class Meta:
+        ordering = ["position", "pk"]
+
+    def __str__(self):
+        return self.caption or f"Example for {self.product.name}"

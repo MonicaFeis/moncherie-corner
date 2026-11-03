@@ -14,10 +14,29 @@
       {% if product.is_sold_out %}
         <img src="{% static 'images/sold-out.jpg' %}" class="img-fluid detail-image" alt="{{ product.name }}: sold out">
       {% elif product.image %}
-        <img src="{{ product.image.url }}" class="img-fluid detail-image" alt="{{ product.name }}">
+        <img src="{{ product.image.url }}" class="img-fluid detail-image" id="main-image" alt="{{ product.name }}">
       {% else %}
         <div class="image-placeholder detail-image">Image coming soon</div>
       {% endif %}
+      {% with examples=product.examples.all %}
+        {% if examples %}
+          <h2 class="section-heading fs-4 mt-4">作品例子 Examples</h2>
+          <p class="small">Click a picture to see it bigger.</p>
+          <div class="example-thumbs">
+            {% if product.image %}
+              <a href="{{ product.image.url }}" class="example-thumb is-active" data-alt="{{ product.name }}">
+                <img src="{{ product.image.url }}" alt="{{ product.name }}" loading="lazy">
+              </a>
+            {% endif %}
+            {% for example in examples %}
+              <a href="{{ example.image.url }}" class="example-thumb" data-alt="{{ example.caption|default:product.name }}">
+                <img src="{{ example.image.url }}" alt="{{ example.caption|default:'Example picture' }}" loading="lazy">
+                {% if example.caption %}<span class="example-caption">{{ example.caption }}</span>{% endif %}
+              </a>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
     </div>
     <div class="col-md-6">
       <div class="product-info">

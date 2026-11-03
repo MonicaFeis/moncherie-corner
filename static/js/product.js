@@ -32,3 +32,24 @@ document.addEventListener("DOMContentLoaded", function () {
     people.addEventListener("change", showPrice);
   }
 });
+
+/* Examples: click a small picture to show it in the big one.
+   Without JavaScript, the link simply opens the picture. */
+document.addEventListener("DOMContentLoaded", function () {
+  const mainImage = document.getElementById("main-image");
+  const thumbs = document.querySelectorAll(".example-thumb");
+  if (!mainImage) {
+    return;
+  }
+  thumbs.forEach(function (thumb) {
+    thumb.addEventListener("click", function (event) {
+      event.preventDefault();
+      mainImage.src = thumb.getAttribute("href");
+      mainImage.alt = thumb.dataset.alt;
+      thumbs.forEach(function (other) {
+        other.classList.remove("is-active");
+      });
+      thumb.classList.add("is-active");
+    });
+  });
+});
