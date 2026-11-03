@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Review {{ product.name }} | moncherie corner{% endblock %}
+
+{% block content %}
+<section class="container pt-4" style="max-width: 720px;">
+  <h1 class="page-title">留個評語 Leave a review</h1>
+  <div class="form-card">
+    <div class="d-flex align-items-center gap-3 mb-3">
+      {% if product.image %}<img src="{{ product.image.url }}" alt="" class="cart-thumb">{% endif %}
+      <div>
+        <strong class="d-block">{{ product.name }}</strong>
+        <span>{{ question }}</span>
+      </div>
+    </div>
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {{ form.as_div }}
+      <div class="d-flex flex-wrap gap-2 mt-3">
+        <button type="submit" class="btn btn-shop"><i class="fa-solid fa-pen" aria-hidden="true"></i> 送出 Post review</button>
+        <a href="{% url 'checkout:my_downloads' %}" class="btn btn-shop-outline">遲啲先 Maybe later</a>
+      </div>
+    </form>
+  </div>
+</section>
+{% endblock %}

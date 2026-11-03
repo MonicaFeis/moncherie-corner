@@ -10,17 +10,10 @@
     <p>暫時未有評語 No reviews yet.</p>
   {% endif %}
 
-  {% if review_form %}
-    <form method="post" action="{% url 'reviews:add' product.slug %}" class="form-card mb-4" novalidate>
-      {% csrf_token %}
-      <h3 class="h5 fw-bold">寫評語 Write a review</h3>
-      {{ review_form.as_div }}
-      <button type="submit" class="btn btn-shop mt-3">
-        <i class="fa-solid fa-pen" aria-hidden="true"></i> 送出 Post review
-      </button>
-    </form>
-  {% elif not user.is_authenticated %}
-    <p class="small"><a href="{% url 'accounts:login' %}?next={{ request.path }}">Log in</a> to review products you bought.</p>
+  {% if can_review %}
+    <p><a href="{% url 'reviews:add' product.slug %}" class="btn btn-shop-outline"><i class="fa-regular fa-star" aria-hidden="true"></i> 留個評語 Leave a review</a></p>
+  {% else %}
+    <p class="small">Reviews come from customers who bought this.</p>
   {% endif %}
 
   <div class="d-flex flex-column gap-3">

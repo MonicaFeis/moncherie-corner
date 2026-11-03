@@ -11,9 +11,10 @@
 
   <div class="form-card">
     <ul class="list-unstyled mb-0">
-      {% for item in order.items.all %}
-        <li class="d-flex justify-content-between border-bottom py-2">
-          <span>{{ item.quantity }} × {{ item.display_name }}</span><span>€{{ item.line_total }}</span>
+      {% for item in items %}
+        <li class="border-bottom py-2">
+          <div class="d-flex justify-content-between"><span>{{ item.quantity }} × {{ item.display_name }}</span><span>€{{ item.line_total }}</span></div>
+          {% if order.status == "shipped" and item.needs_shipping %}{% include "reviews/_review_prompt.html" %}{% endif %}
         </li>
       {% endfor %}
       {% if order.shipping_cost %}

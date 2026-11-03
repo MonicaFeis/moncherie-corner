@@ -1,0 +1,14 @@
+{% if item.product_id %}
+  <div class="review-prompt">
+    {% if item.my_review %}
+      <span class="small">你嘅評語 Your review:</span>
+      <span class="stars" role="img" aria-label="{{ item.my_review.rating }} out of 5 stars">{% for full in item.my_review.star_list %}<i class="fa-{% if full %}solid{% else %}regular{% endif %} fa-star" aria-hidden="true"></i>{% endfor %}</span>
+      <a href="{% url 'reviews:edit' item.my_review.pk %}" class="small">Edit</a>
+    {% else %}
+      <p class="small mb-2">{{ item.review_question }}</p>
+      <a href="{% url 'reviews:add' item.product.slug %}?next={{ request.get_full_path|urlencode }}" class="btn btn-shop-outline btn-sm">
+        <i class="fa-regular fa-star" aria-hidden="true"></i> 留個評語 Leave a review
+      </a>
+    {% endif %}
+  </div>
+{% endif %}

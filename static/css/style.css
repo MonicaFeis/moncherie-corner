@@ -566,3 +566,10 @@ textarea:focus-visible {
   border: 2px solid currentColor;
   font-size: 1rem;
 }
+
+/* The "leave a review" invitation on My downloads and order pages */
+.review-prompt {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px dashed var(--teal);
+}

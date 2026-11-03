@@ -16,6 +16,8 @@ from cart.cart import Cart
 from products.models import Product
 
 from .forms import CheckoutForm
+from reviews.utils import attach_reviews
+
 from .models import DOWNLOAD_DAYS, Order, OrderItem
 from .payments import mark_order_failed, mark_order_paid, read
 
@@ -239,7 +241,8 @@ def my_orders(request):
 def order_detail(request, order_id):
     """One of the customer's own orders (US-31). Other people's orders give a 404."""
     order = get_object_or_404(Order, pk=order_id, user=request.user)
-    return render(request, "checkout/order_detail.html", {"order": order})
+    items = attach_reviews(request.user, list(order.items.select_related("product")))
+    return render(request, "checkout/order_detail.html", {"order": order, "items": items})
 
 
 def download_cutoff():
@@ -292,6 +295,7 @@ def my_downloads(request):
     else:
         order_id = None
 
+    attach_reviews(request.user, list(items) + portraits)
     context = {
         "items": items,
         "ready_portraits": [

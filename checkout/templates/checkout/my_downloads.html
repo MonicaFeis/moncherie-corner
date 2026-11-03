@@ -28,6 +28,7 @@
             <a href="{% url 'checkout:download' item.product_id %}" class="btn btn-shop mt-auto">
               <i class="fa-solid fa-download" aria-hidden="true"></i> 下載 Download
             </a>
+            {% include "reviews/_review_prompt.html" %}
           </div>
         </div>
       {% endfor %}
@@ -49,6 +50,7 @@
             <a href="{% url 'checkout:download_portrait' item.pk %}" class="btn btn-shop mt-auto">
               <i class="fa-solid fa-download" aria-hidden="true"></i> 下載肖像 Download portrait
             </a>
+            {% include "reviews/_review_prompt.html" %}
           </div>
         </div>
       {% endfor %}
