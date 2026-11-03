@@ -4,7 +4,7 @@ Welcome to moncherie corner! Your account is ready.
 
 With your account you can:
 - buy hand-drawn stickers, prints and portraits
-- download your digital files any time
+- download your digital files
 - see all your orders in one place
 
 Come and have a look: {{ site_url }}

@@ -5,7 +5,7 @@
 {% block content %}
 <section class="container form-page">
   <h1 class="page-title">Create an account</h1>
-  <p>With an account you can buy, download your files any time, and see your orders.</p>
+  <p>With an account you can buy, download your files, and see your orders.</p>
   <form method="post" class="form-card" novalidate>
     {% csrf_token %}
     {{ form.as_div }}

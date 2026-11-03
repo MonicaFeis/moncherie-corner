@@ -9,6 +9,7 @@
   {% if order_id %}
     <p>Order #{{ order_id }} · <a href="{% url 'checkout:my_downloads' %}">See all my downloads</a></p>
   {% endif %}
+  <p class="small">Files can be downloaded for {{ download_days }} days after you buy them (portraits: {{ download_days }} days after they are ready). Please save them on your device.</p>
   {% if items or ready_portraits or waiting_portraits %}
     <div class="row g-4">
       {% for item in items %}
@@ -22,7 +23,8 @@
               {% endif %}
             </div>
             <h2 class="h5 fw-bold">{{ item.display_name }}</h2>
-            <p class="small">Bought in order #{{ item.order.pk }}</p>
+            <p class="small mb-1">Bought in order #{{ item.order.pk }}</p>
+            <p class="small fw-bold">Available until {{ item.download_until|date:"j M Y" }}</p>
             <a href="{% url 'checkout:download' item.product_id %}" class="btn btn-shop mt-auto">
               <i class="fa-solid fa-download" aria-hidden="true"></i> 下載 Download
             </a>
@@ -36,7 +38,8 @@
               {% if item.product.image %}<img src="{{ item.product.image.url }}" alt="" loading="lazy">{% else %}<span class="cart-thumb-empty"></span>{% endif %}
             </div>
             <h2 class="h5 fw-bold">{{ item.display_name }}</h2>
-            <p class="small">Your portrait from order #{{ item.order.pk }} is ready!</p>
+            <p class="small mb-1">Your portrait from order #{{ item.order.pk }} is ready!</p>
+            <p class="small fw-bold">Available until {{ item.download_until|date:"j M Y" }}</p>
             <a href="{% url 'checkout:download_portrait' item.pk %}" class="btn btn-shop mt-auto">
               <i class="fa-solid fa-download" aria-hidden="true"></i> 下載肖像 Download portrait
             </a>

@@ -486,3 +486,13 @@ textarea:focus-visible {
   color: var(--cream-text);
   opacity: 0.9;
 }
+
+/* Shorter download cards: every picture fits in the same small box */
+.download-thumb {
+  aspect-ratio: auto;
+  height: 220px;
+}
+.download-thumb img {
+  height: 100%;
+  width: auto;
+}

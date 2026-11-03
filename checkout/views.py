@@ -1,3 +1,4 @@
+from datetime import timedelta
 from decimal import ROUND_HALF_UP, Decimal
 
 import stripe
@@ -7,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import FileResponse, Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
+from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
@@ -14,7 +16,7 @@ from cart.cart import Cart
 from products.models import Product
 
 from .forms import CheckoutForm
-from .models import Order, OrderItem
+from .models import DOWNLOAD_DAYS, Order, OrderItem
 from .payments import mark_order_failed, mark_order_paid, read
 
 # Countries we post printed items to
@@ -240,6 +242,11 @@ def order_detail(request, order_id):
     return render(request, "checkout/order_detail.html", {"order": order})
 
 
+def download_cutoff():
+    """Files bought (or delivered) before this moment can no longer be downloaded."""
+    return timezone.now() - timedelta(days=DOWNLOAD_DAYS)
+
+
 def paid_digital_items(user):
     """Every digital product this customer has paid for, once each."""
     items = OrderItem.objects.filter(
@@ -247,7 +254,8 @@ def paid_digital_items(user):
         order__status__in=[Order.PAID, Order.SHIPPED],
         product_type=Product.DIGITAL,
         product__isnull=False,
-    ).select_related("product", "order")
+        order__created_at__gte=download_cutoff(),
+    ).select_related("product", "order").order_by("-order__created_at")
     seen = set()
     unique_items = []
     for item in items:
@@ -286,9 +294,13 @@ def my_downloads(request):
 
     context = {
         "items": items,
-        "ready_portraits": [item for item in portraits if item.delivered_file],
+        "ready_portraits": [
+            item for item in portraits
+            if item.delivered_file and item.delivered_at and item.delivered_at >= download_cutoff()
+        ],
         "waiting_portraits": [item for item in portraits if not item.delivered_file],
         "order_id": order_id,
+        "download_days": DOWNLOAD_DAYS,
     }
     return render(request, "checkout/my_downloads.html", context)
 
@@ -303,7 +315,7 @@ def download_portrait(request, item_id):
         order__status__in=[Order.PAID, Order.SHIPPED],
         product_type=Product.PORTRAIT,
     )
-    if not item.delivered_file:
+    if not item.delivered_file or not item.delivered_at or item.delivered_at < download_cutoff():
         raise Http404
     file_name = item.delivered_file.name.split("/")[-1]
     return FileResponse(item.delivered_file.open("rb"), as_attachment=True, filename=file_name)
@@ -317,6 +329,7 @@ def download(request, product_id):
         order__status__in=[Order.PAID, Order.SHIPPED],
         product_id=product_id,
         product_type=Product.DIGITAL,
+        order__created_at__gte=download_cutoff(),
     ).exists()
     if not bought:
         raise Http404

@@ -1,8 +1,14 @@
+from datetime import timedelta
+
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
 
 from products.models import Product, download_storage
+
+# Customers can download a file for this many days after buying it
+# (a portrait: after it is delivered).
+DOWNLOAD_DAYS = 30
 
 
 class ShippingMethod(models.Model):
@@ -125,6 +131,12 @@ class OrderItem(models.Model):
     @property
     def is_portrait(self):
         return self.product_type == "portrait"
+
+    @property
+    def download_until(self):
+        """The last day the customer can download this file."""
+        start = self.delivered_at if self.is_portrait else self.order.created_at
+        return start + timedelta(days=DOWNLOAD_DAYS) if start else None
 
 
 class ReferencePhoto(models.Model):
