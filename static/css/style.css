@@ -594,3 +594,7 @@ textarea:focus-visible {
   max-width: calc(100% - 2rem);
   max-height: calc(100% - 2rem);
 }
+
+/* The logo and name in the footer go back to the home page */
+.footer-brand { text-decoration: none; }
+.footer-brand:hover .brand-name, .footer-brand:focus-visible .brand-name { text-decoration: underline; }

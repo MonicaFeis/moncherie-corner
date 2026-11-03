@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@700&family=Playball&display=swap">
-  <link rel="stylesheet" href="{% static 'css/style.css' %}?v=21">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}?v=22">
 </head>
 <body class="d-flex flex-column min-vh-100">
   <a class="visually-hidden-focusable skip-link" href="#main">Skip to main content</a>
@@ -110,13 +110,13 @@
     <div class="container py-4">
       <div class="row gy-4">
         <div class="col-md-6">
-          <div class="d-flex align-items-center gap-2">
+          <a href="{% url 'home:index' %}" class="d-inline-flex align-items-center gap-2 footer-brand">
             <img src="{% static 'images/logo-cream.png' %}" alt="" width="40" height="40">
             <span class="brand-text">
             <span class="brand-name">moncherie <span class="brand-script">corner</span></span>
             <span class="brand-zh" lang="zh-Hant-HK">車厘小角</span>
           </span>
-          </div>
+          </a>
           <p class="mt-2 mb-0">Little hand-drawn things, served with a smile.</p>
         </div>
         <div class="col-md-6 text-md-end">
