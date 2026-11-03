@@ -81,6 +81,12 @@ class Order(models.Model):
         return any(item.needs_shipping for item in self.items.all())
 
     @property
+    def has_files_to_download_now(self):
+        """True if the order has ready-made digital files (sticker sets, web art).
+        Portraits are drawn first, and printed items are posted."""
+        return any(item.product_type == "digital" for item in self.items.all())
+
+    @property
     def portrait_items(self):
         """The portraits in this order (they are drawn after payment)."""
         return [item for item in self.items.all() if item.is_portrait]

@@ -49,7 +49,11 @@
         </tr>
       </table>
       {% if order.portrait_items %}<p style="margin-top:20px;">我會開始畫你嘅肖像。 I'll start drawing your portrait and email you when it's ready, usually within 7 days.</p>{% endif %}
+      {% if order.has_files_to_download_now %}
       <p style="margin-top:24px;"><a href="{{ site_url }}{% url 'checkout:my_downloads' %}" style="display:inline-block;background:#B02F22;color:#F3E7CB;padding:12px 22px;border-radius:999px;text-decoration:none;font-weight:bold;">我的下載 My downloads</a></p>
+      {% else %}
+      <p style="margin-top:24px;"><a href="{{ site_url }}{{ order.get_absolute_url }}" style="display:inline-block;background:#B02F22;color:#F3E7CB;padding:12px 22px;border-radius:999px;text-decoration:none;font-weight:bold;">睇訂單 See your order</a></p>
+      {% endif %}
       <p>車厘小角見！ See you at the corner!</p>
     </td></tr>
   </table>
