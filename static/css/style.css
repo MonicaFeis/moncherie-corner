@@ -583,3 +583,14 @@ textarea:focus-visible {
 
 /* The milk tea emoji on success messages */
 .alert-emoji { font-size: 1.7rem; line-height: 1; }
+
+/* Same height for every product picture, also in Safari:
+   the box keeps its 4:5 shape and a tall picture shrinks to fit inside it. */
+.product-card .product-card-image { position: relative; overflow: hidden; }
+.product-card .product-card-image img {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  max-width: calc(100% - 2rem);
+  max-height: calc(100% - 2rem);
+}
