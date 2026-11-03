@@ -28,6 +28,7 @@ class ProductForm(forms.ModelForm):
             "stock",
             "max_people",
             "extra_person_price",
+            "is_featured",
             "is_active",
         ]
         widgets = {"description": forms.Textarea(attrs={"rows": 4})}

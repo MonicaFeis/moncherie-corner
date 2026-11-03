@@ -598,3 +598,38 @@ textarea:focus-visible {
 /* The logo and name in the footer go back to the home page */
 .footer-brand { text-decoration: none; }
 .footer-brand:hover .brand-name, .footer-brand:focus-visible .brand-name { text-decoration: underline; }
+
+/* Featured carousel on the home page */
+.featured-carousel {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding: 6px 10px 1rem 4px;
+  scroll-padding-left: 4px;
+  scrollbar-width: thin;
+}
+.featured-carousel:focus-visible { outline: 3px solid var(--red); outline-offset: 4px; }
+.carousel-slide { flex: 0 0 calc((100% - 4.5rem) / 4); scroll-snap-align: start; }
+@media (max-width: 991.98px) {
+  .carousel-slide { flex-basis: calc((100% - 1.5rem) / 2); }
+}
+@media (max-width: 575.98px) {
+  .carousel-slide { flex-basis: 80%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .featured-carousel { scroll-behavior: auto; }
+}
+.carousel-buttons { display: flex; gap: 0.5rem; }
+.carousel-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid var(--teal);
+  background: var(--cream-light);
+  color: var(--teal);
+}
+.carousel-btn:hover:not(:disabled) { background: var(--teal); color: var(--cream-text); }
+.carousel-btn:focus-visible { outline: 3px solid var(--red); outline-offset: 2px; }
+.carousel-btn:disabled { opacity: 0.4; cursor: default; }

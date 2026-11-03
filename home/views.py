@@ -4,11 +4,18 @@ from products.models import Category, Product
 from reviews.models import Review
 
 
+def featured_products():
+    """Up to 8 products the owner ticked as featured. None ticked? The 8 newest."""
+    shown = Product.objects.filter(is_active=True)
+    featured = shown.filter(is_featured=True)[:8]
+    return featured if featured else shown[:8]
+
+
 def index(request):
     """Show the home page with the categories and the newest products."""
     context = {
         "categories": Category.objects.all(),
-        "featured": Product.objects.filter(is_active=True)[:4],
+        "featured": featured_products(),
         # The "Commission a portrait" button opens this product's order page
         "portrait_product": Product.objects.filter(
             is_active=True, product_type=Product.PORTRAIT

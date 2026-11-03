@@ -45,10 +45,20 @@
 
 {% if featured %}
 <section class="container mt-5" aria-labelledby="featured-title">
-  <h2 id="featured-title" class="page-title">精選 New in</h2>
-  <div class="row g-4">
+  <div class="d-flex align-items-center justify-content-between gap-3 mb-3">
+    <h2 id="featured-title" class="page-title mb-0">精選 Featured</h2>
+    <div class="carousel-buttons">
+      <button type="button" class="carousel-btn" data-carousel-prev aria-controls="featured-track" aria-label="Previous products">
+        <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+      </button>
+      <button type="button" class="carousel-btn" data-carousel-next aria-controls="featured-track" aria-label="Next products">
+        <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+  <div class="featured-carousel" id="featured-track" role="region" aria-label="Featured products, scroll sideways" tabindex="0">
     {% for product in featured %}
-      <div class="col-6 col-lg-3">
+      <div class="carousel-slide">
         {% include "products/includes/product_card.html" %}
       </div>
     {% endfor %}
@@ -74,4 +84,8 @@
   </div>
 </section>
 {% endif %}
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/carousel.js' %}"></script>
 {% endblock %}

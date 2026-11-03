@@ -93,6 +93,9 @@ class Product(models.Model):
         max_digits=6, decimal_places=2, default=0, validators=[MinValueValidator(0)],
         help_text="Portraits: added for each person or pet after the first.",
     )
+    is_featured = models.BooleanField(
+        default=False, help_text="Tick to show it in the carousel on the home page."
+    )
     is_active = models.BooleanField(
         default=True, help_text="Untick to hide the product from the shop."
     )
