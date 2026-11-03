@@ -35,7 +35,7 @@ def add_review(request, slug):
         review.product = product
         review.user = request.user
         review.save()
-        messages.success(request, "多謝你嘅評語！ Thank you for your review.")
+        messages.success(request, "多謝你嘅評語 ❤️ Thank you for your review!")
         return redirect(next_page(request, product))
 
     context = {"form": form, "product": product, "question": question_for(product.product_type), "icon": icon_for(product.product_type)}
@@ -49,7 +49,7 @@ def edit_review(request, pk):
     form = ReviewForm(request.POST or None, instance=review)
     if request.method == "POST" and form.is_valid():
         form.save()
-        messages.success(request, "已更新 Your review was updated.")
+        messages.success(request, "多謝你嘅評語 ❤️ Thank you for your review!")
         return redirect(review.product.get_absolute_url())
     return render(request, "reviews/review_form.html", {"form": form, "review": review})
 
