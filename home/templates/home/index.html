@@ -55,4 +55,23 @@
   </div>
 </section>
 {% endif %}
+
+{% if happy_reviews %}
+<section class="container mt-5" aria-labelledby="reviews-home-title">
+  <h2 id="reviews-home-title" class="page-title">客人話 What customers say</h2>
+  <div class="row g-4">
+    {% for review in happy_reviews %}
+      <div class="col-md-4">
+        <figure class="review-card h-100 d-flex flex-column mb-0">
+          <span class="stars mb-2" role="img" aria-label="{{ review.rating }} out of 5 stars">{% for full in review.star_list %}<i class="fa-{% if full %}solid{% else %}regular{% endif %} fa-star" aria-hidden="true"></i>{% endfor %}</span>
+          <blockquote class="mb-3">“{{ review.comment|truncatechars:160 }}”</blockquote>
+          <figcaption class="small mt-auto">
+            {{ review.user.username }} · <a href="{{ review.product.get_absolute_url }}">{{ review.product.name }}</a>
+          </figcaption>
+        </figure>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
 {% endblock %}
