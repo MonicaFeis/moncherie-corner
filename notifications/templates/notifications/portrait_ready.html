@@ -15,9 +15,11 @@
     </td></tr>
     <tr><td style="padding:24px 18px;font-size:16px;line-height:1.7;">
       <p>{{ order.user.username }}，你好！<br>Hi {{ order.user.username }},</p>
-      <p><strong>你嘅肖像畫好喇！</strong><br>Your portrait is ready: {{ item.display_name }}</p>
+      <p><strong>你嘅肖像畫好喇！<br>Your portrait is ready!</strong></p>
+      <p>{{ item.display_name }}<br>Order #{{ order.pk }}</p>
+      <p>喺「我的下載」下載，30日內有效。<br>Download it from My downloads within 30 days.</p>
       <p><a href="{{ site_url }}{% url 'checkout:my_downloads' %}" style="display:inline-block;background:#B02F22;color:#F3E7CB;padding:12px 22px;border-radius:999px;text-decoration:none;font-weight:bold;">我的下載 My downloads</a></p>
-      {% if item.needs_shipping %}<p>The printed version will be posted to you soon.</p>{% endif %}
+      {% if item.needs_shipping %}<p>印刷版會盡快寄出。<br>The printed version will be posted to you soon.</p>{% endif %}
       <p>車厘小角見！ See you at the corner!</p>
     </td></tr>
   </table>

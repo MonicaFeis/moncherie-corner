@@ -2,11 +2,14 @@
 Hi {{ order.user.username }},
 
 你嘅肖像畫好喇！
-Your portrait is ready: {{ item.display_name }}
+Your portrait is ready!
+{{ item.display_name }} (order #{{ order.pk }})
 
-喺「我的下載」下載 Download it from My downloads:
+喺「我的下載」下載，30日內有效。
+Download it from My downloads within 30 days:
 {{ site_url }}{% url 'checkout:my_downloads' %}
 {% if item.needs_shipping %}
+印刷版會盡快寄出。
 The printed version will be posted to you soon.{% endif %}
 
 車厘小角見！ See you at the corner!

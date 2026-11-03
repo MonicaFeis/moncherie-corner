@@ -496,3 +496,11 @@ textarea:focus-visible {
   height: 100%;
   width: auto;
 }
+
+/* Big green headings for the main parts of a page */
+.section-heading {
+  font-family: "Noto Serif TC", serif;
+  font-weight: 700;
+  font-size: 1.75rem;
+  color: var(--teal);
+}
