@@ -2,11 +2,20 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="color-scheme" content="light only">
-  <meta name="supported-color-schemes" content="light only">
-  <style>:root { color-scheme: light only; supported-color-schemes: light only; }</style>
+  <meta name="color-scheme" content="light dark">
+  <meta name="supported-color-schemes" content="light dark">
+  <style>
+    :root { color-scheme: light dark; supported-color-schemes: light dark; }
+    /* Phones and mail apps in dark mode: dark page, cream text */
+    @media (prefers-color-scheme: dark) {
+      .em-body { background: #1B1A26 !important; color: #F3E7CB !important; }
+      .em-red { color: #FF9B8F !important; }
+      .em-line { border-color: #E0A84A !important; }
+      .em-box { background: #26253A !important; }
+    }
+  </style>
 </head>
-<body style="margin:0;background:#FBF3DE;font-family:Arial,'PingFang HK','Microsoft JhengHei',sans-serif;color:#2A2320;">
+<body class="em-body" style="margin:0;background:#F2E0C1;font-family:Arial,'PingFang HK','Microsoft JhengHei',sans-serif;color:#2A2320;">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;margin:0 auto;">
     <tr><td align="center" style="background:#14504F;color:#F3E7CB;padding:20px 16px;">
       <img src="{{ logo_url }}" alt="moncherie corner logo" width="64" height="64" style="display:block;margin:0 auto 6px;border:0;">
@@ -16,7 +25,7 @@
     <tr><td style="padding:24px 18px;font-size:16px;line-height:1.7;">
       <p>{{ order.user.username }}，你好！<br>Hi {{ order.user.username }},</p>
       <p><strong>多謝惠顧！</strong> Your order #{{ order.pk }} is paid.</p>
-      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-top:2px solid #14504F;font-size:15px;line-height:1.4;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" class="em-line" style="border-top:2px solid #14504F;font-size:15px;line-height:1.4;">
         {% for line in lines %}
           <tr>
             <td width="56" valign="top" style="padding:10px 10px 10px 0;border-bottom:1px solid #D9C9A3;">{% if line.picture %}<img src="{{ line.picture }}" alt="" width="48" height="60" style="display:block;border:2px solid #14504F;border-radius:6px;object-fit:cover;">{% endif %}</td>
@@ -36,7 +45,7 @@
         {% endif %}
         <tr>
           <td colspan="2" style="padding:12px 0;border-top:2px solid #14504F;font-weight:bold;">總數 Total</td>
-          <td align="right" style="padding:12px 0 12px 8px;border-top:2px solid #14504F;font-weight:bold;color:#B02F22;white-space:nowrap;">€{{ order.total }}</td>
+          <td align="right" class="em-red" style="padding:12px 0 12px 8px;border-top:2px solid #14504F;font-weight:bold;color:#B02F22;white-space:nowrap;">€{{ order.total }}</td>
         </tr>
       </table>
       {% if order.portrait_items %}<p style="margin-top:20px;">我會開始畫你嘅肖像。 I'll start drawing your portrait and email you when it's ready, usually within 7 days.</p>{% endif %}

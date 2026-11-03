@@ -2,11 +2,20 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="color-scheme" content="light only">
-  <meta name="supported-color-schemes" content="light only">
-  <style>:root { color-scheme: light only; supported-color-schemes: light only; }</style>
+  <meta name="color-scheme" content="light dark">
+  <meta name="supported-color-schemes" content="light dark">
+  <style>
+    :root { color-scheme: light dark; supported-color-schemes: light dark; }
+    /* Phones and mail apps in dark mode: dark page, cream text */
+    @media (prefers-color-scheme: dark) {
+      .em-body { background: #1B1A26 !important; color: #F3E7CB !important; }
+      .em-red { color: #FF9B8F !important; }
+      .em-line { border-color: #E0A84A !important; }
+      .em-box { background: #26253A !important; }
+    }
+  </style>
 </head>
-<body style="margin:0;background:#FBF3DE;font-family:Arial,'PingFang HK','Microsoft JhengHei',sans-serif;color:#2A2320;">
+<body class="em-body" style="margin:0;background:#F2E0C1;font-family:Arial,'PingFang HK','Microsoft JhengHei',sans-serif;color:#2A2320;">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;margin:0 auto;">
     <tr><td align="center" style="background:#14504F;color:#F3E7CB;padding:20px 16px;">
       <img src="{{ logo_url }}" alt="moncherie corner logo" width="64" height="64" style="display:block;margin:0 auto 6px;border:0;">
@@ -17,7 +26,7 @@
       <p>{{ order.user.username }}，你好！<br>Hi {{ order.user.username }},</p>
       <p><strong>你嘅肖像畫好喇！<br>Your portrait is ready!</strong></p>
       <p>{{ item.display_name }}<br>Order #{{ order.pk }}</p>
-      <p style="color:#B02F22;font-weight:bold;">喺「我的下載」下載，30日內有效。<br>Download it from My downloads within 30 days.</p>
+      <p class="em-red" style="color:#B02F22;font-weight:bold;">喺「我的下載」下載，30日內有效。<br>Download it from My downloads within 30 days.</p>
       <p><a href="{{ site_url }}{% url 'checkout:my_downloads' %}" style="display:inline-block;background:#B02F22;color:#F3E7CB;padding:12px 22px;border-radius:999px;text-decoration:none;font-weight:bold;">我的下載 My downloads</a></p>
       {% if item.needs_shipping %}<p>印刷版會盡快寄出。<br>The printed version will be posted to you soon.</p>{% endif %}
       <p>車厘小角見！ See you at the corner!</p>
