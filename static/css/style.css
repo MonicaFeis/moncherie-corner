@@ -504,3 +504,15 @@ textarea:focus-visible {
   font-size: 1.75rem;
   color: var(--teal);
 }
+
+/* The last download day: shop red, so it reads as a warning */
+.download-until {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--red);
+  border: 2px solid var(--red);
+  border-radius: 999px;
+  padding: 0.15rem 0.7rem;
+}

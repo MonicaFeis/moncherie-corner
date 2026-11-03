@@ -24,7 +24,7 @@
             </div>
             <h2 class="h5 fw-bold">{{ item.display_name }}</h2>
             <p class="small mb-1">Bought in order #{{ item.order.pk }}</p>
-            <p class="small fw-bold">Available until {{ item.download_until|date:"j M Y" }}</p>
+            <p class="download-until"><i class="fa-regular fa-clock" aria-hidden="true"></i> 下載期限 Available until {{ item.download_until|date:"j M Y" }}</p>
             <a href="{% url 'checkout:download' item.product_id %}" class="btn btn-shop mt-auto">
               <i class="fa-solid fa-download" aria-hidden="true"></i> 下載 Download
             </a>
@@ -34,12 +34,18 @@
       {% for item in ready_portraits %}
         <div class="col-md-6 col-lg-4">
           <div class="form-card h-100 d-flex flex-column">
-            <div class="download-thumb mb-3" aria-hidden="true">
-              {% if item.product.image %}<img src="{{ item.product.image.url }}" alt="" loading="lazy">{% else %}<span class="cart-thumb-empty"></span>{% endif %}
+            <div class="download-thumb mb-3">
+              {% if item.delivered_is_picture %}
+                <img src="{% url 'checkout:preview_portrait' item.pk %}" alt="Your finished portrait" loading="lazy">
+              {% elif item.product.image %}
+                <img src="{{ item.product.image.url }}" alt="" loading="lazy">
+              {% else %}
+                <span class="cart-thumb-empty"></span>
+              {% endif %}
             </div>
             <h2 class="h5 fw-bold">{{ item.display_name }}</h2>
             <p class="small mb-1">Your portrait from order #{{ item.order.pk }} is ready!</p>
-            <p class="small fw-bold">Available until {{ item.download_until|date:"j M Y" }}</p>
+            <p class="download-until"><i class="fa-regular fa-clock" aria-hidden="true"></i> 下載期限 Available until {{ item.download_until|date:"j M Y" }}</p>
             <a href="{% url 'checkout:download_portrait' item.pk %}" class="btn btn-shop mt-auto">
               <i class="fa-solid fa-download" aria-hidden="true"></i> 下載肖像 Download portrait
             </a>

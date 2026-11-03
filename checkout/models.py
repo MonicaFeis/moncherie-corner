@@ -133,6 +133,12 @@ class OrderItem(models.Model):
         return self.product_type == "portrait"
 
     @property
+    def delivered_is_picture(self):
+        """True if the finished portrait is a .png or .jpg, so it can be shown on the page."""
+        name = self.delivered_file.name.lower() if self.delivered_file else ""
+        return name.endswith((".png", ".jpg", ".jpeg"))
+
+    @property
     def download_until(self):
         """The last day the customer can download this file."""
         start = self.delivered_at if self.is_portrait else self.order.created_at

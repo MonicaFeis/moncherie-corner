@@ -306,8 +306,8 @@ def my_downloads(request):
 
 
 @login_required
-def download_portrait(request, item_id):
-    """Send a finished portrait, but only to the customer who paid for it (US-24)."""
+def delivered_portrait(request, item_id):
+    """The customer's own finished portrait, or a 404."""
     item = get_object_or_404(
         OrderItem,
         pk=item_id,
@@ -317,8 +317,24 @@ def download_portrait(request, item_id):
     )
     if not item.delivered_file or not item.delivered_at or item.delivered_at < download_cutoff():
         raise Http404
+    return item
+
+
+@login_required
+def download_portrait(request, item_id):
+    """Send a finished portrait, but only to the customer who paid for it (US-24)."""
+    item = delivered_portrait(request, item_id)
     file_name = item.delivered_file.name.split("/")[-1]
     return FileResponse(item.delivered_file.open("rb"), as_attachment=True, filename=file_name)
+
+
+@login_required
+def preview_portrait(request, item_id):
+    """Show the finished portrait as a picture on My downloads (same checks as downloading)."""
+    item = delivered_portrait(request, item_id)
+    if not item.delivered_is_picture:
+        raise Http404
+    return FileResponse(item.delivered_file.open("rb"))
 
 
 @login_required
