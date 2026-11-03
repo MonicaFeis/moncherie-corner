@@ -8,5 +8,9 @@ def index(request):
     context = {
         "categories": Category.objects.all(),
         "featured": Product.objects.filter(is_active=True)[:4],
+        # The "Commission a portrait" button opens this product's order page
+        "portrait_product": Product.objects.filter(
+            is_active=True, product_type=Product.PORTRAIT
+        ).first(),
     }
     return render(request, "home/index.html", context)

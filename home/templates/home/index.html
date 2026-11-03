@@ -13,7 +13,7 @@
       <h1 class="hero-title">Welcome to the corner.</h1>
       <p class="hero-text">Little hand-drawn things, served with a smile.</p>
       <a href="{% url 'products:list' %}" class="btn btn-shop">歡迎光臨 Come on in</a>
-      <a href="{% url 'products:list' %}?category=portraits" class="btn btn-shop-outline ms-2">委託肖像 Commission a portrait</a>
+      <a href="{% if portrait_product %}{{ portrait_product.get_absolute_url }}{% else %}{% url 'products:list' %}?category=portraits{% endif %}" class="btn btn-shop-outline ms-2">委託肖像 Commission a portrait</a>
     </div>
   </div>
 </section>
