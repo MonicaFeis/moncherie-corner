@@ -323,10 +323,10 @@ textarea:focus-visible {
 .site-footer a:hover { color: var(--amber); }
 
 .footer-small {
-  font-size: 0.85rem;
-  background: var(--teal-deep);
-  margin: 1.5rem -100vw 0;
-  padding: 0.8rem 100vw;
+  font-size: 0.8rem;
+  opacity: 0.75;
+  border-top: 1px solid rgba(243, 231, 203, 0.2);
+  padding-top: 1rem;
 }
 /* ---------- Order status labels ---------- */
 .status-pill {
