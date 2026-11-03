@@ -9,5 +9,5 @@ Good news: your order #{{ order.pk }} has shipped!
 
 睇訂單 See your order: {{ site_url }}{{ order.get_absolute_url }}
 
-轉角見！ See you at the corner!
+車厘小角見！ See you at the corner!
 moncherie corner

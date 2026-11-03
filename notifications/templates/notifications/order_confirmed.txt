@@ -14,5 +14,5 @@ Thank you! Your order #{{ order.pk }} is paid.
 {% endif %}下載你嘅檔案 Download your files: {{ site_url }}{% url 'checkout:my_downloads' %}
 睇訂單 See your order: {{ site_url }}{{ order.get_absolute_url }}
 
-轉角見！ See you at the corner!
+車厘小角見！ See you at the corner!
 moncherie corner

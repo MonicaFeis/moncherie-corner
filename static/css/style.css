@@ -476,3 +476,13 @@ textarea:focus-visible {
   border: 2px solid var(--teal);
   border-radius: 8px;
 }
+
+/* The Chinese shop name, small under "moncherie corner" */
+.brand-text { display: flex; flex-direction: column; line-height: 1.1; }
+.brand-zh {
+  font-family: "Noto Sans TC", sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.35em;
+  color: var(--cream-text);
+  opacity: 0.9;
+}

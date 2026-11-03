@@ -9,5 +9,5 @@ Your portrait is ready: {{ item.display_name }}
 {% if item.needs_shipping %}
 The printed version will be posted to you soon.{% endif %}
 
-轉角見！ See you at the corner!
+車厘小角見！ See you at the corner!
 moncherie corner
