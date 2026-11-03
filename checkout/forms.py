@@ -84,7 +84,7 @@ class CheckoutForm(forms.Form):
     notes = forms.CharField(
         required=False,
         widget=forms.Textarea(attrs={"rows": 4}),
-        label="Names and notes for your portrait 名字同備註",
+        label="Names and notes 名字同備註",
         help_text="Write the name of everyone (and every pet) in the portrait, as you want it written. "
         "Then anything else: the mood, colours, clothes, background.",
     )

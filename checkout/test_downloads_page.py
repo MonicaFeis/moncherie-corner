@@ -45,3 +45,4 @@ class DownloadsAfterPortraitOrderTests(CheckoutTestCase):
         response = self.client.get(reverse("checkout:checkout"))
         self.assertContains(response, "Names")
         self.assertContains(response, "Photos")
+        self.assertContains(response, "肖像資料 About your portrait")

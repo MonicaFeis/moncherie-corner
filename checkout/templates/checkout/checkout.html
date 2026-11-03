@@ -26,6 +26,11 @@
     <div class="col-lg-5">
       <form method="post" class="form-card" enctype="multipart/form-data" novalidate>
         {% csrf_token %}
+        {% if form.needs_notes %}
+          <h2 class="h5 fw-bold">肖像資料 About your portrait</h2>
+        {% elif form.needs_shipping %}
+          <h2 class="h5 fw-bold">運送 Shipping</h2>
+        {% endif %}
         {% if form.fields %}
           {{ form.as_div }}
         {% else %}
