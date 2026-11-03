@@ -573,3 +573,10 @@ textarea:focus-visible {
   padding-top: 0.75rem;
   border-top: 1px dashed var(--teal);
 }
+
+/* The milk tea picture needs no circle around it */
+.alert-icon-picture { border: 0; background: none; width: auto; height: auto; }
+.alert-icon-picture img { display: block; }
+
+/* A small icon in front of the review question */
+.review-prompt .fa-solid { color: var(--red); margin-right: 0.25rem; }

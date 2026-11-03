@@ -10,7 +10,7 @@
       {% if product.image %}<img src="{{ product.image.url }}" alt="" class="cart-thumb">{% endif %}
       <div>
         <strong class="d-block">{{ product.name }}</strong>
-        <span>{{ question }}</span>
+        <span><i class="fa-solid {{ icon }}" aria-hidden="true" style="color: var(--red);"></i> {{ question }}</span>
       </div>
     </div>
     <form method="post" novalidate>

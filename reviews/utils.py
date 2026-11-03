@@ -13,6 +13,13 @@ QUESTIONS = {
 }
 
 
+ICONS = {"digital": "fa-note-sticky", "portrait": "fa-face-smile", "printed": "fa-box-open"}
+
+
+def icon_for(product_type):
+    return ICONS.get(product_type, ICONS["digital"])
+
+
 def question_for(product_type):
     return QUESTIONS.get(product_type, QUESTIONS["digital"])
 
@@ -34,6 +41,7 @@ def attach_reviews(user, items):
     for item in items:
         item.my_review = reviews.get(item.product_id)
         item.review_question = question_for(item.product_type)
+        item.review_icon = icon_for(item.product_type)
     return items
 
 
