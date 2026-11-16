@@ -353,7 +353,7 @@ textarea:focus-visible {
   border-radius: 16px;
   overflow: hidden;
   text-decoration: none;
-  background: var(--red);
+  background: var(--teal);
   transition: box-shadow 0.15s, transform 0.15s;
 }
 .category-card:hover {
@@ -389,7 +389,7 @@ textarea:focus-visible {
   color: var(--cream-text);
 }
 .category-card-label .category-sign-name { color: var(--cream-text); }
-.category-card:hover .category-card-label { background: var(--red-dark); }
+.category-card:hover .category-card-label { background: var(--teal-deep); }
 
 /* Product pictures: tall like the artworks, never cut off */
 .product-card-image {
