@@ -38,7 +38,12 @@ def add_review(request, slug):
         messages.success(request, "多謝你嘅評語 ❤️ Thank you for your review!")
         return redirect(next_page(request, product))
 
-    context = {"form": form, "product": product, "question": question_for(product.product_type), "icon": icon_for(product.product_type)}
+    context = {
+        "form": form,
+        "product": product,
+        "question": question_for(product.product_type),
+        "icon": icon_for(product.product_type),
+    }
     return render(request, "reviews/review_add.html", context)
 
 

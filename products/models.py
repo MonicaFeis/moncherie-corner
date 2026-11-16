@@ -6,7 +6,6 @@ from django.urls import reverse
 from django.utils.text import slugify
 
 
-
 def download_storage():
     """Where digital download files are kept.
 

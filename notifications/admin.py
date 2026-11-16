@@ -1,3 +1,1 @@
-from django.contrib import admin
-
-# Register your models here.
+"""Notifications only send emails, so there is nothing to register here."""

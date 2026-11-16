@@ -1,3 +1,1 @@
-from django.db import models
-
-# Create your models here.
+"""Notifications only send emails (see notifications/emails.py), so this app has no models."""

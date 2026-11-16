@@ -1,0 +1,3 @@
+[flake8]
+max-line-length = 119
+exclude = .git,.venv,venv,__pycache__,*/migrations/*,staticfiles,node_modules

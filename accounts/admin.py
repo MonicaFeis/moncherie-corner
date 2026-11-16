@@ -1,3 +1,1 @@
-from django.contrib import admin
-
-# Register your models here.
+"""Accounts use Django's built-in User model, so there is nothing extra to register here."""

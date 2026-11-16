@@ -6,7 +6,10 @@ from .models import ReferencePhoto, Order, OrderItem, ShippingMethod
 class OrderItemInline(admin.TabularInline):
     model = OrderItem
     extra = 0
-    readonly_fields = ("product", "product_name", "option_name", "people", "product_type", "is_printed", "price", "quantity")
+    readonly_fields = (
+        "product", "product_name", "option_name", "people",
+        "product_type", "is_printed", "price", "quantity",
+    )
 
 
 class ReferencePhotoInline(admin.TabularInline):

@@ -1,3 +1,1 @@
-from django.contrib import admin
-
-# Register your models here.
+"""The home app only shows pages, so there is nothing to register here."""

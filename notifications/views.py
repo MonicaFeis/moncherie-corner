@@ -1,3 +1,1 @@
-from django.shortcuts import render
-
-# Create your views here.
+"""Notifications only send emails (see notifications/emails.py), so this app has no views."""

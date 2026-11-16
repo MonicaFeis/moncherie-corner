@@ -1,3 +1,1 @@
-from django.db import models
-
-# Create your models here.
+"""The home app only shows pages, so it has no models."""
