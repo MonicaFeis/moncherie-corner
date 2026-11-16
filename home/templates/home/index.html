@@ -47,26 +47,6 @@
 </section>
 {% endif %}
 
-{% if portrait_product %}
-<section class="container mt-5" aria-labelledby="portrait-title">
-  <div class="form-card">
-    <div class="row g-4 align-items-center">
-      <div class="col-md-4">
-        <img src="{% static 'images/customize-portrait.jpg' %}" class="img-fluid rounded" loading="lazy"
-             width="1122" height="1402"
-             alt="Poster: a girl holding a hand-drawn family portrait with two cats, with the words 客製人像繪畫 and Custom portrait">
-      </div>
-      <div class="col-md-8">
-        <h2 id="portrait-title" class="page-title">客製人像 Custom portraits</h2>
-        <p class="fs-5">People, pets, the whole family. 一家大細都可以畫！</p>
-        <p>Send me a few photos and some notes. I'll draw your portrait by hand and email you when it's ready.</p>
-        <a href="{{ portrait_product.get_absolute_url }}" class="btn btn-shop">委託肖像 Commission a portrait</a>
-      </div>
-    </div>
-  </div>
-</section>
-{% endif %}
-
 {% if featured %}
 <section class="container mt-5" aria-labelledby="featured-title">
   <div class="d-flex align-items-center justify-content-between gap-3 mb-3">
