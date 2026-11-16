@@ -67,14 +67,14 @@ class SignPagesTests(TestCase):
         response = self.client.get(reverse("products:list") + "?category=coming-soon")
         self.assertContains(response, "images/sign-no-results.png")
 
-    def test_no_orders_yet_shows_the_keep_going_sign(self):
+    def test_no_orders_yet_shows_the_nothing_here_yet_sign(self):
         self.client.login(username="rosa", password=PASSWORD)
         response = self.client.get(reverse("checkout:my_orders"))
-        self.assertContains(response, "images/sign-no-results.png")
-        self.assertNotContains(response, "empty-state.png")
+        self.assertContains(response, "images/sign-empty-state.png")
+        self.assertNotContains(response, "images/empty-state.png")
 
-    def test_no_downloads_yet_shows_the_take_a_break_sign(self):
+    def test_no_downloads_yet_shows_the_nothing_here_yet_sign(self):
         self.client.login(username="rosa", password=PASSWORD)
         response = self.client.get(reverse("checkout:my_downloads"))
-        self.assertContains(response, "images/sign-empty-cart.png")
-        self.assertNotContains(response, "empty-state.png")
+        self.assertContains(response, "images/sign-empty-state.png")
+        self.assertNotContains(response, "images/empty-state.png")
