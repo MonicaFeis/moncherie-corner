@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Shop | moncherie corner{% endblock %}
 
@@ -21,7 +22,12 @@
         {% include "products/includes/product_card.html" %}
       </div>
     {% empty %}
-      <p>No products here yet. Please come back soon!</p>
+      <div class="col-12 text-center status-page mx-auto">
+        <img src="{% static 'images/sign-no-results.png' %}" class="img-fluid status-image"
+             alt="Shop sign: 繼續努力, Keep going, 搵多啲啦, with a smiling girl">
+        <p class="fs-5">呢度暫時未有貨 No products here yet. Please come back soon!</p>
+        <a href="{% url 'products:list' %}" class="btn btn-shop">睇晒所有貨品 See all products</a>
+      </div>
     {% endfor %}
   </div>
 </section>

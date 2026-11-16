@@ -37,3 +37,8 @@ class SiteLoginView(SuccessMessageMixin, LoginView):
     template_name = "accounts/login.html"
     redirect_authenticated_user = True
     success_message = "歡迎回來，%(username)s！ Welcome back, %(username)s!"
+
+
+def logged_out(request):
+    """Friendly page after logging out, with the 收工啦 sign."""
+    return render(request, "accounts/logged_out.html")

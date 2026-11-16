@@ -1,10 +1,13 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}No access | moncherie corner{% endblock %}
 
 {% block content %}
 <section class="container text-center status-page">
-  <h1 class="page-title">Sorry, this page is only for the shop owner</h1>
+  <img src="{% static 'images/sign-403.png' %}" class="img-fluid status-image"
+       alt="Shop sign: 唔關你事, Mind your own business, 唔好入嚟, with a girl holding up her hand">
+  <h1 class="page-title">唔好意思 Sorry, this page is only for the shop owner</h1>
   <p>You don't have permission to see it.</p>
   <a href="{% url 'home:index' %}" class="btn btn-shop">返回 Back to the home page</a>
 </section>

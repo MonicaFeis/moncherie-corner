@@ -58,7 +58,10 @@
         <div class="col-md-6 col-lg-4">
           <div class="form-card h-100 d-flex flex-column">
             <div class="download-thumb mb-3">
-              <img src="{% static 'images/being-drawn.png' %}" alt="Drawing in progress: 畫緊" loading="lazy">
+              <picture>
+                <source srcset="{% static 'images/being-drawn.webp' %}" type="image/webp">
+                <img src="{% static 'images/being-drawn.jpg' %}" alt="Poster: a girl drawing a family portrait, with the words 我畫緊啦 and Being drawn" loading="lazy">
+              </picture>
             </div>
             <h2 class="h5 fw-bold">{{ item.display_name }}</h2>
             <p class="small mb-0"><i class="fa-solid fa-pen-nib" aria-hidden="true"></i>
@@ -74,8 +77,8 @@
     </div>
   {% else %}
     <div class="text-center status-page mx-auto">
-      <img src="{% static 'images/empty-state.png' %}" class="img-fluid status-image"
-           alt="An empty Hong Kong milk tea cup">
+      <img src="{% static 'images/sign-empty-state.png' %}" class="img-fluid status-image"
+           alt="Shop sign: 空空如也, Nothing here yet, 去逛下啦, with a girl holding an empty shopping bag">
       <p class="fs-5">暫時冇檔案 No downloads yet.</p>
       <a href="{% url 'products:list' %}" class="btn btn-shop">去商店 Go to the shop</a>
     </div>

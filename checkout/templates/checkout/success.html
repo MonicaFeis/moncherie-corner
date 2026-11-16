@@ -6,8 +6,8 @@
 {% block content %}
 <section class="container text-center status-page">
   {% if order.is_paid %}
-    <img src="{% static 'images/thank-you.png' %}" class="img-fluid status-image"
-         alt="Hong Kong milk tea with a sign saying thank you for your custom">
+    <img src="{% static 'images/sign-thank-you.png' %}" class="img-fluid status-image"
+         alt="Shop sign: 開心啲, Be happy, 多謝支持, with a girl cheering">
     <h1 class="page-title">多謝惠顧 Thank you for your order</h1>
     <p>Order #{{ order.pk }} is paid. We've sent a confirmation to {{ order.user.email }}.</p>
     {% if order.portrait_items %}<p><i class="fa-solid fa-pen-nib" aria-hidden="true"></i> 我會開始畫你嘅肖像。 I'll start drawing your portrait and email you when it's ready, usually within 7 days.</p>{% endif %}

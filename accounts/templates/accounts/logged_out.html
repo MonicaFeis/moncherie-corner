@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Logged out | moncherie corner{% endblock %}
+
+{% block content %}
+<section class="container text-center status-page">
+  <img src="{% static 'images/sign-logout.png' %}" class="img-fluid status-image"
+       alt="Shop sign: 收工啦, Go home, 返屋企啦, with a smiling girl">
+  <h1 class="page-title">收工啦 You're logged out</h1>
+  <p>Thanks for visiting the corner. See you soon!</p>
+  <div class="d-flex flex-wrap justify-content-center gap-3 mt-3">
+    <a href="{% url 'home:index' %}" class="btn btn-shop">返回 Back to the home page</a>
+    <a href="{% url 'accounts:login' %}" class="btn btn-shop-outline">登入 Log in again</a>
+  </div>
+</section>
+{% endblock %}

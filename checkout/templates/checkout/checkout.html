@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Checkout | moncherie corner{% endblock %}
 
@@ -24,7 +25,7 @@
       </div>
     </div>
     <div class="col-lg-5">
-      <form method="post" class="form-card" enctype="multipart/form-data" novalidate>
+      <form method="post" class="form-card" enctype="multipart/form-data" novalidate id="checkout-form">
         {% csrf_token %}
         {% if form.needs_notes %}
           <h2 class="h5 fw-bold">肖像資料 About your portrait</h2>
@@ -36,12 +37,18 @@
         {% else %}
           <p class="mb-0">Your files will be ready to download right after payment.</p>
         {% endif %}
-        <button type="submit" class="btn btn-shop mt-3 w-100">
-          <i class="fa-solid fa-lock" aria-hidden="true"></i> 付款 Pay securely with Stripe
+        <button type="submit" class="btn btn-shop mt-3 w-100" id="pay-button">
+          <span class="pay-ready"><i class="fa-solid fa-lock" aria-hidden="true"></i> 付款 Pay securely with Stripe</span>
+          <span class="pay-waiting d-none"><span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>去緊付款… Taking you to payment…</span>
         </button>
+        <p class="visually-hidden" id="pay-status" role="status" aria-live="polite"></p>
         <p class="small mt-2 mb-0"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> 安全付款 Payments are handled securely by Stripe. We never see your card details.</p>
       </form>
     </div>
   </div>
 </section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/checkout.js' %}"></script>
 {% endblock %}

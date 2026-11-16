@@ -127,7 +127,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Where to send people for login, and after login and logout
 LOGIN_URL = "accounts:login"
 LOGIN_REDIRECT_URL = "home:index"
-LOGOUT_REDIRECT_URL = "home:index"
+LOGOUT_REDIRECT_URL = "accounts:logged_out"
 
 # Django calls errors "error"; Bootstrap calls the red alert "danger"
 MESSAGE_TAGS = {messages.ERROR: "danger"}

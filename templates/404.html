@@ -5,10 +5,10 @@
 
 {% block content %}
 <section class="container text-center status-page">
-  <img src="{% static 'images/notfound.png' %}" class="img-fluid status-image"
-       alt="Empty Hong Kong milk tea cup next to a red 404 sign">
-  <h1 class="page-title">Page not found</h1>
-  <p>This page has gone for tea. Let's take you back.</p>
+  <img src="{% static 'images/sign-404.png' %}" class="img-fluid status-image"
+       alt="Shop sign: 斷線, Error 404: Can't find me, 搵唔到我, with a girl holding her head">
+  <h1 class="page-title">搵唔到 Page not found</h1>
+  <p>This page has gone offline. Let's take you back to the shop.</p>
   <a href="{% url 'home:index' %}" class="btn btn-shop">返回 Back to the home page</a>
 </section>
 {% endblock %}
