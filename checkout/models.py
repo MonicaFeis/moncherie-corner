@@ -73,7 +73,10 @@ class Order(models.Model):
     @property
     def has_digital_items(self):
         """True if there is (or will be) a file to download in this order."""
-        return any(item.product_type in ("digital", "portrait") for item in self.items.all())
+        return any(
+            (item.product_type == "digital" and not item.is_printed) or item.product_type == "portrait"
+            for item in self.items.all()
+        )
 
     @property
     def has_printed_items(self):
@@ -84,7 +87,7 @@ class Order(models.Model):
     def has_files_to_download_now(self):
         """True if the order has ready-made digital files (sticker sets, web art).
         Portraits are drawn first, and printed items are posted."""
-        return any(item.product_type == "digital" for item in self.items.all())
+        return any(item.product_type == "digital" and not item.is_printed for item in self.items.all())
 
     @property
     def portrait_items(self):

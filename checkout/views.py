@@ -256,6 +256,7 @@ def paid_digital_items(user):
         order__user=user,
         order__status__in=[Order.PAID, Order.SHIPPED],
         product_type=Product.DIGITAL,
+        is_printed=False,
         product__isnull=False,
         order__created_at__gte=download_cutoff(),
     ).select_related("product", "order").order_by("-order__created_at")
@@ -349,6 +350,7 @@ def download(request, product_id):
         order__status__in=[Order.PAID, Order.SHIPPED],
         product_id=product_id,
         product_type=Product.DIGITAL,
+        is_printed=False,
         order__created_at__gte=download_cutoff(),
     ).exists()
     if not bought:
