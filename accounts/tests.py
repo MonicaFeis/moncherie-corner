@@ -76,5 +76,5 @@ class LoginLogoutTests(TestCase):
     def test_logout_ends_the_session(self):
         self.client.login(username="cherry", password=PASSWORD)
         response = self.client.post(reverse("accounts:logout"))
-        self.assertRedirects(response, reverse("home:index"))
+        self.assertRedirects(response, reverse("accounts:logged_out"))
         self.assertNotIn("_auth_user_id", self.client.session)

@@ -36,7 +36,7 @@ class DownloadsAfterPortraitOrderTests(CheckoutTestCase):
 
     def test_waiting_portrait_always_shows_the_being_drawn_picture(self):
         response = self.client.get(reverse("checkout:my_downloads"))
-        self.assertContains(response, "images/being-drawn.png")
+        self.assertContains(response, "images/being-drawn.jpg")
         self.assertContains(response, f"Order #{self.portrait_order.pk}")
 
     def test_portrait_checkout_asks_for_names(self):
