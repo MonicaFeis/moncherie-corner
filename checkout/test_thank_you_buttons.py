@@ -37,3 +37,14 @@ class ThankYouButtonTests(CheckoutTestCase):
         self.paid_order(self.stickers, "cs_test_digital")
         response = self.thank_you_page("cs_test_digital")
         self.assertContains(response, "我的下載 My downloads")
+
+    def test_portrait_note_is_highlighted(self):
+        self.paid_order(self.portrait, "cs_test_note")
+        response = self.thank_you_page("cs_test_note")
+        self.assertContains(response, 'class="portrait-note"')
+
+    def test_being_drawn_note_is_highlighted(self):
+        self.paid_order(self.portrait, "cs_test_drawn")
+        response = self.client.get(reverse("checkout:my_downloads"))
+        self.assertContains(response, "Being drawn")
+        self.assertContains(response, "portrait-note")
