@@ -55,7 +55,7 @@ def add_to_cart(request, product_id):
     if new_quantity == already:
         messages.info(request, f"{name} 已經喺購物袋 is already in your bag.", extra_tags="bag")
     else:
-        messages.success(request, f"已加入購物袋 Added {name} to your bag.")
+        messages.success(request, f"已加入購物袋 Added {name} to your bag.", extra_tags="bag")
     return redirect("cart:detail")
 
 
@@ -63,7 +63,7 @@ def add_to_cart(request, product_id):
 def update_cart(request, key):
     """Change the quantity of a printed item (US-08)."""
     Cart(request).update(key, read_quantity(request))
-    messages.success(request, "已更新購物袋 Your bag was updated.")
+    messages.success(request, "已更新購物袋 Your bag was updated.", extra_tags="bag")
     return redirect("cart:detail")
 
 
@@ -74,5 +74,5 @@ def remove_from_cart(request, key):
     line = cart.get_line(key)
     cart.remove(key)
     if line:
-        messages.success(request, f"已移除 Removed {line['product'].name} from your bag.")
+        messages.success(request, f"已移除 Removed {line['product'].name} from your bag.", extra_tags="bag")
     return redirect("cart:detail")

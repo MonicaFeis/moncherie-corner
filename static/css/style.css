@@ -575,8 +575,9 @@ textarea:focus-visible {
 }
 
 /* The milk tea picture needs no circle around it */
-/* Info messages in the shop's green, not Bootstrap's blue */
-.alert-info {
+/* Info and success messages in the shop's green, not Bootstrap's blue */
+.alert-info,
+.alert-success {
   background: #DCEBE7;
   border-color: var(--teal-light);
   color: var(--teal);

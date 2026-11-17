@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@700&family=Playball&display=swap">
-  <link rel="stylesheet" href="{% static 'css/style.css' %}?v=24">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}?v=23">
 </head>
 <body class="d-flex flex-column min-vh-100">
   <a class="visually-hidden-focusable skip-link" href="#main">Skip to main content</a>
@@ -89,11 +89,11 @@
       <div class="container pt-3">
         {% for message in messages %}
           <div class="alert alert-{{ message.level_tag }} alert-dismissible fade show shop-alert" role="alert">
-            <span class="alert-icon{% if message.level_tag == "success" %} alert-icon-picture{% endif %}" aria-hidden="true">
-              {% if message.level_tag == "success" %}<span class="alert-emoji">{{ season_drink }}</span>
+            <span class="alert-icon{% if message.level_tag == "success" and "bag" not in message.extra_tags %} alert-icon-picture{% endif %}" aria-hidden="true">
+              {% if "bag" in message.extra_tags %}<i class="fa-solid fa-bag-shopping"></i>
+              {% elif message.level_tag == "success" %}<span class="alert-emoji">{{ season_drink }}</span>
               {% elif message.level_tag == "danger" %}<i class="fa-solid fa-circle-exclamation"></i>
               {% elif message.level_tag == "warning" %}<i class="fa-solid fa-triangle-exclamation"></i>
-              {% elif "bag" in message.extra_tags %}<i class="fa-solid fa-bag-shopping"></i>
               {% else %}<i class="fa-solid fa-bell-concierge"></i>{% endif %}
             </span>
             <span>{{ message }}</span>
