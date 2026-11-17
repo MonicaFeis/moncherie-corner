@@ -640,3 +640,11 @@ textarea:focus-visible {
 .carousel-btn:hover:not(:disabled) { background: var(--teal); color: var(--cream-text); }
 .carousel-btn:focus-visible { outline: 3px solid var(--red); outline-offset: 2px; }
 .carousel-btn:disabled { opacity: 0.4; cursor: default; }
+
+/* The <picture> wrapper must fill the box, or the poster grows out of the card */
+.download-thumb picture {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  max-width: 100%;
+}
