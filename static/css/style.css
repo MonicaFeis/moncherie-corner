@@ -648,3 +648,9 @@ textarea:focus-visible {
   height: 100%;
   max-width: 100%;
 }
+
+/* Portrait notes (being drawn) stand out in red */
+.portrait-note {
+  color: var(--red);
+  font-weight: 700;
+}
