@@ -38,9 +38,9 @@ class SignPagesTests(TestCase):
         self.assertIn("images/sign-500.png", html)
         self.assertIn("Back to the home page", html)
 
-    def test_empty_bag_shows_the_take_a_break_sign(self):
+    def test_empty_bag_shows_the_nothing_here_yet_sign(self):
         response = self.client.get(reverse("cart:detail"))
-        self.assertContains(response, "images/sign-empty-cart.png")
+        self.assertContains(response, "images/sign-empty-state.png")
 
     def test_logging_out_shows_the_go_home_sign(self):
         self.client.login(username="rosa", password=PASSWORD)
@@ -67,14 +67,14 @@ class SignPagesTests(TestCase):
         response = self.client.get(reverse("products:list") + "?category=coming-soon")
         self.assertContains(response, "images/sign-no-results.png")
 
-    def test_no_orders_yet_shows_the_nothing_here_yet_sign(self):
+    def test_no_orders_yet_shows_the_take_a_break_sign(self):
         self.client.login(username="rosa", password=PASSWORD)
         response = self.client.get(reverse("checkout:my_orders"))
-        self.assertContains(response, "images/sign-empty-state.png")
+        self.assertContains(response, "images/sign-empty-cart.png")
         self.assertNotContains(response, "images/empty-state.png")
 
-    def test_no_downloads_yet_shows_the_nothing_here_yet_sign(self):
+    def test_no_downloads_yet_shows_the_take_a_break_sign(self):
         self.client.login(username="rosa", password=PASSWORD)
         response = self.client.get(reverse("checkout:my_downloads"))
-        self.assertContains(response, "images/sign-empty-state.png")
+        self.assertContains(response, "images/sign-empty-cart.png")
         self.assertNotContains(response, "images/empty-state.png")
