@@ -22,6 +22,7 @@
           <span>Items total</span><span class="product-price">€{{ total }}</span>
         </p>
         {% if form.shipping_method %}<p class="small mt-2 mb-0">Shipping is added on the next step, once you choose a method.</p>{% endif %}
+        <a href="{% url 'cart:detail' %}" class="btn btn-shop-outline mt-3"><i class="fa-solid fa-pen" aria-hidden="true"></i> 修改購物袋 Edit my bag</a>
       </div>
     </div>
     <div class="col-lg-5">
