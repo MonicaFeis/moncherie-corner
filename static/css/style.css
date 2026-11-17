@@ -575,6 +575,12 @@ textarea:focus-visible {
 }
 
 /* The milk tea picture needs no circle around it */
+/* Info messages in the shop's green, not Bootstrap's blue */
+.alert-info {
+  background: #DCEBE7;
+  border-color: var(--teal-light);
+  color: var(--teal);
+}
 .alert-icon-picture { border: 0; background: none; width: auto; height: auto; }
 .alert-icon-picture img { display: block; }
 

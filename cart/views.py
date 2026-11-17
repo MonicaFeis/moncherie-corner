@@ -53,7 +53,7 @@ def add_to_cart(request, product_id):
     if people > 1:
         name += f", {people} people/pets"
     if new_quantity == already:
-        messages.info(request, f"{name} 已經喺購物袋 is already in your bag.")
+        messages.info(request, f"{name} 已經喺購物袋 is already in your bag.", extra_tags="bag")
     else:
         messages.success(request, f"已加入購物袋 Added {name} to your bag.")
     return redirect("cart:detail")
