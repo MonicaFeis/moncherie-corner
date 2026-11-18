@@ -112,7 +112,7 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # Media files: things uploaded on the site (product images and downloads).
-# Cloudinary is added later, in the products step.
+# On Heroku they are stored on Cloudinary (see Deployment below).
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 

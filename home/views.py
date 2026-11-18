@@ -16,10 +16,6 @@ def index(request):
     context = {
         "categories": Category.objects.all(),
         "featured": featured_products(),
-        # The "Commission a portrait" button opens this product's order page
-        "portrait_product": Product.objects.filter(
-            is_active=True, product_type=Product.PORTRAIT
-        ).first(),
         # The 3 newest reviews with 4 or 5 stars, for "What customers say"
         "happy_reviews": Review.objects.filter(rating__gte=4, product__is_active=True)
         .select_related("user", "product")[:3],
