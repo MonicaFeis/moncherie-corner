@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load shop_images %}
 {% load static %}
 
 {% block title %}My downloads | moncherie corner{% endblock %}
@@ -17,7 +18,7 @@
           <div class="form-card h-100 d-flex flex-column">
             <div class="download-thumb mb-3" aria-hidden="true">
               {% if item.product.image %}
-                <img src="{{ item.product.image.url }}" alt="" loading="lazy">
+                <img src="{{ item.product.image.url|sized:600 }}" alt="" loading="lazy">
               {% else %}
                 <span class="cart-thumb-empty"></span>
               {% endif %}
@@ -39,7 +40,7 @@
               {% if item.delivered_is_picture %}
                 <img src="{% url 'checkout:preview_portrait' item.pk %}" alt="Your finished portrait" loading="lazy">
               {% elif item.product.image %}
-                <img src="{{ item.product.image.url }}" alt="" loading="lazy">
+                <img src="{{ item.product.image.url|sized:600 }}" alt="" loading="lazy">
               {% else %}
                 <span class="cart-thumb-empty"></span>
               {% endif %}

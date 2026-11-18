@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load shop_images %}
 {% load static %}
 
 {% block content %}
@@ -32,7 +33,7 @@
         <a href="{% url 'products:list' %}?category={{ category.slug }}" class="category-card">
           <span class="category-card-image">
             {% if category.cover_image %}
-              <img src="{{ category.cover_image.url }}" alt="" loading="lazy">
+              <img src="{{ category.cover_image.url|sized:600 }}" alt="" loading="lazy">
             {% else %}
               <span class="category-card-empty" aria-hidden="true">{{ category.name|first }}</span>
             {% endif %}

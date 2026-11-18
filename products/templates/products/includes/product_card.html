@@ -1,10 +1,11 @@
+{% load shop_images %}
 {% load static %}
 <article class="product-card h-100">
   <a href="{{ product.get_absolute_url }}" class="product-card-image">
     {% if product.is_sold_out %}
       <img src="{% static 'images/sold-out.jpg' %}" alt="{{ product.name }}: sold out" loading="lazy">
     {% elif product.image %}
-      <img src="{{ product.image.url }}" alt="{{ product.name }}" loading="lazy">
+      <img src="{{ product.image.url|sized:600 }}" alt="{{ product.name }}" loading="lazy">
     {% else %}
       <span class="image-placeholder">Image coming soon</span>
     {% endif %}
