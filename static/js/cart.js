@@ -37,9 +37,12 @@ function updateCartPreview() {
   });
 
   document.getElementById("cart-total").textContent = formatEuro(total);
-  document.getElementById("cart-note").textContent = changed
-    ? "Click Update to save the new quantity. 撳 Update 儲存。"
-    : "";
+  const note = document.getElementById("cart-note");
+  if (changed) {
+    note.textContent = "Click Update to save the new quantity. 撳 Update 儲存。";
+  } else {
+    note.textContent = "";
+  }
 }
 
 document.addEventListener("DOMContentLoaded", function () {
