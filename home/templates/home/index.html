@@ -6,9 +6,11 @@
   <div class="row align-items-center g-5">
     <div class="col-md-5">
       <picture>
-        <source srcset="{% static 'images/hero-poster.webp' %}" type="image/webp">
+        <source type="image/webp"
+                srcset="{% static 'images/hero-poster-800.webp' %} 800w, {% static 'images/hero-poster.webp' %} 1086w"
+                sizes="(min-width: 768px) 40vw, 100vw">
         <img src="{% static 'images/hero-poster.jpg' %}" class="hero-poster img-fluid"
-             width="1086" height="1448"
+             width="1086" height="1448" fetchpriority="high"
              alt="Hand-drawn poster: a girl in a Hong Kong cha chaan teng with milk tea and toast, with the words 德國製造 and Welcome">
       </picture>
     </div>
