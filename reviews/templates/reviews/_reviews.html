@@ -22,7 +22,7 @@
         <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
           <div class="d-flex align-items-center gap-2">
             <span class="stars" role="img" aria-label="{{ review.rating }} out of 5 stars">{% for full in review.star_list %}<i class="fa-{% if full %}solid{% else %}regular{% endif %} fa-star" aria-hidden="true"></i>{% endfor %}</span>
-            <strong>{{ review.user.username }}</strong>
+            <h3 class="review-author h6 mb-0">{{ review.user.username }}</h3>
           </div>
           <span class="small">{{ review.created_at|date:"j M Y" }}</span>
         </div>
