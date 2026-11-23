@@ -1,6 +1,6 @@
 # Moncherie corner 車厘小角
 
-![moncherie corner home page](docs/screenshots/feature-home.png)
+![Moncherie corner home page](docs/screenshots/feature-home.png)
 
 **Moncherie corner** is a small online shop for my own hand-drawn art, in the style of a 1960s Hong Kong cha chaan teng (茶餐廳). Customers can buy digital sticker sets, postcards, website art, and order a custom portrait drawn by hand.
 
@@ -30,7 +30,7 @@
 
 ## Purpose and value
 
-I am an illustrator and designer from Hong Kong, based in Germany. I draw stickers, postcards and portraits under the name **Moncherie**. Before this project, I had no place where people could buy my work directly. I am also finishing my training as full stack web developer. So this shop is my final project.
+I am an illustrator and designer from Hong Kong, based in Germany. I draw stickers, postcards and portraits under the name **Moncherie**. Before this project, I had no place where people could buy my work directly. I am also finishing my training as full stack web developer. So this shop is also my final project.
 
 Moncherie corner is that place. It is a real shop with real products:
 
@@ -39,7 +39,7 @@ Moncherie corner is that place. It is a real shop with real products:
 | **Sticker sets** | A ZIP file with transparent PNG stickers, to download right after payment |
 | **Postcards** | A print ready file to download, **or** a real A6 postcard posted to them |
 | **Website art** | Tile patterns and retro frames for their own website, to download |
-| **Custom portraits** | A portrait drawn by hand from their photos, as a file or a printed A4 posted to them |
+| **Custom portraits** | A portrait drawn by hand from their photos, as a file or a printed 17 cm x 17 cm posted to them |
 
 **Who it is for**
 
@@ -50,8 +50,7 @@ Moncherie corner is that place. It is a real shop with real products:
 
 **Why customers register:** an account keeps their orders and downloads in one place. They can download their files again for 30 days, follow a printed order, send photos for a portrait, and write reviews for things they bought.
 
-The whole shop is **bilingual**: Cantonese (繁體中文) and English, because many of my customers might/can read both and also I want to show it is my brand, my identity (a HongKonger who moved to Germany)
-
+The whole shop is **bilingual**: Cantonese (繁體中文) and English, because many of my customers can read both, and because it shows my brand and my identity (a Hong Konger who moved to Germany).
 ---
 
 ## User experience (UX)
@@ -400,7 +399,7 @@ Click a wireframe to see it full size.
 
 - The categories changed from *Digital stickers, Prints and gifts, Portraits* to **Portraits, Postcards, Sticker sets and Website art**, to match the products I really made.
 - The **tote bag** and **art prints** were left out (see at Won't in the user stories).
-- The **Commission a portrait** button on the home page was removed, because the portrait is one of my product among the others.
+- The **Commission a portrait** button on the home page was removed, because the portrait is one of my products, like the others.
 - The bag address changed from `/cart/` to **`/bag/`**, so it matches the word customers see to avoid any confusion.
 - The empty and error states got my own hand drawn **shop signs** instead of plain illustrations.
 - The portrait price became €20 for one person and €10 for each extra person or pet to make it more realistic.
@@ -688,6 +687,7 @@ The project has one Django app for each part of the shop, so each part could be 
 ## Security and permissions
 
 - **Secrets** (the Django secret key, Stripe keys, Cloudinary URL, Gmail app password) are only in a `.env` file on my computer and in the Heroku Config Vars. `.env` is in `.gitignore`, so it is never on GitHub.
+- An early commit had a test `SECRET_KEY` in `settings.py`. I moved it to environment variables and made a new key for the live site, so the old one is no longer used.
 - **DEBUG is off** on Heroku.
 - On Heroku, all pages use **HTTPS**, and cookies are only sent over HTTPS.
 - **Log in and Register** are only for visitors who are not logged in. Logged-in users are sent to the home page.
@@ -922,7 +922,7 @@ The database is set in one place: `DATABASE_URL` (Postgres on Heroku). If it is 
 2. **Add a database:** *Resources → Add-ons → Heroku Postgres*. This adds `DATABASE_URL` automatically.
 3. **Cloudinary:** make a free account at [cloudinary.com](https://cloudinary.com/) and copy the *API environment variable* (`CLOUDINARY_URL`). In *Settings → Security*, tick **Allow delivery of PDF and ZIP files**, or downloads will not work.
 4. **Stripe:** in the Stripe dashboard (test mode), copy the **secret key**. Under *Developers → Webhooks*, add the endpoint `https://<your-app>.herokuapp.com/checkout/webhook/` with the events `checkout.session.completed`, `checkout.session.async_payment_succeeded`, `checkout.session.async_payment_failed` and `checkout.session.expired`, and copy the **signing secret**.
-5. **Gmail:** turn on 2 steps verification and make an **app password** for the shop's Gmail address.
+5. **Gmail:** turn on 2-steps verification and make an **app password** for the shop's Gmail address.
 6. **Config Vars:** in *Settings → Reveal Config Vars*, add all the variables from the table above. Do not add `DEBUG`.
 7. **Connect GitHub:** in *Deploy*, choose GitHub, find `moncherie-corner` and click **Deploy Branch** (or turn on automatic deploys).
 8. Heroku installs `requirements.txt`, runs `collectstatic` for the CSS, JavaScript and pictures (served by **WhiteNoise**), and the `Procfile` runs `migrate` before starting **gunicorn**:
