@@ -770,20 +770,26 @@ All four JavaScript files were checked with [JSHint](https://jshint.com/), with 
 
 Tested with Lighthouse (via [PageSpeed Insights](https://pagespeed.web.dev/)) on the live site.
 
-| Page | Device | Performance | Accessibility | Best Practices | SEO |
-|---|---|---|---|---|---|
-| Home | Mobile | 72 | 100 | 100 | 100 |
-| Home | Desktop | 91 | 100 | 100 | 100 |
-| All products | Mobile | 72 | 100 | 100 | 100 |
-| All products | Desktop | 92 | 100 | 100 | 100 |
-| Portraits category | Mobile | 73 | 100 | 100 | 100 |
-| Portraits category | Desktop | 95 | 100 | 100 | 100 |
-
-![Lighthouse home desktop](docs/screenshots/lighthouse-home-desktop.png)
+| Page | Device | Performance | Accessibility | Best Practices | SEO | Screenshot |
+|---|---|---|---|---|---|---|
+| Home | Mobile | 86 | 100 | 100 | 100 | [view](docs/screenshots/lighthouse-home-mobile.png) · [before](docs/screenshots/lighthouse-home-mobile-before.png) |
+| Home | Desktop | 91 | 100 | 100 | 100 | [view](docs/screenshots/lighthouse-home-desktop.png) |
+| All products | Mobile | 74 | 100 | 100 | 100 | [view](docs/screenshots/lighthouse-products-mobile.png) · [before](docs/screenshots/lighthouse-products-mobile-before.png) |
+| All products | Desktop | 92 | 100 | 100 | 100 | [view](docs/screenshots/lighthouse-products-desktop.png) |
+| Portraits category | Mobile | 81 | 100 | 100 | 100 | [view](docs/screenshots/lighthouse-category-mobile.png) · [before](docs/screenshots/lighthouse-category-mobile-before.png) |
+| Portraits category | Desktop | 95 | 100 | 100 | 100 | [view](docs/screenshots/lighthouse-category-desktop.png) |
 
 **What I improved:** the first test showed that pictures were too big ([before](docs/screenshots/lighthouse-before-insights-mobile.png)). Now Cloudinary sends product pictures smaller and in a modern format (`f_auto,q_auto,w_…`), the hero poster has a smaller version for phones, and the icon script loads after the page. This cut the pictures on the home page from about **4,150 KiB to 630 KiB** ([after](docs/screenshots/lighthouse-after-insights-mobile.png)), and desktop performance went from 85 to 91.
 
-Mobile performance is still about 72, because Bootstrap and the Google Fonts file (the Chinese fonts are large) must load before the page is shown. Pages behind a login (bag, checkout, My orders) cannot be tested with PageSpeed, but they use the same base template.
+Google Fonts now load after the page is shown (`media="print"` with `onload`), so phones show the page sooner. On product lists, the first two pictures load straight away and the rest load when the customer scrolls. Mobile performance went up on every page:
+
+| Page | Mobile before | Mobile after |
+|---|---|---|
+| Home | 72 | **86** |
+| All products | 72 | **74** |
+| Portraits category | 73 | **81** |
+
+The All products page shows many large product drawings at once, so it is still a bit slower on mobile. Pages behind a login (bag, checkout, My orders) cannot be tested with PageSpeed, but they use the same base template.
 
 ### Accessibility: WAVE
 
