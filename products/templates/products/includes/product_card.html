@@ -5,7 +5,8 @@
     {% if product.is_sold_out %}
       <img src="{% static 'images/sold-out.jpg' %}" alt="{{ product.name }}: sold out" loading="lazy">
     {% elif product.image %}
-      <img src="{{ product.image.url|sized:600 }}" alt="{{ product.name }}" loading="lazy">
+      <img src="{{ product.image.url|sized:600 }}" alt="{{ product.name }}"
+           {% if forloop.counter <= 2 %}fetchpriority="high"{% else %}loading="lazy"{% endif %}>
     {% else %}
       <span class="image-placeholder">Image coming soon</span>
     {% endif %}
