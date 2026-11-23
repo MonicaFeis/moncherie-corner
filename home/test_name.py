@@ -15,7 +15,7 @@ class ShopNameTests(TestCase):
 
     def test_page_title_has_the_chinese_name(self):
         response = self.client.get(reverse("home:index"))
-        self.assertContains(response, "<title>moncherie corner 車厘小角</title>", html=False)
+        self.assertContains(response, "<title>Moncherie corner 車厘小角</title>", html=False)
 
     def test_emails_show_the_chinese_name(self):
         user = User.objects.create_user("rosa", "rosa@example.com", "pass-12345!")

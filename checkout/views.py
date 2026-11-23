@@ -119,7 +119,7 @@ def checkout(request):
 def stripe_message(order):
     """The short thank-you text on the Stripe page, to match what was bought."""
     types = {item.product_type for item in order.items.all()}
-    parts = ["多謝惠顧！ Thank you for shopping at moncherie corner."]
+    parts = ["多謝惠顧！ Thank you for shopping at Moncherie corner."]
     if "digital" in types:
         parts.append("Your files appear in My downloads right after payment.")
     if "portrait" in types:

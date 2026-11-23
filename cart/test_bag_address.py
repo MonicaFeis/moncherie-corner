@@ -9,4 +9,4 @@ class BagAddressTests(TestCase):
 
     def test_bag_page_title_says_your_bag(self):
         response = self.client.get(reverse("cart:detail"))
-        self.assertContains(response, "<title>Your bag | moncherie corner</title>", html=False)
+        self.assertContains(response, "<title>Your bag | Moncherie corner</title>", html=False)

@@ -26,7 +26,7 @@ class WelcomeEmailTests(TestCase):
         send_welcome_email(self.user)
         html, mime_type = mail.outbox[0].alternatives[0]
         self.assertEqual(mime_type, "text/html")
-        self.assertIn("moncherie corner", html)
+        self.assertIn("Moncherie corner", html)
 
     def test_mail_server_problem_does_not_crash(self):
         with patch("notifications.emails.EmailMultiAlternatives.send", side_effect=OSError):
@@ -43,4 +43,4 @@ class EmailLogoTests(TestCase):
         send_welcome_email(user)
         html = mail.outbox[0].alternatives[0][0]
         self.assertIn("images/logo-cream.png", html)
-        self.assertIn('alt="moncherie corner logo"', html)
+        self.assertIn('alt="Moncherie corner logo"', html)
