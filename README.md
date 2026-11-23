@@ -1,8 +1,8 @@
-# moncherie corner 車厘小角
+# Moncherie corner 車厘小角
 
 ![moncherie corner home page](docs/screenshots/feature-home.png)
 
-**moncherie corner** is a small online shop for my own hand-drawn art, in the style of a 1960s Hong Kong cha chaan teng (茶餐廳). Customers can buy digital sticker sets, postcards, website art, and order a custom portrait drawn by hand.
+**Moncherie corner** is a small online shop for my own hand-drawn art, in the style of a 1960s Hong Kong cha chaan teng (茶餐廳). Customers can buy digital sticker sets, postcards, website art, and order a custom portrait drawn by hand.
 
 - **Live site:** [moncherie-corner-d07b8510a19e.herokuapp.com](https://moncherie-corner-d07b8510a19e.herokuapp.com/)
 - **GitHub:** [github.com/MonicaFeis/moncherie-corner](https://github.com/MonicaFeis/moncherie-corner)
@@ -30,21 +30,21 @@
 
 ## Purpose and value
 
-I am an illustrator and designer from Hong Kong, based in Germany. I draw stickers, postcards and portraits under the name **moncherie**. Before this project, I had no place where people could buy my work directly. I am also finishing my training as full stack web developer. So this shop is my final project.
+I am an illustrator and designer from Hong Kong, based in Germany. I draw stickers, postcards and portraits under the name **Moncherie**. Before this project, I had no place where people could buy my work directly. I am also finishing my training as full stack web developer. So this shop is my final project.
 
-moncherie corner is that place. It is a real shop with real products:
+Moncherie corner is that place. It is a real shop with real products:
 
 | Product | What the customer gets |
 |---|---|
 | **Sticker sets** | A ZIP file with transparent PNG stickers, to download right after payment |
-| **Postcards** | A print-ready file to download, **or** a real A6 postcard posted to them |
+| **Postcards** | A print ready file to download, **or** a real A6 postcard posted to them |
 | **Website art** | Tile patterns and retro frames for their own website, to download |
 | **Custom portraits** | A portrait drawn by hand from their photos, as a file or a printed A4 posted to them |
 
 **Who it is for**
 
 - People from Hong Kong (in Hong Kong or abroad) who like the old cha chaan teng feeling
-- People in Germany or people around the world, who like hand-drawn, cosy designs (Christmas, German bakery)
+- People in Germany or people around the world, who like hand drawn, cosy designs (Christmas, German bakery)
 - Small website owners who want original background patterns
 - Families and pet owners who want a personal portrait as a gift
 
@@ -76,8 +76,8 @@ As a customer, I want to log in and out so that my orders stay private.
 - Given correct details, when I log in, then I see a success message and my name in the navbar.
 - Given I log out, then my session ends and My downloads is no longer reachable.
 
-**US-03 Anonymous-only pages (Must)**
-As a logged-in user, I should not see the login or register pages.
+**US-03 Anonymous only pages (Must)**
+As a logged in user, I should not see the login or register pages.
 - Given I am logged in, when I open /accounts/login/ or /accounts/register/, then I am redirected to the home page.
 
 </details>
@@ -335,7 +335,7 @@ These were planned but left out on purpose. They would be the next steps after t
 **US-47 Save favourites (Won't)**
 As a customer, I want to save products to a favourites list so that I can find them again later.
 
-**US-48 Back-in-stock email (Won't)**
+**US-48 Back in stock email (Won't)**
 As a customer, I want to be emailed when a sold-out printed item is back in stock.
 
 **US-49 Seasonal discount codes (Won't)**
@@ -377,7 +377,7 @@ The design is based on my own poster *德國製造 Made in Germany*: I am in a H
 - **Noto Sans TC** for normal text
 - **Playball** for the word *corner* in the logo, inspired by Hong Kong style neon signs.
 
-**Hand-drawn signs.** Instead of plain error pages, the shop uses shop signs that I drew, like the signs on an old cha chaan teng wall. For example: 搵唔到 *Page not found* (404), 好忙呀 *So busy* (500), 開心啲 *Be happy* (thank you), 空空如也 *Nothing here yet* (empty bag), 收工啦 *Home time* (logged out).
+**Hand drawn signs.** Instead of plain error pages, the shop uses shop signs that I drew, like the signs on an old cha chaan teng wall. For example: 搵唔到 *Page not found* (404), 好忙呀 *So busy* (500), 開心啲 *Be happy* (thank you), 空空如也 *Nothing here yet* (empty bag), 收工啦 *Home time* (logged out).
 
 ### Wireframes
 
