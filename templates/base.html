@@ -14,7 +14,9 @@
   {# Fonts from Google Fonts: https://fonts.google.com #}
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@700&family=Playball&display=swap">
+  {# The fonts load after the page is shown, so phones see the text sooner #}
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@700&family=Playball&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@700&family=Playball&display=swap"></noscript>
   <link rel="stylesheet" href="{% static 'css/style.css' %}?v=26">
 </head>
 <body class="d-flex flex-column min-vh-100">
@@ -26,7 +28,7 @@
         <a class="navbar-brand d-flex align-items-center gap-2" href="{% url 'home:index' %}">
           <img src="{% static 'images/logo-cream.png' %}" alt="" width="44" height="44">
           <span class="brand-text">
-            <span class="brand-name">moncherie <span class="brand-script">corner</span></span>
+            <span class="brand-name">Moncherie <span class="brand-script">corner</span></span>
             <span class="brand-zh" lang="zh-Hant-HK">車厘小角</span>
           </span>
         </a>
@@ -114,7 +116,7 @@
           <a href="{% url 'home:index' %}" class="d-inline-flex align-items-center gap-2 footer-brand">
             <img src="{% static 'images/logo-cream.png' %}" alt="" width="40" height="40">
             <span class="brand-text">
-            <span class="brand-name">moncherie <span class="brand-script">corner</span></span>
+            <span class="brand-name">Moncherie <span class="brand-script">corner</span></span>
             <span class="brand-zh" lang="zh-Hant-HK">車厘小角</span>
           </span>
           </a>
