@@ -1,4 +1,4 @@
-/* moncherie corner: colours and styles
+/* moncherie corner colours and styles
    Inspired by Hong Kong cha chaan teng: teal tiles, red signs,
    warm tungsten light, coral neon and green ironwork.
    All text colours were checked for at least 4.5:1 contrast. */
@@ -85,7 +85,7 @@ textarea:focus-visible {
   text-shadow: 0 0 8px rgba(255, 181, 71, 0.55);
 }
 
-/* Hong Kong octagon-and-dot floor tiles, framed in jade ironwork
+/* Hong Kong octagon and dot floor tiles, framed in jade ironwork
    (under the navbar and above the footer) */
 .tile-strip {
   height: 36px;
@@ -171,7 +171,7 @@ textarea:focus-visible {
 
 .hero-text { font-size: 1.3rem; margin-bottom: 1.8rem; }
 
-/* Red shop-sign boxes for the categories */
+/* Shop sign boxes for the categories */
 .category-sign {
   display: block;
   height: 100%;
@@ -477,7 +477,7 @@ textarea:focus-visible {
   border-radius: 8px;
 }
 
-/* The Chinese shop name, small under "moncherie corner" */
+/* The Chinese shop name, small under "Moncherie corner" */
 .brand-text { display: flex; flex-direction: column; line-height: 1.1; }
 .brand-zh {
   font-family: "Noto Sans TC", sans-serif;
