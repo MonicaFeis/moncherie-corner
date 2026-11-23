@@ -15,4 +15,4 @@ Thank you! Your order #{{ order.pk }} is paid.
 {% endif %}睇訂單 See your order: {{ site_url }}{{ order.get_absolute_url }}
 
 車厘小角見！ See you at the corner!
-moncherie corner
+Moncherie corner

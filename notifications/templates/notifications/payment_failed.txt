@@ -7,4 +7,4 @@ The payment for order #{{ order.pk }} didn't go through, so nothing was charged.
 你嘅購物袋已經保留，隨時可以再試。
 Your bag is saved, so you can try again any time: {{ site_url }}{% url 'cart:detail' %}
 
-moncherie corner
+Moncherie corner
