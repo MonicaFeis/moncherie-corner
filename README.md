@@ -183,7 +183,7 @@ As the owner, I want to add a product with an image and description so that cust
 - Given the product was never bought, then it is deleted.
 - Given customers already bought it, then it is hidden instead, so their downloads keep working.
 
-**US-21 Owner-only access (Must)**
+**US-21 Owner only access (Must)**
 - Given I am not staff, when I open any /manage/ page, then I get a 403 and no data.
 
 </details>
@@ -192,7 +192,7 @@ As the owner, I want to add a product with an image and description so that cust
 <summary><strong>8. Custom portraits</strong> (US-22 to US-25, US-44, US-45)</summary>
 
 **US-22 Choose a portrait version (Should)**
-As a customer, I want to choose a digital file or a printed A4 and how many people or pets are in the portrait, so that I see the right price.
+As a customer, I want to choose a digital file or a printed 17cm x 17cm and how many people or pets are in the portrait, so that I see the right price.
 - Given I choose a version or change the number of people or pets, then the price on the page updates straight away (JavaScript preview).
 - Given I add it to my bag, then the server works out the price again from the database (base price + version + €10 for each extra person or pet).
 - Given I choose the printed version, then checkout asks for shipping. Given I choose the digital file, then it does not.
