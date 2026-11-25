@@ -2,8 +2,9 @@
 
 ![Moncherie corner home page](docs/screenshots/feature-home.png)
 
-**Moncherie corner** is a small online shop for my own hand-drawn art, in the style of a 1960s Hong Kong cha chaan teng (茶餐廳). Customers can buy digital sticker sets, postcards, website art, and order a custom portrait drawn by hand.
+**Moncherie corner** is a small online shop for my own hand-drawn art, in the style of a 1960s Hong Kong cha chaan teng (old school cafe in 60s 茶餐廳). Customers can buy digital sticker sets, postcards, website art, and order a custom portrait drawn by hand.
 
+- **Watch the video demonstration:** [Watch Moncherie Corner video demo](docs/demo-video/moncherie-corner-demo.mov)
 - **Live site:** [moncherie-corner-d07b8510a19e.herokuapp.com](https://moncherie-corner-d07b8510a19e.herokuapp.com/)
 - **GitHub:** [github.com/MonicaFeis/moncherie-corner](https://github.com/MonicaFeis/moncherie-corner)
 
